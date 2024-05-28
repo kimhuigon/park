@@ -24,7 +24,7 @@
       });
     }
 
-    navigator.geolocation.getCurrentPosition(pos => {
+    navigator.geolocation.getCurrentPosition((pos) => {
       const lat = pos.coords.latitude;
       const lng = pos.coords.longitude;
       const container = document.getElementById('map');
