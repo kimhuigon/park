@@ -1,42 +1,119 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>가까운공원찾기</title>
   <style>
-    #map {
-      width: 500px;
-      height: 400px;
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      margin: 0;
+      background-color: #f7f7f7;
     }
+
+    #container {
+      display: flex;
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
     #search-box {
-      margin: 20px 0;
+      width: 100%;
+      max-width: 600px;
+      padding: 10px;
+      box-sizing: border-box;
+      display: flex;
     }
+
+    #search-box input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+      box-sizing: border-box;
+    }
+
+    #search-box button {
+      padding: 10px;
+      border: none;
+      background-color: #5cb85c;
+      color: white;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+
+    #search-box button:hover {
+      background-color: #4cae4c;
+    }
+
+    #map {
+      flex: 2;
+      height: 600px;
+    }
+
+    #results-container {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 600px;
+      padding: 10px;
+      box-sizing: border-box;
+      border-left: 1px solid #ccc;
+      background: #fafafa;
+    }
+
     #results {
       list-style: none;
       padding: 0;
+      margin: 0;
     }
+
     #results li {
-      margin: 5px 0;
-      padding: 5px;
-      background: lightcoral;
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      margin-bottom: 10px;
+      background: lightgoldenrodyellow;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    #results li:hover {
+      background-color: #f0f0f0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
+
 <body>
   <div id="search-box">
     <input type="text" id="keyword" placeholder="Search places...">
     <button onclick="searchPlaces()">Search</button>
   </div>
-  <div id="map"></div>
-  <ul id="results"></ul>
+  <div id="container">
+    <div id="map"></div>
+    <div id="results-container">
+      <ul id="results"></ul>
+    </div>
+  </div>
 
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6dfaf6fb0d9d9293c6bc9220328e7540&libraries=services"></script>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6dfaf6fb0d9d9293c6bc9220328e7540&libraries=services"></script>
   <script type="text/javascript" src="parkdata.js"></script> <!-- parkdata.js 파일 불러오기 -->
 
   <script>
     let map;
-    let currentMarker; 
+    let currentMarker;
     let markers = []; // 마커를 담을 배열
     let ps; // 장소 검색 객체
 
@@ -47,7 +124,7 @@
         level: 3
       };
       map = new kakao.maps.Map(container, options);
-      
+
       // 현재 위치 마커
       const markerPosition = new kakao.maps.LatLng(lat, lng);
       currentMarker = new kakao.maps.Marker({
@@ -124,7 +201,7 @@
     function displayPlaces(places) {
       const listEl = document.getElementById('results');
       listEl.innerHTML = '';
-      
+
       for (let i = 0; i < places.length; i++) {
         const itemEl = document.createElement('li');
         itemEl.innerHTML = places[i].place_name;
@@ -149,6 +226,15 @@
       markers = []; // 마커 배열 초기화
     }
 
+    // 검색창 엔터키 기능
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('keyword').addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+          searchPlaces();
+        }
+      });
+    });
+
     navigator.geolocation.getCurrentPosition((pos) => {
       const lat = pos.coords.latitude;
       const lng = pos.coords.longitude;
@@ -171,4 +257,5 @@
     });
   </script>
 </body>
+
 </html>
