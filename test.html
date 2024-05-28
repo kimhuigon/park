@@ -1,0 +1,17 @@
+<body>
+  <script>
+    const get = async () => {
+      const url = 'http://ggoreb.com/quiz/shop.jsp';
+      const res = await fetch(url);
+      const data = await res.json();
+      const list = data.list;
+      console.log(list);
+      list.forEach((v) => {
+        const address = v.address;
+        const kind = v.kind;
+        console.log(address);
+      });
+    };
+    get();
+  </script>
+</body>
