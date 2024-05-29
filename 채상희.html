@@ -130,8 +130,9 @@
             font-style: italic;
             justify-content: center;
             display: none;
+            
         }
-
+        
     </style>
 </head>
 
@@ -217,7 +218,7 @@
 
             // 현재 위치 인포윈도우
             const currentInfoWindow = new kakao.maps.InfoWindow({
-                content: '<div>현재 위치</div>'
+                content: '<div style="width:150px; height:23px; padding:5px; text-align:center; background-color:lightblue;">현재 위치</div>'
             });
 
             // 현재 위치 마커에 마우스 오버/아웃 이벤트 추가
