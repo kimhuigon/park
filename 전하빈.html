@@ -113,7 +113,11 @@
 
                 // 현재 위치에 인포윈도우 추가
                 const currentLocationInfoWindow = new kakao.maps.InfoWindow({
-                    content: `<div style="width:150px;height:25px;padding:5px;text-align:center; background-color:lightblue;">현위치</div>`
+                    content: `<div style="width:150px; 
+                                          height:23px;
+                                          padding:5px;
+                                          text-align:center;
+                                          background-color:lightblue;">현위치</div>`
                 });
                 kakao.maps.event.addListener(marker, 'mouseover', () => {
                     currentLocationInfoWindow.open(map, marker);
@@ -156,7 +160,11 @@
 
                     // 마커에 인포윈도우 추가
                     const infowindow = new kakao.maps.InfoWindow({
-                        content: `<div style="width:150px;height:50px;padding:5px;text-align:center; background-color:lightyellow;">${name}<br>직선거리: ${v.distance.toFixed(2)}km</div>`
+                        content: `<div style="width:150px;
+                                              height:50px;
+                                              padding:5px;
+                                              text-align:center;
+                                              background-color:lightyellow;">${name}<br>직선거리: ${v.distance.toFixed(2)}km</div>`
                     });
 
                     kakao.maps.event.addListener(marker, 'mouseover', () => {
