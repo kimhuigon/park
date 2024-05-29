@@ -66,19 +66,20 @@
 
                 // 기온에 따라 적절한 요소를 보이게 설정
                 if (temp >= 30) {
-                    showElement('hot');
+                    showElement('hot', temp);
                 } else if (temp >= 20) {
-                    showElement('good');
+                    showElement('good', temp);
                 } else if (temp >= 10) {
-                    showElement('soso');
+                    showElement('soso', temp);
                 } else {
-                    showElement('cold');
+                    showElement('cold', temp);
                 }}
             )};
-            function showElement(id){
+            function showElement(id, temp){
                 const element = document.getElementById(id);
                 if (element) {
                 element.style.display = 'flex';
+                element.innerHTML = `${element.textContent}<br>(현재 기온 :${temp}°C)`;
                 }
             }
             initialize();
