@@ -3,11 +3,11 @@
     </div>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41ce8b9519ec9b48b457759b6dff0a54"></script>
     <script>
-      const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-  
-      get(); // 호이스팅 hoisting
-  
-      async function get() {
+        const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        
+        get(); // 호이스팅 hoisting
+        
+        async function get() {
         const url = 'parkdata.json';
         const res = await fetch(url);
         const data = await res.json();
@@ -77,7 +77,7 @@
   
             // 마커에 인포윈도우 추가
             const infowindow = new kakao.maps.InfoWindow({
-              content: `<div style="width:150px;height:25px;padding:5px;text-align:center; background-color:lightyellow;">${name}</div>`
+              content: `<div style="width:150px;height:50px;padding:5px;text-align:center; background-color:lightyellow;">${name}<br>직선거리: ${v.distance.toFixed(2)}km</div>`
             });
   
             kakao.maps.event.addListener(marker, 'mouseover', () => {
@@ -90,7 +90,6 @@
           });
         });
       }
-  
       function getDistance(lat1, lng1, lat2, lng2) {
         const R = 6371; // 지구 반지름 (단위: km)
         const dLat = (lat2 - lat1) * Math.PI / 180;
