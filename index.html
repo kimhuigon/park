@@ -138,6 +138,16 @@
             justify-content: center;
             display: none;
         }
+        #cdanger {
+            display: flex;
+            font-size: 60px;
+            color: white;
+            background-color:blue;
+            font-weight: bold;
+            font-style: italic;
+            justify-content: center;
+            display: none;
+        }
         #hot {
             display: flex;
             font-size: 50px;
@@ -181,10 +191,12 @@
 
 <body>
     <div>
+        <h1 id="danger">더우니 외출에 주의!</h1>
         <h1 id="hot">더우니 주의!</h1>
         <h1 id="good">산책하기 좋은 날</h1>
         <h1 id="soso">선선하니 좋은 날</h1>
         <h1 id="cold">조금 쌀쌀한 날</h1>
+        <h1 id="cdanger">추우니 외출에 주의!</h1>
     </div>
     <div id="container">
         <div id="map-container">
@@ -207,6 +219,14 @@
     <script type="text/javascript" src="parkdata.js"></script> <!-- parkdata.js 파일 불러오기 -->
 
     <script>
+        const description = {
+            danger: '더우니 외출에 주의!',
+            hot: '더우니 주의!',
+            good: '산책하기 좋은 날',
+            soso: '선선하니 좋은 날',
+            cold: '조금 쌀쌀한 날',
+            cdanger: '추우니 외출에 주의!'
+        };
         // 현재 기온
         async function initialize() {
             navigator.geolocation.getCurrentPosition(async (pos) => {
@@ -228,8 +248,10 @@
                     showElement('good', temp);
                 } else if (temp >= 10) {
                     showElement('soso', temp);
-                } else {
+                } else if (temp >= 0) {
                     showElement('cold', temp);
+                } else {
+                    showElement('cdanger', temp);
                 }
             })};
 
@@ -237,14 +259,14 @@
             const element = document.getElementById(id);
             if (element) {
                 element.style.display = 'flex';
-                element.innerHTML = `${element.textContent}<br>(현재 기온 : ${temp}°C)`;
+                element.innerHTML = `${description[id]}<br>(현재 기온 : ${temp}°C)`;
             }
         }
         function hideElement(id) {
             const element = document.getElementById(id);
             if (element) {
                 element.style.display = 'none';
-                element.innerText = '';
+                element.innerHTML = '';
             }
         }
         initialize();
@@ -443,30 +465,54 @@
                 console.log(temp);
 
                 // 기온에 따라 적절한 요소를 보이게 설정
-                if (temp >= 30) {
+                if (temp >= 35) {
+                    hideElement('danger');
                     hideElement('hot');
                     hideElement('good');
                     hideElement('soso');
                     hideElement('cold');
+                    hideElement('cdanger');
+                    showElement('danger', temp);
+                } else if (temp >= 28) {
+                    hideElement('danger');
+                    hideElement('hot');
+                    hideElement('good');
+                    hideElement('soso');
+                    hideElement('cold');
+                    hideElement('cdanger');
                     showElement('hot', temp);
-                } else if (temp >= 20) {
+                }else if (temp >= 20) {
+                    hideElement('danger');
                     hideElement('hot');
                     hideElement('good');
                     hideElement('soso');
                     hideElement('cold');
+                    hideElement('cdanger');
                     showElement('good', temp);
                 } else if (temp >= 10) {
+                    hideElement('danger');
                     hideElement('hot');
                     hideElement('good');
                     hideElement('soso');
                     hideElement('cold');
+                    hideElement('cdanger');
                     showElement('soso', temp);
-                } else {
+                } else if (temp >=0) {
+                    hideElement('danger');
                     hideElement('hot');
                     hideElement('good');
                     hideElement('soso');
                     hideElement('cold');
+                    hideElement('cdanger');
                     showElement('cold', temp);
+                } else {
+                    hideElement('danger');
+                    hideElement('hot');
+                    hideElement('good');
+                    hideElement('soso');
+                    hideElement('cold');
+                    hideElement('cdanger');
+                    showElement('cdanger', temp);
                 }
             };
     </script>
