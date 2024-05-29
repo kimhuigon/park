@@ -92,10 +92,55 @@
             background-color: #f0f0f0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
+        #hot {
+            display: flex;
+            font-size: 50px;
+            color: yellow;
+            background-color: red;
+            font-weight: bold;
+            font-style: italic;
+            justify-content: center;
+            display: none;
+        }
+
+        #good {
+            display: flex;
+            font-size: 50px;
+            color: yellow;
+            background-color: pink;
+            justify-content: center;
+            display: none;
+        }
+
+        #soso {
+            display: flex;
+            font-size: 50px;
+            color: green;
+            background-color: lightblue;
+            justify-content: center;
+            display: none;
+        }
+
+        #cold {
+            display: flex;
+            font-size: 50px;
+            color: black;
+            background-color: blue;
+            font-style: italic;
+            justify-content: center;
+            display: none;
+        }
     </style>
 </head>
 
 <body>
+    <div>
+        <h1 id="hot">더우니 주의!</h1>
+        <h1 id="good">산책하기 좋은 날</h1>
+        <h1 id="soso">선선하니 좋은 날</h1>
+        <h1 id="cold">조금 쌀쌀한 날</h1>
+    </div>
     <div id="search-box">
         <input type="text" id="keyword" placeholder="Search places...">
         <button onclick="searchPlaces()">Search</button>
@@ -107,15 +152,51 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6dfaf6fb0d9d9293c6bc9220328e7540&libraries=services"></script>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6dfaf6fb0d9d9293c6bc9220328e7540&libraries=services"></script>
     <script type="text/javascript" src="parkdata.js"></script> <!-- parkdata.js 파일 불러오기 -->
 
     <script>
+        // 현재 기온
+        async function initialize() {
+            navigator.geolocation.getCurrentPosition(async (pos) => {
+                const lat = pos.coords.latitude;
+                const lng = pos.coords.longitude;
+                const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31`;
+                const res = await fetch(url);
+                const data = await res.json();
+                const main = data.main;
+                const temp = main.temp;
+                console.log(temp);
+
+                // 기온에 따라 적절한 요소를 보이게 설정
+                if (temp >= 30) {
+                    showElement('hot', temp);
+                } else if (temp >= 20) {
+                    showElement('good', temp);
+                } else if (temp >= 10) {
+                    showElement('soso', temp);
+                } else {
+                    showElement('cold', temp);
+                }
+            }
+            )};
+
+        function showElement(id, temp) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.display = 'flex';
+                element.innerHTML = `${element.textContent}<br>(현재 기온 : ${temp}°C)`;
+            }
+        }
+        initialize();
+
         let map;
         let currentMarker;
         let markers = []; // 마커를 담을 배열
         let ps; // 장소 검색 객체
         const list = data.records;
+
 
         function initMap(lat, lng) {
             const container = document.getElementById('map');
@@ -139,11 +220,11 @@
             });
 
             // 현재 위치 마커에 마우스 오버/아웃 이벤트 추가
-            kakao.maps.event.addListener(currentMarker, 'mouseover', function() {
+            kakao.maps.event.addListener(currentMarker, 'mouseover', function () {
                 currentInfoWindow.open(map, currentMarker);
             });
 
-            kakao.maps.event.addListener(currentMarker, 'mouseout', function() {
+            kakao.maps.event.addListener(currentMarker, 'mouseout', function () {
                 currentInfoWindow.close();
             });
 
@@ -157,22 +238,22 @@
             // 현재 위치
             const currentPosition = new kakao.maps.LatLng(lat, lng);
 
-            // 공원과 현재 위치 간의 거리를 계산하는 함수
-            function calculateDistance(parkPosition) {
-                if (!(parkPosition instanceof kakao.maps.LatLng)) {
-                    console.error('Invalid park position:', parkPosition);
-                    return Number.MAX_VALUE;
-                }
-
-                const latDiff = parkPosition.getLat() - currentPosition.getLat();
-                const lngDiff = parkPosition.getLng() - currentPosition.getLng();
-                return Math.sqrt(latDiff * latDiff + lngDiff * lngDiff);
+            // 공원과 현재 위치 간의 거리를 계산하는 함수 (Haversine 공식 사용)
+            function calculateDistance(lat1, lng1, lat2, lng2) {
+                const R = 6371; // 지구 반지름 (단위: km)
+                const dLat = (lat2 - lat1) * Math.PI / 180;
+                const dLng = (lng2 - lng1) * Math.PI / 180;
+                const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                    Math.sin(dLng / 2) * Math.sin(dLng / 2);
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                return R * c;
             }
 
             // 공원 데이터를 거리순으로 정렬
             data.sort((a, b) => {
-                const distanceA = calculateDistance(new kakao.maps.LatLng(a.위도, a.경도));
-                const distanceB = calculateDistance(new kakao.maps.LatLng(b.위도, b.경도));
+                const distanceA = calculateDistance(lat, lng, a.위도, a.경도);
+                const distanceB = calculateDistance(lat, lng, b.위도, b.경도);
                 return distanceA - distanceB;
             });
 
@@ -182,6 +263,7 @@
             // 상위 5개의 공원을 표시
             data.slice(0, 5).forEach(park => {
                 const markerPosition = new kakao.maps.LatLng(park.위도, park.경도);
+                const distance = calculateDistance(lat, lng, park.위도, park.경도).toFixed(2); // 거리 계산
                 const marker = new kakao.maps.Marker({
                     position: markerPosition,
                     map: map,
@@ -194,21 +276,19 @@
                 const infowindowContent = `
                     <div class="info-window-content">
                         <h4>${park.공원명}</h4>
-                        <img src="${park.이미지}" alt="Park Image">
                         <p>주소: ${park.소재지지번주소}</p>
-                        <p>면적: ${park.공원면적}㎡</p>
-                        <p>지정고시일: ${park.지정고시일}</p>
+                        <p>직선거리: ${distance} km</p>
                     </div>
                 `;
                 const infowindow = new kakao.maps.InfoWindow({
                     content: infowindowContent
                 });
 
-                kakao.maps.event.addListener(marker, 'mouseover', function() {
+                kakao.maps.event.addListener(marker, 'mouseover', function () {
                     infowindow.open(map, marker);
                 });
 
-                kakao.maps.event.addListener(marker, 'mouseout', function() {
+                kakao.maps.event.addListener(marker, 'mouseout', function () {
                     infowindow.close();
                 });
             });
