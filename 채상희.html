@@ -252,8 +252,8 @@
 
             // 공원 데이터를 거리순으로 정렬
             data.sort((a, b) => {
-                const distanceA = calculateDistance(lat, lng, a.위도, a.경도);
-                const distanceB = calculateDistance(lat, lng, b.위도, b.경도);
+                const distanceA = calculateDistance(new kakao.maps.LatLng(a.위도, a.경도));
+                const distanceB = calculateDistance(new kakao.maps.LatLng(b.위도, b.경도));
                 return distanceA - distanceB;
             });
 
@@ -277,7 +277,8 @@
                     <div class="info-window-content">
                         <h4>${park.공원명}</h4>
                         <p>주소: ${park.소재지지번주소}</p>
-                        <p>직선거리: ${distance} km</p>
+                        <p>면적: ${park.공원면적}㎡</p>
+                        <p>지정고시일: ${park.지정고시일}</p>
                     </div>
                 `;
                 const infowindow = new kakao.maps.InfoWindow({

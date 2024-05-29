@@ -1,9 +1,4 @@
-<body>
-    <div id="map" style="width:500px;height:400px; margin-left: 50%; transform: translateX(-50%); margin-top: 100px;">
-    </div>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41ce8b9519ec9b48b457759b6dff0a54"></script>
-    <script>
-      const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
   
       get(); // 호이스팅 hoisting
   
@@ -15,18 +10,18 @@
   
         // 현재 위치 가져오기
         navigator.geolocation.getCurrentPosition((pos) => {
-          const lat = pos.coords.latitude;
-          const lng = pos.coords.longitude;
+          const currentLat = pos.coords.latitude;
+          const currentLng = pos.coords.longitude;
           const container = document.getElementById('map');
           const options = {
-            center: new kakao.maps.LatLng(lat, lng),
+            center: new kakao.maps.LatLng(currentLat, currentLng),
             level: 3
           };
   
           const map = new kakao.maps.Map(container, options);
   
           // 현재 위치에 마커 추가
-          const markerPosition = new kakao.maps.LatLng(lat, lng);
+          const markerPosition = new kakao.maps.LatLng(currentLat, currentLng);
           const marker = new kakao.maps.Marker({
             position: markerPosition
           });
@@ -45,7 +40,7 @@
           const parksWithDistance = list.map((v) => {
             const parkLat = v.위도;
             const parkLng = v.경도;
-            const distance = getDistance(lat, lng, parkLat, parkLng);
+            const distance = getDistance(currentLat, currentLng, parkLat, parkLng);
             return { ...v, distance };
           });
   
@@ -95,6 +90,3 @@
   
         return R * 2 * Math.asin(Math.sqrt(a));
       }
-    </script>
-  </body>
-  

@@ -11,15 +11,12 @@
       const res = await fetch(url);
       const data = await res.json(); // res.json();
       const list = data.records;
-      let count = 0;
-      // count = data.records.length;
       console.log(list);
       list.forEach((v) => {
         const name = v.공원명;
         const address = v.소재지지번주소;
         const lat = v.위도;
         const lan = v.경도;
-        count = v.소재지지번주소.length;
         console.log(`${name} : ${address} \n${lat}, ${lan}`);
       });
     }
