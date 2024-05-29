@@ -137,6 +137,7 @@
             font-style: italic;
             justify-content: center;
             display: none;
+            
         }
 
         #good {
@@ -166,7 +167,7 @@
             justify-content: center;
             display: none;
         }
-
+        
     </style>
     <!-- 검색 버튼 효과 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -402,11 +403,6 @@
 
                 initMap(lat, lng);
 
-                // 현재 위치가 변경될 때마다 현재 위치 마커와 공원 다시 표시
-                navigator.geolocation.watchPosition((pos) => {
-                    const lat = pos.coords.latitude;
-                    const lng = pos.coords.longitude;
-
                     // 현재 위치 마커 업데이트
                     const newPosition = new kakao.maps.LatLng(lat, lng);
                     currentMarker.setPosition(newPosition);
@@ -417,7 +413,7 @@
             }, (err) => {
                 console.error(err);
             });
-        });
+        
     </script>
 </body>
 
