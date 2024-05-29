@@ -46,7 +46,7 @@
 
         #results-container {
             flex: 1;
-            display: flex;
+            display: flex; /* Flexbox를 사용하여 검색창과 결과 목록을 정렬합니다 */
             flex-direction: column;
             overflow-y: auto;
             max-height: 600px;
@@ -58,7 +58,7 @@
 
         #search-box-container {
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-end; /* 검색창을 오른쪽으로 정렬합니다 */
             padding: 10px;
         }
 
@@ -181,6 +181,7 @@
         <div id="map-container">
             <div id="map"></div>
             <div id="results-container">
+                 <!-- 검색창을 오른쪽에 배치하기 위한 컨테이너 -->
                 <div id="search-box-container">
                     <div id="search-box">
                         <input type="text" id="keyword" placeholder="장소 검색...">
