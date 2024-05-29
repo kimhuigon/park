@@ -15,6 +15,13 @@
             background-color: #f7f7f7;
         }
 
+        h1 {
+            width: 100vw;
+            margin: 0;
+            padding: 20px 0;
+            text-align: center;
+        }
+
         #container {
             display: flex;
             width: 100%;
@@ -24,14 +31,42 @@
             background: white;
             border-radius: 8px;
             overflow: hidden;
+            margin-bottom: 80px;
+        }
+
+        #map-container {
+            display: flex;
+            width: 100%;
+        }
+
+        #map {
+            flex: 2;
+            height: 600px;
+        }
+
+        #results-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            max-height: 600px;
+            padding: 10px;
+            box-sizing: border-box;
+            border-left: 1px solid #ccc;
+            background: #fafafa;
+        }
+
+        #search-box-container {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
         }
 
         #search-box {
+            display: flex;
             width: 100%;
             max-width: 600px;
-            padding: 10px;
             box-sizing: border-box;
-            display: flex;
         }
 
         #search-box input {
@@ -55,19 +90,19 @@
             background-color: #4cae4c;
         }
 
-        #map {
-            flex: 2;
-            height: 600px;
+        /* 커스텀 스크롤바 스타일 */
+        #results-container::-webkit-scrollbar {
+            width: 12px;
         }
 
-        #results-container {
-            flex: 1;
-            overflow-y: auto;
-            max-height: 600px;
-            padding: 10px;
-            box-sizing: border-box;
-            border-left: 1px solid #ccc;
-            background: #fafafa;
+        #results-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        #results-container::-webkit-scrollbar-thumb {
+            background: #5cb85c;
+            border-radius: 10px;
         }
 
         #results {
@@ -95,7 +130,7 @@
 
         #hot {
             display: flex;
-            font-size: 30px;
+            font-size: 50px;
             color: yellow;
             background-color: red;
             font-weight: bold;
@@ -106,7 +141,7 @@
 
         #good {
             display: flex;
-            font-size: 30px;
+            font-size: 50px;
             color: yellow;
             background-color: pink;
             justify-content: center;
@@ -115,7 +150,7 @@
 
         #soso {
             display: flex;
-            font-size: 30px;
+            font-size: 50px;
             color: green;
             background-color: lightblue;
             justify-content: center;
@@ -124,16 +159,18 @@
 
         #cold {
             display: flex;
-            font-size: 30px;
+            font-size: 50px;
             color: black;
             background-color: blue;
             font-style: italic;
             justify-content: center;
             display: none;
-            
         }
-        
+
     </style>
+    // 검색 버튼 효과
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -143,20 +180,26 @@
         <h1 id="soso">선선하니 좋은 날</h1>
         <h1 id="cold">조금 쌀쌀한 날</h1>
     </div>
-    <div id="search-box">
-        <input type="text" id="keyword">
-        <button onclick="searchPlaces()">검색</button>
-    </div>
     <div id="container">
-        <div id="map"></div>
-        <div id="results-container">
-            <ul id="results"></ul>
+        <div id="map-container">
+            <div id="map"></div>
+            <div id="results-container">
+                <div id="search-box-container">
+                    <div id="search-box">
+                        <input type="text" id="keyword" placeholder="장소 검색...">
+                        <button class="ripple" onclick="searchPlaces()">검색</button>
+                        <script src="script.js"></script>
+                        // 버튼 클래스, 스크립트 src = 검색 버튼 효과
+                    </div>
+                </div>
+                <ul id="results"></ul>
+            </div>
         </div>
     </div>
 
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6dfaf6fb0d9d9293c6bc9220328e7540&libraries=services"></script>
-    <script type="text/javascript" src="parkdata.js"></script> <!-- parkdata.js 파일 불러오기 -->
+    <script type="text/javascript" src="../parkdata.js"></script> <!-- parkdata.js 파일 불러오기 -->
 
     <script>
         // 현재 기온
