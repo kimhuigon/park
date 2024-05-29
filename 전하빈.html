@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>가장 가까운 공원 찾기</title>
@@ -14,6 +15,7 @@
       justify-content: center;
       display: none;
     }
+
     #good {
       display: flex;
       font-size: 50px;
@@ -22,6 +24,7 @@
       justify-content: center;
       display: none;
     }
+
     #soso {
       display: flex;
       font-size: 50px;
@@ -30,6 +33,7 @@
       justify-content: center;
       display: none;
     }
+
     #cold {
         display: flex;
         font-size: 50px;
@@ -73,9 +77,11 @@
                     showElement('soso', temp);
                 } else {
                     showElement('cold', temp);
-                }}
-            )};
-            function showElement(id, temp){
+                    }
+                }
+                )
+            };
+            function showElement(id, temp) {
                 const element = document.getElementById(id);
                 if (element) {
                 element.style.display = 'flex';
@@ -113,7 +119,11 @@
 
                 // 현재 위치에 인포윈도우 추가
                 const currentLocationInfoWindow = new kakao.maps.InfoWindow({
-                    content: `<div style="width:150px;height:25px;padding:5px;text-align:center; background-color:lightblue;">현위치</div>`
+                        content: `<div style="width:150px; 
+                                          height:23px;
+                                          padding:5px;
+                                          text-align:center;
+                                          background-color:lightblue;">현위치</div>`
                 });
                 kakao.maps.event.addListener(marker, 'mouseover', () => {
                     currentLocationInfoWindow.open(map, marker);
@@ -156,7 +166,11 @@
 
                     // 마커에 인포윈도우 추가
                     const infowindow = new kakao.maps.InfoWindow({
-                        content: `<div style="width:150px;height:50px;padding:5px;text-align:center; background-color:lightyellow;">${name}<br>직선거리: ${v.distance.toFixed(2)}km</div>`
+                            content: `<div style="width:150px;
+                                              height:50px;
+                                              padding:5px;
+                                              text-align:center;
+                                              background-color:lightyellow;">${name}<br>직선거리: ${v.distance.toFixed(2)}km</div>`
                     });
 
                     kakao.maps.event.addListener(marker, 'mouseover', () => {
