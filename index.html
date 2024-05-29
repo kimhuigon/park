@@ -438,10 +438,6 @@
 
                 initMap(lat, lng);
 
-                // 현재 위치가 변경될 때마다 현재 위치 마커와 공원 다시 표시
-                navigator.geolocation.watchPosition((pos) => {
-                    const lat = pos.coords.latitude;
-                    const lng = pos.coords.longitude;
 
                     // 현재 위치 마커 업데이트
                     const newPosition = new kakao.maps.LatLng(lat, lng);
@@ -453,7 +449,7 @@
             }, (err) => {
                 console.error(err);
             });
-        });
+
         async function initialize2(plat, plng) {
                 const lat = plat;
                 const lng = plng;
