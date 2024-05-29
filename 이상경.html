@@ -2,71 +2,48 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>가장 가까운 공원 찾기</title>
-<style>
-    #hot {
-      display: flex;
-      font-size: 50px;
-      color: yellow;
-      background-image: url('img/sun-rays-cloudy-sky.jpg');
-      font-weight: bold;
-      font-style: italic;
-      justify-content: center;
-      display: none;
-    }
-<<<<<<< HEAD
-    #good {
-      display: flex;
-      font-size: 50px;
-      color: yellow;
-      background-image: url('img/sp.jpg');
-      justify-content: center;
-      display: none;
-    }
-    #soso {
-      display: flex;
-      font-size: 50px;
-      color: green;
-      background-image: url('img/autumn.jpg');
-      justify-content: center;
-      display: none;
-    }
-    #cold {
-        display: flex;
-        font-size: 50px;
-        color: black;
-        background-image: url('img/snow-sky.gif');
-        font-style: italic;
-        justify-content: center;
-        display: none;
-    }
-</style>
-=======
+    <meta charset="utf-8">
+    <title>가장 가까운 공원 찾기</title>
+    <style>
+        #hot {
+            display: flex;
+            font-size: 50px;
+            color: yellow;
+            background-color: red;
+            font-weight: bold;
+            font-style: italic;
+            justify-content: center;
+            display: none;
+        }
 
-    #search-box {
-      margin: 20px 0;
-    }
+        #good {
+            display: flex;
+            font-size: 50px;
+            color: yellow;
+            background-color: pink;
+            justify-content: center;
+            display: none;
+        }
 
-    #results {
-      list-style: none;
-      padding: 0;
-    }
+        #soso {
+            display: flex;
+            font-size: 50px;
+            color: green;
+            background-color: lightblue;
+            justify-content: center;
+            display: none;
+        }
 
-    #results li {
-      margin: 5px 0;
-      padding: 5px;
-      background: lightcoral;
-      cursor: pointer;
-    }
-
-    a{
-      color: black;
-      text-decoration: none;
-    }
-  </style>
-</head>
->>>>>>> f33c8c8416eec2073a8450358d6bab32fa93da04
+        #cold {
+            display: flex;
+            font-size: 50px;
+            color: black;
+            background-color: blue;
+            font-style: italic;
+            justify-content: center;
+            display: none;
+        }
+    </style>
 
 <body>
     <div>
@@ -76,232 +53,146 @@
         <h1 id="cold">조금 쌀쌀한 날</h1>
     </div>
     <div id="map" style="width:500px;height:400px; margin-left: 50%; transform: translateX(-50%); margin-top: 100px;">
-    <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41ce8b9519ec9b48b457759b6dff0a54"></script>
-    <script>
-        const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-        async function initialize() {
-            navigator.geolocation.getCurrentPosition(async (pos) => {
-                const lat = pos.coords.latitude;
-                const lng = pos.coords.longitude;
-                const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31`;
-                const res = await fetch(url);
-                const data = await res.json();
-                const main = data.main;
-                const temp = main.temp;
-                console.log(temp);
+        <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41ce8b9519ec9b48b457759b6dff0a54"></script>
+        <script>
+            const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+            async function initialize() {
+                navigator.geolocation.getCurrentPosition(async (pos) => {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+                    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31`;
+                    const res = await fetch(url);
+                    const data = await res.json();
+                    const main = data.main;
+                    const temp = main.temp;
+                    console.log(temp);
 
-<<<<<<< HEAD
-                // 기온에 따라 적절한 요소를 보이게 설정
-                if (temp >= 30) {
-                    showElement('hot', temp);
-                } else if (temp >= 20) {
-                    showElement('good', temp);
-                } else if (temp >= 10) {
-                    showElement('soso', temp);
-                } else {
-                    showElement('cold', temp);
-                }}
-            )};
-            function showElement(id, temp){
+                    // 기온에 따라 적절한 요소를 보이게 설정
+                    if (temp >= 30) {
+                        showElement('hot', temp);
+                    } else if (temp >= 20) {
+                        showElement('good', temp);
+                    } else if (temp >= 10) {
+                        showElement('soso', temp);
+                    } else {
+                        showElement('cold', temp);
+                    }
+                }
+                )
+            };
+            function showElement(id, temp) {
                 const element = document.getElementById(id);
                 if (element) {
-                element.style.display = 'flex';
-                element.innerHTML = `${element.textContent}<br>(현재 기온 : ${temp}°C)`;
+                    element.style.display = 'flex';
+                    element.innerHTML = `${element.textContent}<br>(현재 기온 : ${temp}°C)`;
                 }
-=======
-  <script type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6dfaf6fb0d9d9293c6bc9220328e7540&libraries=services"></script>
-  <script type="text/javascript" src="parkdata.js"></script> <!-- parkdata.js 파일 불러오기 -->
-
-  <script>
-    let map;
-    let currentMarker;
-    let markers = [];
-    let ps;
-    let openInfoWindow = null;
-
-    function initMap(lat, lng) {
-      const container = document.getElementById('map');
-      const options = {
-        center: new kakao.maps.LatLng(lat, lng),
-        level: 3
-      };
-      map = new kakao.maps.Map(container, options);
-
-      const markerPosition = new kakao.maps.LatLng(lat, lng);
-      currentMarker = new kakao.maps.Marker({
-        position: markerPosition,
-        map: map,
-        title: "현재 위치"
-      });
-
-      ps = new kakao.maps.services.Places();
-    }
-
-    function createMarker(lat, lng) {
-      const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-      const currentPosition = new kakao.maps.LatLng(lat, lng);
-
-      function calculateDistance(parkPosition) {
-        if (!(parkPosition instanceof kakao.maps.LatLng)) {
-          console.error('Invalid park position:', parkPosition);
-          return Number.MAX_VALUE;
-        }
-        const latDiff = parkPosition.getLat() - currentPosition.getLat();
-        const lngDiff = parkPosition.getLng() - currentPosition.getLng();
-        return Math.sqrt(latDiff * latDiff + lngDiff * lngDiff);
-      }
-
-      const sortedData = data.map(park => {
-        return {
-          ...park,
-          위도: parseFloat(park.위도),
-          경도: parseFloat(park.경도)
-        };
-      }).sort((a, b) => {
-        const distanceA = calculateDistance(new kakao.maps.LatLng(a.위도, a.경도));
-        const distanceB = calculateDistance(new kakao.maps.LatLng(b.위도, b.경도));
-        return distanceA - distanceB;
-      });
-
-      clearMarkers();
-
-      sortedData.slice(0, 5).forEach(park => {
-        const markerPosition = new kakao.maps.LatLng(park.위도, park.경도);
-        const marker = new kakao.maps.Marker({
-          position: markerPosition,
-          map: map,
-          title: park.공원명,
-          image: new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35)),
-        });
-
-        const iwContent = `<div style="padding:5px;">${park.공원명}<br>
-                            <a href="https://map.kakao.com/link/map/${park.공원명},${park.위도},${park.경도}" style="color:blue" target="_blank">큰지도보기</a>
-                            <a href="https://map.kakao.com/link/to/${park.공원명},${park.위도},${park.경도}" style="color:blue" target="_blank">길찾기</a></div>`;
-        const infowindow = new kakao.maps.InfoWindow({
-          position: markerPosition,
-          content: iwContent
-        });
-
-        kakao.maps.event.addListener(marker, 'click', () => {
-          if (openInfoWindow) {
-            openInfoWindow.close();
-            if (openInfoWindow === infowindow) {
-              openInfoWindow = null;
-              return;
->>>>>>> f33c8c8416eec2073a8450358d6bab32fa93da04
             }
             initialize();
 
-        get(); // 호이스팅 hoisting
+            get(); // 호이스팅 hoisting
 
-        async function get() {
-            const url = 'parkdata.json';
-            const res = await fetch(url);
-            const data = await res.json();
-            const list = data.records;
+            async function get() {
+                const url = 'parkdata.json';
+                const res = await fetch(url);
+                const data = await res.json();
+                const list = data.records;
 
-            // 현재 위치 가져오기
-            navigator.geolocation.getCurrentPosition((pos) => {
-                const currentLat = pos.coords.latitude;
-                const currentLng = pos.coords.longitude;
-                const container = document.getElementById('map');
-                const options = {
-                    center: new kakao.maps.LatLng(currentLat, currentLng),
-                    level: 3
-                };
+                // 현재 위치 가져오기
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    const currentLat = pos.coords.latitude;
+                    const currentLng = pos.coords.longitude;
+                    const container = document.getElementById('map');
+                    const options = {
+                        center: new kakao.maps.LatLng(currentLat, currentLng),
+                        level: 3
+                    };
 
-                const map = new kakao.maps.Map(container, options);
+                    const map = new kakao.maps.Map(container, options);
 
-                // 현재 위치에 마커 추가
-                const markerPosition = new kakao.maps.LatLng(currentLat, currentLng);
-                const marker = new kakao.maps.Marker({
-                    position: markerPosition
-                });
-                marker.setMap(map);
-
-                // 현재 위치에 인포윈도우 추가
-                const currentLocationInfoWindow = new kakao.maps.InfoWindow({
-                    content: `<div style="width:150px;height:25px;padding:5px;text-align:center; background-color:lightblue;">현위치</div>`
-                });
-                kakao.maps.event.addListener(marker, 'mouseover', () => {
-                    currentLocationInfoWindow.open(map, marker);
-                });
-
-                kakao.maps.event.addListener(marker, 'mouseout', () => {
-                    currentLocationInfoWindow.close();
-                });
-
-
-                // 공원의 커스텀 마커 이미지 설정
-                const markerImage = new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35));
-
-                // 각 공원의 거리 계산
-                const parksWithDistance = list.map((v) => {
-                    const parkLat = v.위도;
-                    const parkLng = v.경도;
-                    const distance = getDistance(currentLat, currentLng, parkLat, parkLng);
-                    return { ...v, distance };
-                });
-
-                // 거리가 가까운 순으로 정렬
-                parksWithDistance.sort((a, b) => a.distance - b.distance);
-
-                // 가장 가까운 5개의 공원 선택
-                const closestParks = parksWithDistance.slice(0, 5);
-
-<<<<<<< HEAD
-                // 가까운 5개 공원 마커 추가
-                closestParks.forEach((v) => {
-                    const name = v.공원명;
-                    const vlat = v.위도;
-                    const vlng = v.경도;
-                    const markerPosition = new kakao.maps.LatLng(vlat, vlng);
-
+                    // 현재 위치에 마커 추가
+                    const markerPosition = new kakao.maps.LatLng(currentLat, currentLng);
                     const marker = new kakao.maps.Marker({
-                        position: markerPosition,
-                        image: markerImage
+                        position: markerPosition
                     });
                     marker.setMap(map);
 
-                    // 마커에 인포윈도우 추가
-                    const infowindow = new kakao.maps.InfoWindow({
-                        content: `<div style="width:150px;height:50px;padding:5px;text-align:center; background-color:lightyellow;">${name}<br>직선거리: ${v.distance.toFixed(2)}km</div>`
+                    // 현재 위치에 인포윈도우 추가
+                    const currentLocationInfoWindow = new kakao.maps.InfoWindow({
+                        content: `<div style="width:150px; 
+                                          height:23px;
+                                          padding:5px;
+                                          text-align:center;
+                                          background-color:lightblue;">현위치</div>`
                     });
-
                     kakao.maps.event.addListener(marker, 'mouseover', () => {
-                        infowindow.open(map, marker);
+                        currentLocationInfoWindow.open(map, marker);
                     });
 
                     kakao.maps.event.addListener(marker, 'mouseout', () => {
-                        infowindow.close();
+                        currentLocationInfoWindow.close();
+                    });
+
+
+                    // 공원의 커스텀 마커 이미지 설정
+                    const markerImage = new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35));
+
+                    // 각 공원의 거리 계산
+                    const parksWithDistance = list.map((v) => {
+                        const parkLat = v.위도;
+                        const parkLng = v.경도;
+                        const distance = getDistance(currentLat, currentLng, parkLat, parkLng);
+                        return { ...v, distance };
+                    });
+
+                    // 거리가 가까운 순으로 정렬
+                    parksWithDistance.sort((a, b) => a.distance - b.distance);
+
+                    // 가장 가까운 5개의 공원 선택
+                    const closestParks = parksWithDistance.slice(0, 5);
+
+                    // 가까운 5개 공원 마커 추가
+                    closestParks.forEach((v) => {
+                        const name = v.공원명;
+                        const vlat = v.위도;
+                        const vlng = v.경도;
+                        const markerPosition = new kakao.maps.LatLng(vlat, vlng);
+
+                        const marker = new kakao.maps.Marker({
+                            position: markerPosition,
+                            image: markerImage
+                        });
+                        marker.setMap(map);
+
+                        // 마커에 인포윈도우 추가
+                        const infowindow = new kakao.maps.InfoWindow({
+                            content: `<div style="width:150px;
+                                              height:50px;
+                                              padding:5px;
+                                              text-align:center;
+                                              background-color:lightyellow;">${name}<br>직선거리: ${v.distance.toFixed(2)}km</div>`
+                        });
+
+                        kakao.maps.event.addListener(marker, 'mouseover', () => {
+                            infowindow.open(map, marker);
+                        });
+
+                        kakao.maps.event.addListener(marker, 'mouseout', () => {
+                            infowindow.close();
+                        });
                     });
                 });
-            });
-        }
-        function getDistance(lat1, lng1, lat2, lng2) {
-            const R = 6371; // 지구 반지름 (단위: km)
-            const dLat = (lat2 - lat1) * Math.PI / 180;
-            const dLng = (lng2 - lng1) * Math.PI / 180;
-            const a =
-                0.5 - Math.cos(dLat) / 2 +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                (1 - Math.cos(dLng)) / 2;
+            }
+            function getDistance(lat1, lng1, lat2, lng2) {
+                const R = 6371; // 지구 반지름 (단위: km)
+                const dLat = (lat2 - lat1) * Math.PI / 180;
+                const dLng = (lng2 - lng1) * Math.PI / 180;
+                const a =
+                    0.5 - Math.cos(dLat) / 2 +
+                    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                    (1 - Math.cos(dLng)) / 2;
 
-            return R * 2 * Math.asin(Math.sqrt(a));
-        }
-    </script>
+                return R * 2 * Math.asin(Math.sqrt(a));
+            }
+        </script>
 </body>
-=======
-        const newPosition = new kakao.maps.LatLng(lat, lng);
-        currentMarker.setPosition(newPosition);
-        map.setCenter(newPosition);
-        createMarker(lat, lng);
-      });
-    });
-  </script>
-</body>
-
-</html>
->>>>>>> f33c8c8416eec2073a8450358d6bab32fa93da04
