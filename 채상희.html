@@ -46,7 +46,8 @@
 
         #results-container {
             flex: 1;
-            display: flex; /* Flexbox를 사용하여 검색창과 결과 목록을 정렬합니다 */
+            display: flex;
+            /* Flexbox를 사용하여 검색창과 결과 목록을 정렬합니다 */
             flex-direction: column;
             overflow-y: auto;
             max-height: 600px;
@@ -58,7 +59,8 @@
 
         #search-box-container {
             display: flex;
-            justify-content: flex-end; /* 검색창을 오른쪽으로 정렬합니다 */
+            justify-content: flex-end;
+            /* 검색창을 오른쪽으로 정렬합니다 */
             padding: 10px;
         }
 
@@ -128,12 +130,22 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        #danger {
+            display: flex;
+            font-size: 60px;
+            color: black;
+            background-color: red;
+            font-weight: bold;
+            font-style: italic;
+            justify-content: center;
+            display: none;
+        }
+
         #hot {
             display: flex;
             font-size: 50px;
-            color: yellow;
-            background-color: red;
-            font-weight: bold;
+            color: white;
+            background-color: lightcoral;
             font-style: italic;
             justify-content: center;
             display: none;
@@ -142,8 +154,8 @@
         #good {
             display: flex;
             font-size: 50px;
-            color: yellow;
-            background-color: pink;
+            color: white;
+            background-color: lightgreen;
             justify-content: center;
             display: none;
         }
@@ -151,7 +163,7 @@
         #soso {
             display: flex;
             font-size: 50px;
-            color: green;
+            color: white;
             background-color: lightblue;
             justify-content: center;
             display: none;
@@ -166,7 +178,6 @@
             justify-content: center;
             display: none;
         }
-
     </style>
 </head>
 
@@ -181,10 +192,10 @@
         <div id="map-container">
             <div id="map"></div>
             <div id="results-container">
-                 <!-- 검색창을 오른쪽에 배치하기 위한 컨테이너 -->
+                <!-- 검색창을 오른쪽에 배치하기 위한 컨테이너 -->
                 <div id="search-box-container">
                     <div id="search-box">
-                        <input type="text" id="keyword" placeholder="장소 검색...">
+                        <input type="text" id="keyword">
                         <button onclick="searchPlaces()">검색</button>
                     </div>
                 </div>
@@ -211,7 +222,9 @@
                 console.log(temp);
 
                 // 기온에 따라 적절한 요소를 보이게 설정
-                if (temp >= 30) {
+                if (temp >= 35) {
+                    showElement('danger', temp);
+                } else if (temp >= 28) {
                     showElement('hot', temp);
                 } else if (temp >= 20) {
                     showElement('good', temp);
@@ -220,8 +233,8 @@
                 } else {
                     showElement('cold', temp);
                 }
-            }
-            )};
+            })
+        };
 
         function showElement(id, temp) {
             const element = document.getElementById(id);
