@@ -10,7 +10,6 @@
             flex-direction: column;
             align-items: center;
             font-family: Arial, sans-serif;
-            width: 100vw;
             height: 100vh;
             margin: 0;
             background-color: #f7f7f7;
@@ -35,12 +34,39 @@
             margin-bottom: 80px;
         }
 
-        #search-box {
+        #map-container {
+            display: flex;
             width: 100%;
-            max-width: 600px;
+        }
+
+        #map {
+            flex: 2;
+            height: 600px;
+        }
+
+        #results-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            max-height: 600px;
             padding: 10px;
             box-sizing: border-box;
+            border-left: 1px solid #ccc;
+            background: #fafafa;
+        }
+
+        #search-box-container {
             display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+        }
+
+        #search-box {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
         }
 
         #search-box input {
@@ -64,19 +90,19 @@
             background-color: #4cae4c;
         }
 
-        #map {
-            flex: 2;
-            height: 600px;
+        /* 커스텀 스크롤바 스타일 */
+        #results-container::-webkit-scrollbar {
+            width: 12px;
         }
 
-        #results-container {
-            flex: 1;
-            overflow-y: auto;
-            max-height: 600px;
-            padding: 10px;
-            box-sizing: border-box;
-            border-left: 1px solid #ccc;
-            background: #fafafa;
+        #results-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        #results-container::-webkit-scrollbar-thumb {
+            background: #5cb85c;
+            border-radius: 10px;
         }
 
         #results {
@@ -101,22 +127,6 @@
             background-color: #f0f0f0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
-        /* 커스텀 스크롤바 스타일 */
-        #results-container::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        #results-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        #results-container::-webkit-scrollbar-thumb {
-            background: lightseagreen;
-            border-radius: 10px;
-        }
-
 
         #hot {
             display: flex;
@@ -155,9 +165,8 @@
             font-style: italic;
             justify-content: center;
             display: none;
-            
         }
-        
+
     </style>
 </head>
 
@@ -168,14 +177,18 @@
         <h1 id="soso">선선하니 좋은 날</h1>
         <h1 id="cold">조금 쌀쌀한 날</h1>
     </div>
-    <div id="search-box">
-        <input type="text" id="keyword">
-        <button onclick="searchPlaces()">검색</button>
-    </div>
     <div id="container">
-        <div id="map"></div>
-        <div id="results-container">
-            <ul id="results"></ul>
+        <div id="map-container">
+            <div id="map"></div>
+            <div id="results-container">
+                <div id="search-box-container">
+                    <div id="search-box">
+                        <input type="text" id="keyword" placeholder="장소 검색...">
+                        <button onclick="searchPlaces()">검색</button>
+                    </div>
+                </div>
+                <ul id="results"></ul>
+            </div>
         </div>
     </div>
 
