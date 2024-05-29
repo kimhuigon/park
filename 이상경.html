@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>가장 가까운 공원 찾기</title>
@@ -14,6 +15,7 @@
       justify-content: center;
       display: none;
     }
+<<<<<<< HEAD
     #good {
       display: flex;
       font-size: 50px;
@@ -40,6 +42,31 @@
         display: none;
     }
 </style>
+=======
+
+    #search-box {
+      margin: 20px 0;
+    }
+
+    #results {
+      list-style: none;
+      padding: 0;
+    }
+
+    #results li {
+      margin: 5px 0;
+      padding: 5px;
+      background: lightcoral;
+      cursor: pointer;
+    }
+
+    a{
+      color: black;
+      text-decoration: none;
+    }
+  </style>
+</head>
+>>>>>>> f33c8c8416eec2073a8450358d6bab32fa93da04
 
 <body>
     <div>
@@ -64,6 +91,7 @@
                 const temp = main.temp;
                 console.log(temp);
 
+<<<<<<< HEAD
                 // 기온에 따라 적절한 요소를 보이게 설정
                 if (temp >= 30) {
                     showElement('hot', temp);
@@ -81,6 +109,88 @@
                 element.style.display = 'flex';
                 element.innerHTML = `${element.textContent}<br>(현재 기온 : ${temp}°C)`;
                 }
+=======
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6dfaf6fb0d9d9293c6bc9220328e7540&libraries=services"></script>
+  <script type="text/javascript" src="parkdata.js"></script> <!-- parkdata.js 파일 불러오기 -->
+
+  <script>
+    let map;
+    let currentMarker;
+    let markers = [];
+    let ps;
+    let openInfoWindow = null;
+
+    function initMap(lat, lng) {
+      const container = document.getElementById('map');
+      const options = {
+        center: new kakao.maps.LatLng(lat, lng),
+        level: 3
+      };
+      map = new kakao.maps.Map(container, options);
+
+      const markerPosition = new kakao.maps.LatLng(lat, lng);
+      currentMarker = new kakao.maps.Marker({
+        position: markerPosition,
+        map: map,
+        title: "현재 위치"
+      });
+
+      ps = new kakao.maps.services.Places();
+    }
+
+    function createMarker(lat, lng) {
+      const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+      const currentPosition = new kakao.maps.LatLng(lat, lng);
+
+      function calculateDistance(parkPosition) {
+        if (!(parkPosition instanceof kakao.maps.LatLng)) {
+          console.error('Invalid park position:', parkPosition);
+          return Number.MAX_VALUE;
+        }
+        const latDiff = parkPosition.getLat() - currentPosition.getLat();
+        const lngDiff = parkPosition.getLng() - currentPosition.getLng();
+        return Math.sqrt(latDiff * latDiff + lngDiff * lngDiff);
+      }
+
+      const sortedData = data.map(park => {
+        return {
+          ...park,
+          위도: parseFloat(park.위도),
+          경도: parseFloat(park.경도)
+        };
+      }).sort((a, b) => {
+        const distanceA = calculateDistance(new kakao.maps.LatLng(a.위도, a.경도));
+        const distanceB = calculateDistance(new kakao.maps.LatLng(b.위도, b.경도));
+        return distanceA - distanceB;
+      });
+
+      clearMarkers();
+
+      sortedData.slice(0, 5).forEach(park => {
+        const markerPosition = new kakao.maps.LatLng(park.위도, park.경도);
+        const marker = new kakao.maps.Marker({
+          position: markerPosition,
+          map: map,
+          title: park.공원명,
+          image: new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35)),
+        });
+
+        const iwContent = `<div style="padding:5px;">${park.공원명}<br>
+                            <a href="https://map.kakao.com/link/map/${park.공원명},${park.위도},${park.경도}" style="color:blue" target="_blank">큰지도보기</a>
+                            <a href="https://map.kakao.com/link/to/${park.공원명},${park.위도},${park.경도}" style="color:blue" target="_blank">길찾기</a></div>`;
+        const infowindow = new kakao.maps.InfoWindow({
+          position: markerPosition,
+          content: iwContent
+        });
+
+        kakao.maps.event.addListener(marker, 'click', () => {
+          if (openInfoWindow) {
+            openInfoWindow.close();
+            if (openInfoWindow === infowindow) {
+              openInfoWindow = null;
+              return;
+>>>>>>> f33c8c8416eec2073a8450358d6bab32fa93da04
             }
             initialize();
 
@@ -141,6 +251,7 @@
                 // 가장 가까운 5개의 공원 선택
                 const closestParks = parksWithDistance.slice(0, 5);
 
+<<<<<<< HEAD
                 // 가까운 5개 공원 마커 추가
                 closestParks.forEach((v) => {
                     const name = v.공원명;
@@ -182,3 +293,15 @@
         }
     </script>
 </body>
+=======
+        const newPosition = new kakao.maps.LatLng(lat, lng);
+        currentMarker.setPosition(newPosition);
+        map.setCenter(newPosition);
+        createMarker(lat, lng);
+      });
+    });
+  </script>
+</body>
+
+</html>
+>>>>>>> f33c8c8416eec2073a8450358d6bab32fa93da04
