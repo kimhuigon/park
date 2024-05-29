@@ -230,6 +230,13 @@
                 element.innerHTML = `${element.textContent}<br>(현재 기온 : ${temp}°C)`;
             }
         }
+        function hideElement(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.display = 'none';
+                element.innerText = '';
+            }
+        }
         initialize();
 
         let map;
@@ -369,6 +376,7 @@
 
                     // 현재 위치 마커 업데이트
                     currentMarker.setPosition(position);
+                    initialize2(places[i].y, places[i].x);
 
                     // 해당 위치를 중심으로 공원 표시
                     createMarker(places[i].y, places[i].x);
@@ -414,6 +422,43 @@
                 console.error(err);
             });
         });
+        async function initialize2(plat, plng) {
+                const lat = plat;
+                const lng = plng;
+                const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31`;
+                const res = await fetch(url);
+                const data = await res.json();
+                const main = data.main;
+                const temp = main.temp;
+                console.log(temp);
+
+                // 기온에 따라 적절한 요소를 보이게 설정
+                if (temp >= 30) {
+                    hideElement('hot');
+                    hideElement('good');
+                    hideElement('soso');
+                    hideElement('cold');
+                    showElement('hot', temp);
+                } else if (temp >= 20) {
+                    hideElement('hot');
+                    hideElement('good');
+                    hideElement('soso');
+                    hideElement('cold');
+                    showElement('good', temp);
+                } else if (temp >= 10) {
+                    hideElement('hot');
+                    hideElement('good');
+                    hideElement('soso');
+                    hideElement('cold');
+                    showElement('soso', temp);
+                } else {
+                    hideElement('hot');
+                    hideElement('good');
+                    hideElement('soso');
+                    hideElement('cold');
+                    showElement('cold', temp);
+                }
+            };
     </script>
 </body>
 
