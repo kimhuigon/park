@@ -192,12 +192,12 @@
 
 <body>
     <div>
-        <h1 id="danger">더우니 외출에 주의!</h1>
-        <h1 id="hot">더우니 주의!</h1>
-        <h1 id="good">산책하기 좋은 날</h1>
-        <h1 id="soso">선선하니 좋은 날</h1>
-        <h1 id="cold">조금 쌀쌀한 날</h1>
-        <h1 id="cdanger">추우니 외출에 주의!</h1>
+        <h1 id="danger"></h1>
+        <h1 id="hot"></h1>
+        <h1 id="good"></h1>
+        <h1 id="soso"></h1>
+        <h1 id="cold"></h1>
+        <h1 id="cdanger"></h1>
     </div>
     <div id="container">
         <div id="map-container">
@@ -448,8 +448,8 @@
                 });
             }, (err) => {
                 console.error(err);
-            }
-        );
+            });
+
         async function initialize2(plat, plng) {
                 const lat = plat;
                 const lng = plng;
