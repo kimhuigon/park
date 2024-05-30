@@ -225,22 +225,29 @@ function displayPlaces(places) {
   const listEl = document.getElementById('results');
   listEl.innerHTML = '';
 
-  for (let i = 0; i < places.length; i++) {
-    const itemEl = document.createElement('li');
-    itemEl.innerHTML = places[i].place_name;
-    itemEl.onclick = () => {
-      const position = new kakao.maps.LatLng(places[i].y, places[i].x);
-      map.setCenter(position);
+for (let i = 0; i < places.length; i++) {
+  const itemEl = document.createElement('li');
+  itemEl.innerHTML = places[i].place_name;
 
-      // 현재 위치 마커 업데이트
-      currentMarker.setPosition(position);
-      initialize2(places[i].y, places[i].x);
+  // 클로저를 사용하여 place_name을 initialize2 함수에 전달
+  (function(place_name, y, x) {
+      itemEl.onclick = () => {
+          const position = new kakao.maps.LatLng(places[i].y, places[i].x);
+          map.setCenter(position);
 
-      // 해당 위치를 중심으로 공원 표시
-      createMarker(places[i].y, places[i].x);
-    };
-    listEl.appendChild(itemEl);
-  }
+          // 현재 위치 마커 업데이트
+          currentMarker.setPosition(position);
+          
+          // initialize2 함수 호출 시 place_name 전달
+          initialize2(y, x, place_name);
+
+          // 해당 위치를 중심으로 공원 표시
+          createMarker(y, x);
+      };
+  })(places[i].place_name, places[i].y, places[i].x);
+
+  listEl.appendChild(itemEl);
+}
 }
 
 // 지도에 표시된 마커들을 모두 제거하는 함수
@@ -276,8 +283,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// 적절한 요소를 보이게 설정하는 함수
+function showElement2(id, temp, weather, place) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.style.display = 'flex';
+    element.innerHTML = `${description[id]}<br>(${place}의 현재 기온 : ${temp}°C, 날씨 : ${weather})`;
+  }
+}
+
 // 특정 위치의 날씨 정보를 다시 가져와서 화면에 표시하는 함수
-async function initialize2(plat, plng) {
+async function initialize2(plat, plng, place) {
   const lat = plat;
   const lng = plng;
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31&lang=kr`;
@@ -296,7 +312,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('danger', temp2, weather);
+    showElement2('danger', temp2, weather, place);
   } else if (temp >= 28) {
     hideElement('danger');
     hideElement('hot');
@@ -304,7 +320,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('hot', temp2, weather);
+    showElement2('hot', temp2, weather, place);
   } else if (temp >= 20) {
     hideElement('danger');
     hideElement('hot');
@@ -312,7 +328,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('good', temp2, weather);
+    showElement2('good', temp2, weather, place);
   } else if (temp >= 10) {
     hideElement('danger');
     hideElement('hot');
@@ -320,7 +336,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('soso', temp2, weather);
+    showElement2('soso', temp2, weather, place);
   } else if (temp >= 0) {
     hideElement('danger');
     hideElement('hot');
@@ -328,7 +344,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('cold', temp2, weather);
+    showElement2('cold', temp2, weather, place);
   } else {
     hideElement('danger');
     hideElement('hot');
@@ -336,6 +352,6 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('cdanger', temp2, weather);
+    showElement2('cdanger', temp2, weather, place);
   }
 };
