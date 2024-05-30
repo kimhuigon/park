@@ -20,7 +20,7 @@ h1 {
 }
 
 #container {
-  flex: 5;
+  flex: 6;
   display: flex;
   width: 100%;
   max-width: 1200px;
@@ -46,6 +46,10 @@ h1 {
   flex: 2;
   height: 400px;
   /* 기본 높이 변경 */
+}
+
+#map>div {
+  touch-action: auto;
 }
 
 #results-container {
@@ -140,7 +144,7 @@ h1 {
 #soso,
 #cold {
   display: flex;
-  font-size: 50px;
+  font-size: 30px;
   color: white;
   font-style: italic;
   justify-content: center;
@@ -175,6 +179,7 @@ h1 {
 
 @media (min-width: 768px) {
   #container {
+    flex: 5;
     flex-direction: row;
     /* 큰 화면에서는 가로 방향으로 정렬 */
   }
@@ -192,5 +197,19 @@ h1 {
   #results-container {
     max-height: 600px;
     /* 큰 화면에서는 높이 증가 */
+  }
+
+  #danger,
+  #cdanger,
+  #hot,
+  #good,
+  #soso,
+  #cold {
+    display: flex;
+    font-size: 50px;
+    color: white;
+    font-style: italic;
+    justify-content: center;
+    display: none;
   }
 }
