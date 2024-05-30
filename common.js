@@ -161,6 +161,9 @@ data.forEach(park => {
   const markerPosition = new kakao.maps.LatLng(park.위도, park.경도);
   const distance = calculateDistance(lat, lng, park.위도, park.경도).toFixed(2);
 
+  // 도보 걸음수 계산 (평균 걸음 수: 1km 당 약 1300 걸음)
+  const steps = (distance * 1300).toFixed(0);
+
   // 원하는 거리 기준을 설정합니다.
   if (distance <= 2.0) {
       const marker = new kakao.maps.Marker({
@@ -177,6 +180,7 @@ data.forEach(park => {
               <h4 style="margin: 0;">${park.공원명}</h4>
               <p style="margin: 0;">주소: ${park.소재지지번주소}</p>
               <p style="margin: 0;">직선거리: ${distance} km</p>
+              <p style="margin: 0;">도보 걸음수: ${steps} 걸음</p>
           </div>
       `;
       const infowindow = new kakao.maps.InfoWindow({
