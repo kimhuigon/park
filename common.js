@@ -17,7 +17,7 @@ async function initialize() {
     const data = await res.json();
     const main = data.main;
     const temp = main.temp;
-    const temp2 = temp.toFixed(1);
+    const temp2 = temp.toFixed(0);
     const weather = data.weather[0].description;
 
     // 기온에 따라 적절한 요소를 보이게 설정

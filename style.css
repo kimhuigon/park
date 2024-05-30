@@ -48,10 +48,6 @@ h1 {
   /* 기본 높이 변경 */
 }
 
-#map>div {
-  touch-action: auto;
-}
-
 #results-container {
   flex: 1;
   display: flex;
