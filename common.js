@@ -148,50 +148,54 @@ function createMarker(lat, lng) {
   // 현재 지도에 표시된 마커들을 모두 제거
   clearMarkers();
 
-  // 상위 5개의 공원을 표시
-  data.slice(0, 5).forEach(park => {
-    const markerPosition = new kakao.maps.LatLng(park.위도, park.경도);
-    const distance = calculateDistance(lat, lng, park.위도, park.경도).toFixed(2);
+  // 거리를 기준으로 데이터를 슬라이스한 후 마커와 인포윈도우 생성
+data.forEach(park => {
+  const markerPosition = new kakao.maps.LatLng(park.위도, park.경도);
+  const distance = calculateDistance(lat, lng, park.위도, park.경도).toFixed(2);
 
-    const marker = new kakao.maps.Marker({
-      position: markerPosition,
-      map: map,
-      title: park.공원명,
-      image: new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35)),
-    });
-    markers.push(marker); // 마커를 배열에 추가
+  // 원하는 거리 기준을 설정합니다.
+  if (distance <= 2.0) {
+      const marker = new kakao.maps.Marker({
+          position: markerPosition,
+          map: map,
+          title: park.공원명,
+          image: new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35)),
+      });
+      markers.push(marker); // 마커를 배열에 추가
 
-    // 인포윈도우 내용 구성
-    const infowindowContent = `
-                <div style="text-align: center; background-color: lightyellow; padding: 10px; white-space: nowrap;">
-                    <h4 style="margin: 0;">${park.공원명}</h4>
-                    <p style="margin: 0;">주소: ${park.소재지지번주소}</p>
-                    <p style="margin: 0;">직선거리: ${distance} km</p>
-                </div>
-            `;
-    const infowindow = new kakao.maps.InfoWindow({
-      content: infowindowContent
-    });
+      // 인포윈도우 내용 구성
+      const infowindowContent = `
+          <div style="text-align: center; background-color: lightyellow; padding: 10px; white-space: nowrap;">
+              <h4 style="margin: 0;">${park.공원명}</h4>
+              <p style="margin: 0;">주소: ${park.소재지지번주소}</p>
+              <p style="margin: 0;">직선거리: ${distance} km</p>
+          </div>
+      `;
+      const infowindow = new kakao.maps.InfoWindow({
+          content: infowindowContent
+      });
 
-    // 마커에 클릭 이벤트 추가 (터치 이벤트 대신)
-    kakao.maps.event.addListener(marker, 'click', function () {
-      infowindow.open(map, marker);
-    });
+      // 마커에 클릭 이벤트 추가
+      kakao.maps.event.addListener(marker, 'click', function () {
+          infowindow.open(map, marker);
+      });
 
-    // 인포윈도우에 클릭 이벤트 추가하여 클릭 시 닫히도록 설정
-    kakao.maps.event.addListener(infowindow, 'domready', function() {
-      const iwContent = document.querySelector('.wrap');
-      if (iwContent) {
-        iwContent.addEventListener('click', function() {
+      // 인포윈도우에 클릭 이벤트 추가하여 클릭 시 닫히도록 설정
+      kakao.maps.event.addListener(infowindow, 'domready', function() {
+          const iwContent = document.querySelector('.wrap');
+          if (iwContent) {
+              iwContent.addEventListener('click', function() {
+                  infowindow.close();
+              });
+          }
+      });
+
+      // 지도를 클릭하면 인포윈도우가 닫히도록 설정
+      kakao.maps.event.addListener(map, 'click', function () {
           infowindow.close();
-        });
-      }
-    });
-
-    kakao.maps.event.addListener(map, 'click', function () {
-      infowindow.close();
-    });
-  });
+      });
+  }
+});
 }
 
 // 장소 검색 함수
