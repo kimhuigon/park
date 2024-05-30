@@ -6,6 +6,7 @@ const description = {
   cold: '조금 쌀쌀한 날',
   cdanger: '추우니 외출에 주의!'
 };
+
 // 현재 기온
 async function initialize() {
   navigator.geolocation.getCurrentPosition(async (pos) => {
@@ -135,13 +136,12 @@ function createMarker(lat, lng) {
 
     // 인포윈도우 내용 구성
     const infowindowContent = `
-          <div style="text-align: center; background-color: lightyellow; padding: 10px; white-space: nowrap;">
-              <h4 style="margin: 0;">${park.공원명}</h4>
-              <p style="margin: 0;">도로명: ${park.소재지도로명주소}</p>
-              <p style="margin: 0;">지번주소: ${park.소재지지번주소}</p>
-              <p style="margin: 0;">직선거리: ${distance} km</p>
-          </div>
-      `;
+                <div style="text-align: center; background-color: lightyellow; padding: 10px; white-space: nowrap;">
+                    <h4 style="margin: 0;">${park.공원명}</h4>
+                    <p style="margin: 0;">주소: ${park.소재지지번주소}</p>
+                    <p style="margin: 0;">직선거리: ${distance} km</p>
+                </div>
+            `;
     const infowindow = new kakao.maps.InfoWindow({
       content: infowindowContent
     });
@@ -218,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lng = pos.coords.longitude;
 
     initMap(lat, lng);
+
 
     // 현재 위치 마커 업데이트
     const newPosition = new kakao.maps.LatLng(lat, lng);
