@@ -99,7 +99,7 @@ function initMap(lat, lng) {
   ps = new kakao.maps.services.Places();
 
   // 지도에 터치 이벤트 추가
-  addTouchEvents();
+  addTouchEvents(); 
 }
 
 // 지도에 터치 이벤트를 추가하는 함수
