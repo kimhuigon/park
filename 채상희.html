@@ -2,8 +2,15 @@
 <html>
 
 <head>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 모바일 기기에서 화면크기 자동조정해주는 태그추가
+
+        CSS에 @media쿼리 화면크기에 따라 레이아웃이 유동적으로 변하도록 추가
+
+        CSS #container, #map-container, #map, #results-container  높이 및 반응형 추가(작은 화면에서는 세로 방향으로 정렬)  -->
+
     <meta charset="utf-8">
     <title>가까운공원찾기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <!-- 반응형 디자인을 위한 메타 태그 추가 -->
     <style>
         body {
             display: flex;
@@ -32,25 +39,26 @@
             border-radius: 8px;
             overflow: hidden;
             margin-bottom: 80px;
+            flex-direction: column; /* 반응형 추가: 작은 화면에서는 세로 방향으로 정렬 */
         }
 
         #map-container {
             display: flex;
             width: 100%;
+            flex-direction: column; /* 반응형 추가: 작은 화면에서는 세로 방향으로 정렬 */
         }
 
         #map {
             flex: 2;
-            height: 600px;
+            height: 400px; /* 기본 높이 변경 */
         }
 
         #results-container {
             flex: 1;
-            display: flex;
-            /* Flexbox를 사용하여 검색창과 결과 목록을 정렬합니다 */
+            display: flex; 
             flex-direction: column;
             overflow-y: auto;
-            max-height: 600px;
+            max-height: 400px; /* 기본 높이 변경 */
             padding: 10px;
             box-sizing: border-box;
             border-left: 1px solid #ccc;
@@ -59,8 +67,7 @@
 
         #search-box-container {
             display: flex;
-            justify-content: flex-end;
-            /* 검색창을 오른쪽으로 정렬합니다 */
+            justify-content: flex-end; 
             padding: 10px;
         }
 
@@ -130,72 +137,79 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        #danger {
+        #danger, #cdanger, #hot, #good, #soso, #cold {
             display: flex;
-            font-size: 60px;
-            color: black;
-            background-color: red;
-            font-weight: bold;
+            font-size: 50px;
+            color: white;
             font-style: italic;
             justify-content: center;
             display: none;
+        }
+
+        #danger {
+            background-color: red;
+        }
+
+        #cdanger {
+            background-color: blue;
+            color: white;
         }
 
         #hot {
-            display: flex;
-            font-size: 50px;
-            color: white;
             background-color: lightcoral;
-            font-style: italic;
-            justify-content: center;
-            display: none;
         }
 
         #good {
-            display: flex;
-            font-size: 50px;
-            color: white;
             background-color: lightgreen;
-            justify-content: center;
-            display: none;
         }
 
         #soso {
-            display: flex;
-            font-size: 50px;
-            color: white;
             background-color: lightblue;
-            justify-content: center;
-            display: none;
         }
 
         #cold {
-            display: flex;
-            font-size: 50px;
-            color: black;
             background-color: blue;
-            font-style: italic;
-            justify-content: center;
-            display: none;
+            color: black;
         }
+
+        @media (min-width: 768px) {
+            #container {
+                flex-direction: row; /* 큰 화면에서는 가로 방향으로 정렬 */
+            }
+
+            #map-container {
+                flex-direction: row; /* 큰 화면에서는 가로 방향으로 정렬 */
+            }
+
+            #map {
+                height: 600px; /* 큰 화면에서는 높이 증가 */
+            }
+
+            #results-container {
+                max-height: 600px; /* 큰 화면에서는 높이 증가 */
+            }
+        }
+
     </style>
 </head>
 
 <body>
     <div>
-        <h1 id="hot">더우니 주의!</h1>
-        <h1 id="good">산책하기 좋은 날</h1>
-        <h1 id="soso">선선하니 좋은 날</h1>
-        <h1 id="cold">조금 쌀쌀한 날</h1>
+        <h1 id="danger"></h1>
+        <h1 id="hot"></h1>
+        <h1 id="good"></h1>
+        <h1 id="soso"></h1>
+        <h1 id="cold"></h1>
+        <h1 id="cdanger"></h1>
     </div>
     <div id="container">
         <div id="map-container">
             <div id="map"></div>
             <div id="results-container">
-                <!-- 검색창을 오른쪽에 배치하기 위한 컨테이너 -->
+                 <!-- 검색창을 오른쪽에 배치하기 위한 컨테이너 -->
                 <div id="search-box-container">
                     <div id="search-box">
-                        <input type="text" id="keyword">
+                        <input type="text" id="keyword" placeholder="장소 검색...">
                         <button onclick="searchPlaces()">검색</button>
                     </div>
                 </div>
@@ -209,6 +223,15 @@
     <script type="text/javascript" src="parkdata.js"></script> <!-- parkdata.js 파일 불러오기 -->
 
     <script>
+        const description = {
+            danger: '더우니 외출에 주의!',
+            hot: '더우니 주의!',
+            good: '산책하기 좋은 날',
+            soso: '선선하니 좋은 날',
+            cold: '조금 쌀쌀한 날',
+            cdanger: '추우니 외출에 주의!'
+        };
+        
         // 현재 기온
         async function initialize() {
             navigator.geolocation.getCurrentPosition(async (pos) => {
@@ -230,17 +253,25 @@
                     showElement('good', temp);
                 } else if (temp >= 10) {
                     showElement('soso', temp);
-                } else {
+                } else if (temp >= 0) {
                     showElement('cold', temp);
+                } else {
+                    showElement('cdanger', temp);
                 }
-            })
-        };
+            })};
 
         function showElement(id, temp) {
             const element = document.getElementById(id);
             if (element) {
                 element.style.display = 'flex';
-                element.innerHTML = `${element.textContent}<br>(현재 기온 : ${temp}°C)`;
+                element.innerHTML = `${description[id]}<br>(현재 기온 : ${temp}°C)`;
+            }
+        }
+        function hideElement(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.display = 'none';
+                element.innerHTML = '';
             }
         }
         initialize();
@@ -270,7 +301,7 @@
 
             // 현재 위치 인포윈도우
             const currentInfoWindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px; height:23px; padding:5px; text-align:center; background-color:lightblue;">현재 위치</div>'
+                content: '<div style="width:150px; height:23px; padding:5px; text-align:center; background-color:lightblue;">기준 위치</div>'
             });
 
             // 현재 위치 마커에 마우스 오버/아웃 이벤트 추가
@@ -382,6 +413,7 @@
 
                     // 현재 위치 마커 업데이트
                     currentMarker.setPosition(position);
+                    initialize2(places[i].y, places[i].x);
 
                     // 해당 위치를 중심으로 공원 표시
                     createMarker(places[i].y, places[i].x);
@@ -411,6 +443,7 @@
 
                 initMap(lat, lng);
 
+
                     // 현재 위치 마커 업데이트
                     const newPosition = new kakao.maps.LatLng(lat, lng);
                     currentMarker.setPosition(newPosition);
@@ -421,6 +454,68 @@
             }, (err) => {
                 console.error(err);
             });
+
+        async function initialize2(plat, plng) {
+                const lat = plat;
+                const lng = plng;
+                const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31`;
+                const res = await fetch(url);
+                const data = await res.json();
+                const main = data.main;
+                const temp = main.temp;
+                console.log(temp);
+
+                // 기온에 따라 적절한 요소를 보이게 설정
+                if (temp >= 35) {
+                    hideElement('danger');
+                    hideElement('hot');
+                    hideElement('good');
+                    hideElement('soso');
+                    hideElement('cold');
+                    hideElement('cdanger');
+                    showElement('danger', temp);
+                } else if (temp >= 28) {
+                    hideElement('danger');
+                    hideElement('hot');
+                    hideElement('good');
+                    hideElement('soso');
+                    hideElement('cold');
+                    hideElement('cdanger');
+                    showElement('hot', temp);
+                }else if (temp >= 20) {
+                    hideElement('danger');
+                    hideElement('hot');
+                    hideElement('good');
+                    hideElement('soso');
+                    hideElement('cold');
+                    hideElement('cdanger');
+                    showElement('good', temp);
+                } else if (temp >= 10) {
+                    hideElement('danger');
+                    hideElement('hot');
+                    hideElement('good');
+                    hideElement('soso');
+                    hideElement('cold');
+                    hideElement('cdanger');
+                    showElement('soso', temp);
+                } else if (temp >=0) {
+                    hideElement('danger');
+                    hideElement('hot');
+                    hideElement('good');
+                    hideElement('soso');
+                    hideElement('cold');
+                    hideElement('cdanger');
+                    showElement('cold', temp);
+                } else {
+                    hideElement('danger');
+                    hideElement('hot');
+                    hideElement('good');
+                    hideElement('soso');
+                    hideElement('cold');
+                    hideElement('cdanger');
+                    showElement('cdanger', temp);
+                }
+            };
     </script>
 </body>
 
