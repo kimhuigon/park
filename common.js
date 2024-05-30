@@ -17,21 +17,22 @@ async function initialize() {
     const data = await res.json();
     const main = data.main;
     const temp = main.temp;
+    const temp2 = temp.toFixed(1);
     const weather = data.weather[0].description;
 
     // 기온에 따라 적절한 요소를 보이게 설정
     if (temp >= 35) {
-      showElement('danger', temp, weather);
+      showElement('danger', temp2, weather);
     } else if (temp >= 28) {
-      showElement('hot', temp, weather);
+      showElement('hot', temp2, weather);
     } else if (temp >= 20) {
-      showElement('good', temp, weather);
+      showElement('good', temp2, weather);
     } else if (temp >= 10) {
-      showElement('soso', temp, weather);
+      showElement('soso', temp2, weather);
     } else if (temp >= 0) {
-      showElement('cold', temp, weather);
+      showElement('cold', temp2, weather);
     } else {
-      showElement('cdanger', temp, weather);
+      showElement('cdanger', temp2, weather);
     }
   })
 };
@@ -239,6 +240,7 @@ async function initialize2(plat, plng) {
   const data = await res.json();
   const main = data.main;
   const temp = main.temp;
+  const temp2 = temp.toFixed(1);
   const weather = data.weather[0].description;
 
   // 기온에 따라 적절한 요소를 보이게 설정
@@ -249,7 +251,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('danger', temp , weather);
+    showElement('danger', temp2 , weather);
   } else if (temp >= 28) {
     hideElement('danger');
     hideElement('hot');
@@ -257,7 +259,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('hot', temp, weather);
+    showElement('hot', temp2, weather);
   } else if (temp >= 20) {
     hideElement('danger');
     hideElement('hot');
@@ -265,7 +267,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('good', temp, weather);
+    showElement('good', temp2, weather);
   } else if (temp >= 10) {
     hideElement('danger');
     hideElement('hot');
@@ -273,7 +275,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('soso', temp, weather);
+    showElement('soso', temp2, weather);
   } else if (temp >= 0) {
     hideElement('danger');
     hideElement('hot');
@@ -281,7 +283,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('cold', temp, weather);
+    showElement('cold', temp2, weather);
   } else {
     hideElement('danger');
     hideElement('hot');
@@ -289,6 +291,6 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('cdanger', temp, weather);
+    showElement('cdanger', temp2, weather);
   }
 };
