@@ -46,7 +46,8 @@
 
         #results-container {
             flex: 1;
-            display: flex; /* Flexbox를 사용하여 검색창과 결과 목록을 정렬합니다 */
+            display: flex;
+            /* Flexbox를 사용하여 검색창과 결과 목록을 정렬합니다 */
             flex-direction: column;
             overflow-y: auto;
             max-height: 600px;
@@ -58,7 +59,8 @@
 
         #search-box-container {
             display: flex;
-            justify-content: flex-end; /* 검색창을 오른쪽으로 정렬합니다 */
+            justify-content: flex-end;
+            /* 검색창을 오른쪽으로 정렬합니다 */
             padding: 10px;
         }
 
@@ -138,16 +140,18 @@
             justify-content: center;
             display: none;
         }
+
         #cdanger {
             display: flex;
             font-size: 60px;
             color: white;
-            background-color:blue;
+            background-color: blue;
             font-weight: bold;
             font-style: italic;
             justify-content: center;
             display: none;
         }
+
         #hot {
             display: flex;
             font-size: 50px;
@@ -156,7 +160,7 @@
             font-style: italic;
             justify-content: center;
             display: none;
-            
+
         }
 
         #good {
@@ -186,8 +190,9 @@
             justify-content: center;
             display: none;
         }
-        
     </style>
+    <!-- 검색버튼클릭효과 -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -203,11 +208,13 @@
         <div id="map-container">
             <div id="map"></div>
             <div id="results-container">
-                 <!-- 검색창을 오른쪽에 배치하기 위한 컨테이너 -->
+                <!-- 검색창을 오른쪽에 배치하기 위한 컨테이너 -->
                 <div id="search-box-container">
                     <div id="search-box">
                         <input type="text" id="keyword" placeholder="장소 검색...">
-                        <button onclick="searchPlaces()">검색</button>
+                        <button class="ripple" onclick="searchPlaces()">검색</button>
+                        <!-- 검색 버튼 클릭 효과 -->
+                        <script src="script.js"></script>
                     </div>
                 </div>
                 <ul id="results"></ul>
@@ -254,7 +261,8 @@
                 } else {
                     showElement('cdanger', temp);
                 }
-            })};
+            })
+        };
 
         function showElement(id, temp) {
             const element = document.getElementById(id);
@@ -439,78 +447,78 @@
 
                 initMap(lat, lng);
 
-                    // 현재 위치 마커 업데이트
-                    const newPosition = new kakao.maps.LatLng(lat, lng);
-                    currentMarker.setPosition(newPosition);
+                // 현재 위치 마커 업데이트
+                const newPosition = new kakao.maps.LatLng(lat, lng);
+                currentMarker.setPosition(newPosition);
 
-                    // 현재 위치를 중심으로 공원 다시 표시
-                    createMarker(lat, lng);
-                });
-            }, (err) => {
-                console.error(err);
+                // 현재 위치를 중심으로 공원 다시 표시
+                createMarker(lat, lng);
             });
+        }, (err) => {
+            console.error(err);
+        });
 
         async function initialize2(plat, plng) {
-                const lat = plat;
-                const lng = plng;
-                const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31`;
-                const res = await fetch(url);
-                const data = await res.json();
-                const main = data.main;
-                const temp = main.temp;
-                console.log(temp);
+            const lat = plat;
+            const lng = plng;
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31`;
+            const res = await fetch(url);
+            const data = await res.json();
+            const main = data.main;
+            const temp = main.temp;
+            console.log(temp);
 
-                // 기온에 따라 적절한 요소를 보이게 설정
-                if (temp >= 35) {
-                    hideElement('danger');
-                    hideElement('hot');
-                    hideElement('good');
-                    hideElement('soso');
-                    hideElement('cold');
-                    hideElement('cdanger');
-                    showElement('danger', temp);
-                } else if (temp >= 28) {
-                    hideElement('danger');
-                    hideElement('hot');
-                    hideElement('good');
-                    hideElement('soso');
-                    hideElement('cold');
-                    hideElement('cdanger');
-                    showElement('hot', temp);
-                }else if (temp >= 20) {
-                    hideElement('danger');
-                    hideElement('hot');
-                    hideElement('good');
-                    hideElement('soso');
-                    hideElement('cold');
-                    hideElement('cdanger');
-                    showElement('good', temp);
-                } else if (temp >= 10) {
-                    hideElement('danger');
-                    hideElement('hot');
-                    hideElement('good');
-                    hideElement('soso');
-                    hideElement('cold');
-                    hideElement('cdanger');
-                    showElement('soso', temp);
-                } else if (temp >=0) {
-                    hideElement('danger');
-                    hideElement('hot');
-                    hideElement('good');
-                    hideElement('soso');
-                    hideElement('cold');
-                    hideElement('cdanger');
-                    showElement('cold', temp);
-                } else {
-                    hideElement('danger');
-                    hideElement('hot');
-                    hideElement('good');
-                    hideElement('soso');
-                    hideElement('cold');
-                    hideElement('cdanger');
-                    showElement('cdanger', temp);
-                }
-            };
+            // 기온에 따라 적절한 요소를 보이게 설정
+            if (temp >= 35) {
+                hideElement('danger');
+                hideElement('hot');
+                hideElement('good');
+                hideElement('soso');
+                hideElement('cold');
+                hideElement('cdanger');
+                showElement('danger', temp);
+            } else if (temp >= 28) {
+                hideElement('danger');
+                hideElement('hot');
+                hideElement('good');
+                hideElement('soso');
+                hideElement('cold');
+                hideElement('cdanger');
+                showElement('hot', temp);
+            } else if (temp >= 20) {
+                hideElement('danger');
+                hideElement('hot');
+                hideElement('good');
+                hideElement('soso');
+                hideElement('cold');
+                hideElement('cdanger');
+                showElement('good', temp);
+            } else if (temp >= 10) {
+                hideElement('danger');
+                hideElement('hot');
+                hideElement('good');
+                hideElement('soso');
+                hideElement('cold');
+                hideElement('cdanger');
+                showElement('soso', temp);
+            } else if (temp >= 0) {
+                hideElement('danger');
+                hideElement('hot');
+                hideElement('good');
+                hideElement('soso');
+                hideElement('cold');
+                hideElement('cdanger');
+                showElement('cold', temp);
+            } else {
+                hideElement('danger');
+                hideElement('hot');
+                hideElement('good');
+                hideElement('soso');
+                hideElement('cold');
+                hideElement('cdanger');
+                showElement('cdanger', temp);
+            }
+        };
     </script>
 </body>
 
