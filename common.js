@@ -175,6 +175,14 @@ data.forEach(park => {
           content: infowindowContent
       });
 
+      kakao.maps.event.addListener(marker, 'mouseover', function () {
+        infowindow.open(map, marker);
+    });
+
+    kakao.maps.event.addListener(marker, 'mouseout', function () {
+        infowindow.close();
+    });
+
       // 마커에 클릭 이벤트 추가
       kakao.maps.event.addListener(marker, 'click', function () {
           infowindow.open(map, marker);
