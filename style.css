@@ -1,0 +1,185 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  margin: 0;
+  background-color: #f7f7f7;
+}
+
+h1 {
+  width: 100vw;
+  margin: 0;
+  padding: 20px 0;
+  text-align: center;
+}
+
+#container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 80px;
+}
+
+#map-container {
+  display: flex;
+  width: 100%;
+}
+
+#map {
+  flex: 2;
+  height: 600px;
+}
+
+#results-container {
+  flex: 1;
+  display: flex;
+  /* Flexbox를 사용하여 검색창과 결과 목록을 정렬합니다 */
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 600px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-left: 1px solid #ccc;
+  background: #fafafa;
+}
+
+#search-box-container {
+  display: flex;
+  justify-content: flex-end;
+  /* 검색창을 오른쪽으로 정렬합니다 */
+  padding: 10px;
+}
+
+#search-box {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+#search-box input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  box-sizing: border-box;
+}
+
+#search-box button {
+  padding: 10px;
+  border: none;
+  background-color: #5cb85c;
+  color: white;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+#search-box button:hover {
+  background-color: #4cae4c;
+}
+
+/* 커스텀 스크롤바 스타일 */
+#results-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+#results-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+#results-container::-webkit-scrollbar-thumb {
+  background: #5cb85c;
+  border-radius: 10px;
+}
+
+#results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#results li {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  background: lightgoldenrodyellow;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#results li:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#danger {
+  display: flex;
+  font-size: 60px;
+  color: black;
+  background-color: red;
+  font-weight: bold;
+  font-style: italic;
+  justify-content: center;
+  display: none;
+}
+
+#cdanger {
+  display: flex;
+  font-size: 60px;
+  color: white;
+  background-color: blue;
+  font-weight: bold;
+  font-style: italic;
+  justify-content: center;
+  display: none;
+}
+
+#hot {
+  display: flex;
+  font-size: 50px;
+  color: white;
+  background-color: lightcoral;
+  font-style: italic;
+  justify-content: center;
+  display: none;
+
+}
+
+#good {
+  display: flex;
+  font-size: 50px;
+  color: white;
+  background-color: lightgreen;
+  justify-content: center;
+  display: none;
+}
+
+#soso {
+  display: flex;
+  font-size: 50px;
+  color: white;
+  background-color: lightblue;
+  justify-content: center;
+  display: none;
+}
+
+#cold {
+  display: flex;
+  font-size: 50px;
+  color: black;
+  background-color: blue;
+  font-style: italic;
+  justify-content: center;
+  display: none;
+}
