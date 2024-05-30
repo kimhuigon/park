@@ -1,10 +1,10 @@
 const description = {
-  danger: '더우니 외출에 주의!',
+  danger: '고온 주의!',
   hot: '더우니 주의!',
-  good: '산책하기 좋은 날',
-  soso: '선선하니 좋은 날',
-  cold: '조금 쌀쌀한 날',
-  cdanger: '추우니 외출에 주의!'
+  good: '산책하기 좋은 온도',
+  soso: '선선하니 좋은 온도',
+  cold: '조금 쌀쌀한 온도',
+  cdanger: '추우니 주의!'
 };
 
 // 현재 기온
@@ -12,35 +12,35 @@ async function initialize() {
   navigator.geolocation.getCurrentPosition(async (pos) => {
     const lat = pos.coords.latitude;
     const lng = pos.coords.longitude;
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31&lang=kr`;
     const res = await fetch(url);
     const data = await res.json();
     const main = data.main;
     const temp = main.temp;
-    console.log(temp);
+    const weather = data.weather[0].description;
 
     // 기온에 따라 적절한 요소를 보이게 설정
     if (temp >= 35) {
-      showElement('danger', temp);
+      showElement('danger', temp, weather);
     } else if (temp >= 28) {
-      showElement('hot', temp);
+      showElement('hot', temp, weather);
     } else if (temp >= 20) {
-      showElement('good', temp);
+      showElement('good', temp, weather);
     } else if (temp >= 10) {
-      showElement('soso', temp);
+      showElement('soso', temp, weather);
     } else if (temp >= 0) {
-      showElement('cold', temp);
+      showElement('cold', temp, weather);
     } else {
-      showElement('cdanger', temp);
+      showElement('cdanger', temp, weather);
     }
   })
 };
 
-function showElement(id, temp) {
+function showElement(id, temp, weather) {
   const element = document.getElementById(id);
   if (element) {
     element.style.display = 'flex';
-    element.innerHTML = `${description[id]}<br>(현재 기온 : ${temp}°C)`;
+    element.innerHTML = `${description[id]}<br>(현재 기온 : ${temp}°C, 날씨 : ${weather})`;
   }
 }
 function hideElement(id) {
@@ -234,12 +234,12 @@ document.addEventListener('DOMContentLoaded', () => {
 async function initialize2(plat, plng) {
   const lat = plat;
   const lng = plng;
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31&lang=kr`;
   const res = await fetch(url);
   const data = await res.json();
   const main = data.main;
   const temp = main.temp;
-  console.log(temp);
+  const weather = data.weather[0].description;
 
   // 기온에 따라 적절한 요소를 보이게 설정
   if (temp >= 35) {
@@ -249,7 +249,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('danger', temp);
+    showElement('danger', temp , weather);
   } else if (temp >= 28) {
     hideElement('danger');
     hideElement('hot');
@@ -257,7 +257,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('hot', temp);
+    showElement('hot', temp, weather);
   } else if (temp >= 20) {
     hideElement('danger');
     hideElement('hot');
@@ -265,7 +265,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('good', temp);
+    showElement('good', temp, weather);
   } else if (temp >= 10) {
     hideElement('danger');
     hideElement('hot');
@@ -273,7 +273,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('soso', temp);
+    showElement('soso', temp, weather);
   } else if (temp >= 0) {
     hideElement('danger');
     hideElement('hot');
@@ -281,7 +281,7 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('cold', temp);
+    showElement('cold', temp, weather);
   } else {
     hideElement('danger');
     hideElement('hot');
@@ -289,6 +289,6 @@ async function initialize2(plat, plng) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement('cdanger', temp);
+    showElement('cdanger', temp, weather);
   }
 };
