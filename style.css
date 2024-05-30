@@ -102,16 +102,16 @@ h1 {
 }
 
 /* 커스텀 스크롤바 스타일 */
-#results-container::-webkit-scrollbar {
+#results::-webkit-scrollbar {
   width: 12px;
 }
 
-#results-container::-webkit-scrollbar-track {
+#results::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 10px;
 }
 
-#results-container::-webkit-scrollbar-thumb {
+#results::-webkit-scrollbar-thumb {
   background: #5cb85c;
   border-radius: 10px;
 }
