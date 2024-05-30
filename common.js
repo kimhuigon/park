@@ -80,6 +80,14 @@ function initMap(lat, lng) {
     map: map,
     title: "현재 위치"
   });
+  // 지도 타입 변경 컨트롤을 생성한다
+	var mapTypeControl = new kakao.maps.MapTypeControl();
+	// 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+	map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);	
+	// 지도에 확대 축소 컨트롤을 생성한다
+	var zoomControl = new kakao.maps.ZoomControl();
+	// 지도의 우측에 확대 축소 컨트롤을 추가한다
+	map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
   // 현재 위치 인포윈도우
   const currentInfoWindow = new kakao.maps.InfoWindow({
