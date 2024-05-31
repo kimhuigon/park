@@ -18,32 +18,45 @@ async function initialize() {
     const main = data.main;
     const temp = main.temp;
     const temp2 = temp.toFixed(1); // 소수점 첫째 자리까지 표시
-    const weather = data.weather[0].description; // 상세 날씨 정보 가져오기
+    const weatherIconCode = data.weather[0].icon;
+    const iconUrl = `http://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+    // 아이콘을 표시할 요소
+    const weatherIconEl = document.createElement('img');
+    weatherIconEl.src = iconUrl;
+    weatherIconEl.style.width = '100px'; // 아이콘의 크기 조정
+    weatherIconEl.style.height = '100px';
+    weatherIconEl.style.marginBottom = '70px'; // 아이콘과 텍스트 사이의 간격
+    weatherIconEl.style.marginRight = '30px'; // 아이콘과 텍스트 사이의 간격
+
 
     // 기온에 따라 적절한 요소를 보이게 설정
     if (temp >= 35) {
-      showElement('danger', temp2, weather);
+      showElement('danger', temp2, weatherIconEl);
     } else if (temp >= 28) {
-      showElement('hot', temp2, weather);
+      showElement('hot', temp2, weatherIconEl);
     } else if (temp >= 20) {
-      showElement('good', temp2, weather);
+      showElement('good', temp2, weatherIconEl);
     } else if (temp >= 10) {
-      showElement('soso', temp2, weather);
+      showElement('soso', temp2, weatherIconEl);
     } else if (temp >= 0) {
-      showElement('cold', temp2, weather);
+      showElement('cold', temp2, weatherIconEl);
     } else {
-      showElement('cdanger', temp2, weather);
+      showElement('cdanger', temp2,weatherIconEl);
     }
   });
 }
 
 // 적절한 요소를 보이게 설정하는 함수
-function showElement(id, temp, weather) {
+function showElement(id, temp, iconElement) {
   const element = document.getElementById(id);
   if (element) {
     element.style.display = 'flex';
-    element.innerHTML = `${description[id]}<br>(현재 기온 : ${temp}°C, 날씨 : ${weather})`;
-    
+    element.style.alignItems = 'center'; // 수직 가운데 정렬
+    element.innerHTML = `${description[id]}<br>(현재 기온 : ${temp}°C)`;
+    const span = document.createElement('span');
+    span.appendChild(iconElement); // 아이콘을 span에 추가
+    element.appendChild(span); // span을 element에 추가
+
     // danger 요소일 경우 blink 클래스를 추가하고 경고 메시지 창을 띄움
     if (id === 'danger') {
       element.classList.add('blink');
@@ -334,12 +347,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 적절한 요소를 보이게 설정하는 함수
-function showElement2(id, temp, weather, place) {
+function showElement2(id, temp, place, icon) {
   const element = document.getElementById(id);
   if (element) {
     element.style.display = 'flex';
-    element.innerHTML = `${description[id]}<br>(${place}의 현재 기온 : ${temp}°C, 날씨 : ${weather})`;
-    
+    element.innerHTML = `${description[id]}<br>(${place}의 현재 기온 : ${temp}°C)`;
+    const span = document.createElement('span');
+    span.appendChild(icon); // 아이콘을 span에 추가
+    element.appendChild(span); // span을 element에 추가
+
     // danger 요소일 경우 blink 클래스를 추가하여 깜빡이는 효과를 줌
     if (id === 'danger') {
       element.classList.add('blink');
@@ -363,7 +379,16 @@ async function initialize2(plat, plng, place) {
   const main = data.main;
   const temp = main.temp;
   const temp2 = temp.toFixed(1);
-  const weather = data.weather[0].description;
+  const weatherIconCode = data.weather[0].icon;
+  const iconUrl = `http://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+
+  const weatherIconEl = document.createElement('img');
+  weatherIconEl.src = iconUrl;
+  weatherIconEl.style.width = '100px'; // 아이콘의 크기 조정
+  weatherIconEl.style.height = '100px';
+  weatherIconEl.style.marginBottom = '70px'; // 아이콘과 텍스트 사이의 간격
+  weatherIconEl.style.marginRight = '30px'; // 아이콘과 텍스트 사이의 간격
+
 
   // 기온에 따라 적절한 요소를 보이게 설정
   if (temp >= 35) {
@@ -373,7 +398,7 @@ async function initialize2(plat, plng, place) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement2('danger', temp2, weather, place);
+    showElement2('danger', temp2, place, weatherIconEl);
   } else if (temp >= 28) {
     hideElement('danger');
     hideElement('hot');
@@ -381,7 +406,7 @@ async function initialize2(plat, plng, place) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement2('hot', temp2, weather, place);
+    showElement2('hot', temp2, place, weatherIconEl);
   } else if (temp >= 20) {
     hideElement('danger');
     hideElement('hot');
@@ -389,7 +414,7 @@ async function initialize2(plat, plng, place) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement2('good', temp2, weather, place);
+    showElement2('good', temp2, place, weatherIconEl);
   } else if (temp >= 10) {
     hideElement('danger');
     hideElement('hot');
@@ -397,7 +422,7 @@ async function initialize2(plat, plng, place) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement2('soso', temp2, weather, place);
+    showElement2('soso', temp2, place, weatherIconEl);
   } else if (temp >= 0) {
     hideElement('danger');
     hideElement('hot');
@@ -405,7 +430,7 @@ async function initialize2(plat, plng, place) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement2('cold', temp2, weather, place);
+    showElement2('cold', temp2, place, weatherIconEl);
   } else {
     hideElement('danger');
     hideElement('hot');
@@ -413,6 +438,6 @@ async function initialize2(plat, plng, place) {
     hideElement('soso');
     hideElement('cold');
     hideElement('cdanger');
-    showElement2('cdanger', temp2, weather, place);
+    showElement2('cdanger', temp2, place, weatherIconEl);
   }
 }
