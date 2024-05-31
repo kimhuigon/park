@@ -13,8 +13,8 @@
 
 .open-btn {
   position: fixed;
-  top: 10px;
-  left: 10px;
+  top: 20px;
+  left: 20px;
 }
 #nav-z {
   z-index: 9999999;
@@ -58,7 +58,7 @@
 .nav-white {
   background-color: #fff;
   width: 95%;
-  padding: 40px;
+  padding-top: 40px;
   position: relative;
   transition-delay: 0s;
 }
@@ -79,8 +79,8 @@
 .close-btn {
   opacity: 0.3;
   position: absolute;
-  top: 40px;
-  right: 30px;
+  top: 20px;
+  left: 20px;
 }
 
 .list {
