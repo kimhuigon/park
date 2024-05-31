@@ -20,14 +20,12 @@ async function initialize() {
     const temp2 = temp.toFixed(1); // 소수점 첫째 자리까지 표시
     const weatherIconCode = data.weather[0].icon;
     const iconUrl = `http://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+    
     // 아이콘을 표시할 요소
     const weatherIconEl = document.createElement('img');
     weatherIconEl.src = iconUrl;
     weatherIconEl.style.width = '100px'; // 아이콘의 크기 조정
     weatherIconEl.style.height = '100px';
-    // weatherIconEl.style.marginBottom = '70px'; // 아이콘과 텍스트 사이의 간격
-    // weatherIconEl.style.marginRight = '30px'; // 아이콘과 텍스트 사이의 간격
-
 
     // 기온에 따라 적절한 요소를 보이게 설정
     if (temp >= 35) {
@@ -41,7 +39,7 @@ async function initialize() {
     } else if (temp >= 0) {
       showElement('cold', temp2, weatherIconEl);
     } else {
-      showElement('cdanger', temp2,weatherIconEl);
+      showElement('cdanger', temp2, weatherIconEl);
     }
   });
 }
@@ -57,10 +55,10 @@ function showElement(id, temp, iconElement) {
     span.appendChild(iconElement); // 아이콘을 span에 추가
     element.appendChild(span); // span을 element에 추가
 
-    // danger 요소일 경우 blink 클래스를 추가하고 경고 메시지 창을 띄움
-    if (id === 'danger') {
+    // danger 및 cdanger 요소일 경우 blink 클래스를 추가하고 경고 메시지 창을 띄움
+    if (id === 'danger' || id === 'cdanger') {
       element.classList.add('blink');
-      showAlert('고온 주의! 외출을 삼가하세요.');
+      showAlert(`${description[id]} 외출을 삼가하세요.`);
 
       // 5초 후에 blink 클래스를 제거하여 깜빡이는 효과를 멈춤
       setTimeout(() => {
@@ -75,7 +73,7 @@ function showAlert(message) {
   const mapContainer = document.getElementById('map');
   const alertBox = document.createElement('div');
   alertBox.className = 'alert-box';
-  alertBox.innerText = message;
+  alertBox.innerHTML = message;
 
   mapContainer.appendChild(alertBox);
 
@@ -356,10 +354,10 @@ function showElement2(id, temp, place, icon) {
     span.appendChild(icon); // 아이콘을 span에 추가
     element.appendChild(span); // span을 element에 추가
 
-    // danger 요소일 경우 blink 클래스를 추가하여 깜빡이는 효과를 줌
-    if (id === 'danger') {
+    // danger 및 cdanger 요소일 경우 blink 클래스를 추가하고 경고 메시지 창을 띄움
+    if (id === 'danger' || id === 'cdanger') {
       element.classList.add('blink');
-      showAlert('고온 주의! 외출을 삼가하세요.');
+      showAlert(`${description[id]} 외출을 삼가하세요.`);
 
       // 5초 후에 blink 클래스를 제거하여 깜빡이는 효과를 멈춤
       setTimeout(() => {
@@ -386,7 +384,6 @@ async function initialize2(plat, plng, place) {
   weatherIconEl.src = iconUrl;
   weatherIconEl.style.width = '100px'; // 아이콘의 크기 조정
   weatherIconEl.style.height = '100px';
-
 
   // 기온에 따라 적절한 요소를 보이게 설정
   if (temp >= 35) {
