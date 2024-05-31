@@ -201,6 +201,7 @@ function createInfoWindowContent(park, distance) {
 // 공원 마커를 생성하는 함수
 function createMarker(lat, lng) {
   const imageSrc = "image.png";
+  // 아이콘 출처 https://www.flaticon.com/kr/free-animated-icon/city-park_11678602?term=%EA%B3%B5%EC%9B%90&page=1&position=5&origin=search&related_id=11678602
 
   // Haversine 공식을 사용하여 두 지점 간의 거리를 계산하는 함수
   function calculateDistance(lat1, lng1, lat2, lng2) {
