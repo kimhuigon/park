@@ -229,3 +229,30 @@ h1 {
 .blink {
   animation: blink 3s step-start 5; /* 3초 간격으로 5번 깜빡임 */
 }
+
+/* 경고메시지 */
+.alert-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  background-color: whitesmoke;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  transition: opacity 0.5s;
+  opacity: 0.8;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .alert-box {
+    width: 80%;
+    font-size: 14px;
+    padding: 10px;
+  }
+}

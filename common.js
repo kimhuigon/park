@@ -43,7 +43,35 @@ function showElement(id, temp, weather) {
   if (element) {
     element.style.display = 'flex';
     element.innerHTML = `${description[id]}<br>(현재 기온 : ${temp}°C, 날씨 : ${weather})`;
+    
+    // danger 요소일 경우 blink 클래스를 추가하고 경고 메시지 창을 띄움
+    if (id === 'danger') {
+      element.classList.add('blink');
+      showAlert('고온 주의! 외출을 삼가하세요.');
+
+      // 5초 후에 blink 클래스를 제거하여 깜빡이는 효과를 멈춤
+      setTimeout(() => {
+        element.classList.remove('blink');
+      }, 5000); // 5000ms = 5초
+    }
   }
+}
+
+// 경고 메시지 창을 표시하는 함수
+function showAlert(message) {
+  const mapContainer = document.getElementById('map');
+  const alertBox = document.createElement('div');
+  alertBox.className = 'alert-box';
+  alertBox.innerText = message;
+
+  mapContainer.appendChild(alertBox);
+
+  setTimeout(() => {
+    alertBox.style.opacity = '0';
+    setTimeout(() => {
+      mapContainer.removeChild(alertBox);
+    }, 500); // 500ms = 0.5초
+  }, 5000); // 5000ms = 5초
 }
 
 // 요소를 숨기는 함수
@@ -311,6 +339,17 @@ function showElement2(id, temp, weather, place) {
   if (element) {
     element.style.display = 'flex';
     element.innerHTML = `${description[id]}<br>(${place}의 현재 기온 : ${temp}°C, 날씨 : ${weather})`;
+    
+    // danger 요소일 경우 blink 클래스를 추가하여 깜빡이는 효과를 줌
+    if (id === 'danger') {
+      element.classList.add('blink');
+      showAlert('고온 주의! 외출을 삼가하세요.');
+
+      // 5초 후에 blink 클래스를 제거하여 깜빡이는 효과를 멈춤
+      setTimeout(() => {
+        element.classList.remove('blink');
+      }, 5000); // 5000ms = 5초
+    }
   }
 }
 
@@ -376,4 +415,4 @@ async function initialize2(plat, plng, place) {
     hideElement('cdanger');
     showElement2('cdanger', temp2, weather, place);
   }
-};
+}
