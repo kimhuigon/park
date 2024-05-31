@@ -188,7 +188,7 @@ function createInfoWindowContent(park, distance) {
 
 // 공원 마커를 생성하는 함수
 function createMarker(lat, lng) {
-  const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+  const imageSrc = "image.png";
 
   // Haversine 공식을 사용하여 두 지점 간의 거리를 계산하는 함수
   function calculateDistance(lat1, lng1, lat2, lng2) {
@@ -223,7 +223,7 @@ function createMarker(lat, lng) {
         position: markerPosition,
         map: map,
         title: park.공원명,
-        image: new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35)),
+        image: new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(35, 35)),
       });
       markers.push(marker); // 마커를 배열에 추가
 
