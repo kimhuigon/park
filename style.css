@@ -51,7 +51,7 @@ h1 {
   /* 기본 높이 변경 */
 }
 
-#panto {
+#panTo {
   position: absolute;
   bottom: 1%;
   right: 0.5%;
@@ -210,7 +210,7 @@ h1 {
     /* 큰 화면에서는 높이 증가 */
   }
 
-  #panto {
+  #panTo {
     top: 40%;
 
   }
@@ -227,7 +227,7 @@ h1 {
   #soso,
   #cold {
     display: flex;
-    font-size: 30px;
+    font-size: 35px;
     color: white;
     font-style: italic;
     justify-content: center;
