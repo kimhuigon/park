@@ -281,3 +281,39 @@ h1 {
     padding: 10px;
   }
 }
+
+/* 인포윈도우 스타일 */
+.infowindow-content {
+  width: 250px;
+  padding: 0;
+  border: 1px solid #ccc;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.infowindow-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f36f61;
+  padding: 10px;
+  color: white;
+}
+
+.infowindow-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.infowindow-body {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.infowindow-body p {
+  margin: 0;
+  font-size: 14px;
+}
