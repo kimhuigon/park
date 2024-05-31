@@ -7,8 +7,10 @@ body, h1, p {
 
 body {
     display: flex;
-    background-image: url('/background/webbg.jpg');
-    /*작가 macrovector_official 출처 Freepik</a> */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('background/soop1.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -23,6 +25,7 @@ h1 {
     color: black;
     padding: 20px;
     font-family: "Dongle", sans-serif;
+    font-size: 100px;
     
 }
 
@@ -36,8 +39,8 @@ h1 {
 }
 
 .start-button {
-    width: 150px; /* 기존의 "시작하기" 버튼 크기 */
-    height: 150px; /* 기존의 "시작하기" 버튼 크기 */
+    width: 100px; 
+    height: 70px; 
     cursor: pointer;
     transition: transform 0.3s;
     background-color: rgba(255, 255, 255, 0.7);
