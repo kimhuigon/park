@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- 반응형 디자인을 위한 메타 태그 추가 -->
+	<title>가까운공원찾기</title>
+	<link rel="stylesheet" href="schstyle.css" />
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div>
+		<h1 id="danger"></h1>
+		<h1 id="hot"></h1>
+		<h1 id="good"></h1>
+		<h1 id="soso"></h1>
+		<h1 id="cold"></h1>
+		<h1 id="cdanger"></h1>
+	</div>
+	<div id="container">
+		<div id="map-container">
+			<div id="map">
+				<p>
+					<!-- 현위치로 돌아가는 버튼 -->
+					<button onclick="panTo()" id="panTo"><img src ='./background/me.png'></button>
+					<!-- <a href="https://www.flaticon.com/kr/free-icons/" title="위치 아이콘">위치 아이콘 제작자: IconMarketPK - Flaticon</a> -->
+				</p>
+			</div>
+			<div id="results-container">
+				<!-- 검색창을 오른쪽에 배치하기 위한 컨테이너 -->
+				<div id="search-box-container">
+					<div id="search-box">
+						<input type="text" id="keyword" placeholder="장소 검색...">
+						<button class="ripple" onclick="searchPlaces()">검색</button>
+						<!-- 검색 버튼 클릭 효과 -->
+						<script src="schscript.js"></script>
+					</div>
+				</div>
+				<ul id="results"></ul>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41ce8b9519ec9b48b457759b6dff0a54&libraries=services"></script>
+	<script type="text/javascript" src="parkdata.js"></script> <!-- parkdata.js 파일 불러오기 -->
+	<script src="common.js"></script>
+
+</body>
+
+</html>
