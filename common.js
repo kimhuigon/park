@@ -73,6 +73,17 @@ function initMap(lat, lng) {
   };
   map = new kakao.maps.Map(container, options);
 
+  // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+  var mapTypeControl = new kakao.maps.MapTypeControl();
+
+  // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+  // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+  map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+  // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+  var zoomControl = new kakao.maps.ZoomControl();
+  map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
   // 현재 위치 마커
   const markerPosition = new kakao.maps.LatLng(lat, lng);
   currentMarker = new kakao.maps.Marker({
@@ -149,17 +160,17 @@ function createMarker(lat, lng) {
   clearMarkers();
 
   // 거리를 기준으로 데이터를 슬라이스한 후 마커와 인포윈도우 생성
-data.forEach(park => {
-  const markerPosition = new kakao.maps.LatLng(park.위도, park.경도);
-  const distance = calculateDistance(lat, lng, park.위도, park.경도).toFixed(2);
+  data.forEach(park => {
+    const markerPosition = new kakao.maps.LatLng(park.위도, park.경도);
+    const distance = calculateDistance(lat, lng, park.위도, park.경도).toFixed(2);
 
-  // 원하는 거리 기준을 설정합니다.
-  if (distance <= 2.0) {
+    // 원하는 거리 기준을 설정합니다.
+    if (distance <= 2.0) {
       const marker = new kakao.maps.Marker({
-          position: markerPosition,
-          map: map,
-          title: park.공원명,
-          image: new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35)),
+        position: markerPosition,
+        map: map,
+        title: park.공원명,
+        image: new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35)),
       });
       markers.push(marker); // 마커를 배열에 추가
 
@@ -172,38 +183,38 @@ data.forEach(park => {
           </div>
       `;
       const infowindow = new kakao.maps.InfoWindow({
-          content: infowindowContent
+        content: infowindowContent
       });
 
       kakao.maps.event.addListener(marker, 'mouseover', function () {
         infowindow.open(map, marker);
-    });
+      });
 
-    kakao.maps.event.addListener(marker, 'mouseout', function () {
+      kakao.maps.event.addListener(marker, 'mouseout', function () {
         infowindow.close();
-    });
+      });
 
       // 마커에 클릭 이벤트 추가
       kakao.maps.event.addListener(marker, 'click', function () {
-          infowindow.open(map, marker);
+        infowindow.open(map, marker);
       });
 
       // 인포윈도우에 클릭 이벤트 추가하여 클릭 시 닫히도록 설정
-      kakao.maps.event.addListener(infowindow, 'domready', function() {
-          const iwContent = document.querySelector('.wrap');
-          if (iwContent) {
-              iwContent.addEventListener('click', function() {
-                  infowindow.close();
-              });
-          }
+      kakao.maps.event.addListener(infowindow, 'domready', function () {
+        const iwContent = document.querySelector('.wrap');
+        if (iwContent) {
+          iwContent.addEventListener('click', function () {
+            infowindow.close();
+          });
+        }
       });
 
       // 지도를 클릭하면 인포윈도우가 닫히도록 설정
       kakao.maps.event.addListener(map, 'click', function () {
-          infowindow.close();
+        infowindow.close();
       });
-  }
-});
+    }
+  });
 }
 
 // 장소 검색 함수
@@ -233,32 +244,32 @@ function displayPlaces(places) {
   const listEl = document.getElementById('results');
   listEl.innerHTML = '';
 
-for (let i = 0; i < places.length; i++) {
-  const itemEl = document.createElement('li');
-  // address_name의 첫 번째 단어 추출
-  const firstWord = places[i].address_name.split(' ')[0];
+  for (let i = 0; i < places.length; i++) {
+    const itemEl = document.createElement('li');
+    // address_name의 첫 번째 단어 추출
+    const firstWord = places[i].address_name.split(' ')[0];
 
-  itemEl.innerHTML = places[i].place_name + ' (' + firstWord + ')';
+    itemEl.innerHTML = places[i].place_name + ' (' + firstWord + ')';
 
-  // 클로저를 사용하여 place_name을 initialize2 함수에 전달
-  (function(place_name, y, x) {
+    // 클로저를 사용하여 place_name을 initialize2 함수에 전달
+    (function (place_name, y, x) {
       itemEl.onclick = () => {
-          const position = new kakao.maps.LatLng(places[i].y, places[i].x);
-          map.setCenter(position);
+        const position = new kakao.maps.LatLng(places[i].y, places[i].x);
+        map.setCenter(position);
 
-          // 현재 위치 마커 업데이트
-          currentMarker.setPosition(position);
-          
-          // initialize2 함수 호출 시 place_name 전달
-          initialize2(y, x, place_name);
+        // 현재 위치 마커 업데이트
+        currentMarker.setPosition(position);
 
-          // 해당 위치를 중심으로 공원 표시
-          createMarker(y, x);
+        // initialize2 함수 호출 시 place_name 전달
+        initialize2(y, x, place_name);
+
+        // 해당 위치를 중심으로 공원 표시
+        createMarker(y, x);
       };
-  })(places[i].place_name, places[i].y, places[i].x);
+    })(places[i].place_name, places[i].y, places[i].x);
 
-  listEl.appendChild(itemEl);
-}
+    listEl.appendChild(itemEl);
+  }
 }
 
 // 지도에 표시된 마커들을 모두 제거하는 함수
