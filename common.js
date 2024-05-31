@@ -235,7 +235,7 @@ function displayPlaces(places) {
 
 for (let i = 0; i < places.length; i++) {
   const itemEl = document.createElement('li');
-  // road_address_name의 첫 번째 단어 추출
+  // address_name의 첫 번째 단어 추출
   const firstWord = places[i].address_name.split(' ')[0];
 
   itemEl.innerHTML = places[i].place_name + ' (' + firstWord + ')';
