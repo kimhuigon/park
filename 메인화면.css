@@ -7,19 +7,19 @@ body, h1, p {
 
 body {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-image: url(''); /* 기본 웹 배경 이미지 */
+    background-image: url('/background/webbg.jpg');
+    /*작가 macrovector_official 출처 Freepik</a> */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
     color: #333;
     text-align: center;
+    justify-content: center;
 }
 
 h1 {
+    font-size: 5rem;
     color: black;
     padding: 20px;
     font-family: "Dongle", sans-serif;
@@ -36,10 +36,12 @@ h1 {
 }
 
 .start-button {
-    width: 200px; /* 기존의 "시작하기" 버튼 크기 */
-    height: 60px; /* 기존의 "시작하기" 버튼 크기 */
+    width: 150px; /* 기존의 "시작하기" 버튼 크기 */
+    height: 150px; /* 기존의 "시작하기" 버튼 크기 */
     cursor: pointer;
     transition: transform 0.3s;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 30px;
 }
 
 .start-button:hover {
@@ -60,6 +62,6 @@ h1 {
 
     .start-button {
         width: 100px; /* 모바일 크기 */
-        height: 70px; /* 모바일 크기 */
+        height: 100px; /* 모바일 크기 */
     }
 }
