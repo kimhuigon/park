@@ -172,6 +172,20 @@ function addTouchEvents() {
   });
 }
 
+function createInfoWindowContent(park, distance) {
+  return `
+    <div class="infowindow-content">
+      <div class="infowindow-header">
+        <span class="infowindow-title">${park.공원명}</span>
+      </div>
+      <div class="infowindow-body">
+        <p>주소: ${park.소재지지번주소}</p>
+        <p>직선거리: ${distance} km</p>
+      </div>
+    </div>
+  `;
+}
+
 // 공원 마커를 생성하는 함수
 function createMarker(lat, lng) {
   const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -213,14 +227,7 @@ function createMarker(lat, lng) {
       });
       markers.push(marker); // 마커를 배열에 추가
 
-      // 인포윈도우 내용 구성
-      const infowindowContent = `
-          <div style="text-align: center; background-color: lightyellow; padding: 10px; white-space: nowrap;">
-              <h4 style="margin: 0;">${park.공원명}</h4>
-              <p style="margin: 0;">주소: ${park.소재지지번주소}</p>
-              <p style="margin: 0;">직선거리: ${distance} km</p>
-          </div>
-      `;
+      const infowindowContent = createInfoWindowContent(park, distance);
       const infowindow = new kakao.maps.InfoWindow({
         content: infowindowContent
       });
@@ -270,7 +277,7 @@ function searchPlaces() {
 }
 
 // 장소 검색 콜백 함수
-function placesSearchCB(data, status) {
+function placesSearchCB(data, status, pagination) {
   if (status === kakao.maps.services.Status.OK) {
     displayPlaces(data);
   } else {
