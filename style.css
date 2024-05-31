@@ -65,8 +65,18 @@ h1 {
 }
 
 #results-container {
-  flex: 1;
+  max-width: 1200px;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 5%;
+
+  height: 100%;
   display: flex;
+  width: 100%;
+  flex-grow: 1;
+  flex: 1;
   flex-direction: column;
   overflow-y: auto;
   max-height: 50%;
