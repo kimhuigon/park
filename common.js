@@ -10,8 +10,8 @@ const description = {
 // 현재 기온을 가져와서 적절한 메시지를 표시하는 함수
 async function initialize() {
   navigator.geolocation.getCurrentPosition(async (pos) => {
-    const lat = pos.coords.latitude;
-    const lng = pos.coords.longitude;
+    lat = pos.coords.latitude;
+    lng = pos.coords.longitude;
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31&lang=kr`;
     const res = await fetch(url);
     const data = await res.json();
@@ -20,7 +20,7 @@ async function initialize() {
     const temp2 = temp.toFixed(1); // 소수점 첫째 자리까지 표시
     const weatherIconCode = data.weather[0].icon;
     const iconUrl = `http://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
-    
+
     // 아이콘을 표시할 요소
     const weatherIconEl = document.createElement('img');
     weatherIconEl.src = iconUrl;
@@ -43,6 +43,16 @@ async function initialize() {
     }
   });
 }
+
+function panTo() {
+  // 이동할 위도 경도 위치를 생성합니다 
+  var moveLatLon = new kakao.maps.LatLng(lat, lng);
+
+  // 지도 중심을 부드럽게 이동시킵니다
+  // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+  map.panTo(moveLatLon);
+}
+
 
 // 적절한 요소를 보이게 설정하는 함수
 function showElement(id, temp, iconElement) {
@@ -97,6 +107,8 @@ function hideElement(id) {
 // 페이지 로드 시 초기화
 initialize();
 
+let lat;
+let lng;
 let map;
 let currentMarker;
 let markers = []; // 마커를 담을 배열
