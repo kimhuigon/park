@@ -51,6 +51,17 @@ h1 {
   /* 기본 높이 변경 */
 }
 
+#panto {
+  position: absolute;
+  bottom: 1%;
+  right: 0.5%;
+  z-index: 3000;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 1px solid black;
+}
+
 #results-container {
   flex: 1;
   display: flex;
@@ -199,6 +210,11 @@ h1 {
     /* 큰 화면에서는 높이 증가 */
   }
 
+  #panto {
+    top: 40%;
+
+  }
+
   #results-container {
     max-height: 600px;
     /* 큰 화면에서는 높이 증가 */
@@ -221,13 +237,22 @@ h1 {
 
 /* 고온주의 깜빡임 */
 @keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .blink {
-  animation: blink 3s step-start 5; /* 3초 간격으로 5번 깜빡임 */
+  animation: blink 3s step-start 5;
+  /* 3초 간격으로 5번 깜빡임 */
 }
 
 /* 경고메시지 */
