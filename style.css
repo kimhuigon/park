@@ -211,10 +211,21 @@ h1 {
   #soso,
   #cold {
     display: flex;
-    font-size: 45px;
+    font-size: 50px;
     color: white;
     font-style: italic;
     justify-content: center;
     display: none;
   }
+}
+
+/* 고온주의 깜빡임 */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.blink {
+  animation: blink 3s step-start 5; /* 3초 간격으로 5번 깜빡임 */
 }

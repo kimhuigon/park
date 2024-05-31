@@ -43,6 +43,16 @@ function showElement(id, temp, weather) {
   if (element) {
     element.style.display = 'flex';
     element.innerHTML = `${description[id]}<br>(현재 기온 : ${temp}°C, 날씨 : ${weather})`;
+    
+    // danger 요소일 경우 blink 클래스를 추가하여 깜빡이는 효과를 줌
+    if (id === 'danger') {
+      element.classList.add('blink');
+      
+      // 5초 후에 blink 클래스를 제거하여 깜빡이는 효과를 멈춤
+      setTimeout(() => {
+        element.classList.remove('blink');
+      }, 5000); // 5000ms = 5초
+    }
   }
 }
 
@@ -81,13 +91,13 @@ function initMap(lat, lng) {
     title: "현재 위치"
   });
   // 지도 타입 변경 컨트롤을 생성한다
-	var mapTypeControl = new kakao.maps.MapTypeControl();
-	// 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
-	map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);	
-	// 지도에 확대 축소 컨트롤을 생성한다
-	var zoomControl = new kakao.maps.ZoomControl();
-	// 지도의 우측에 확대 축소 컨트롤을 추가한다
-	map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+  var mapTypeControl = new kakao.maps.MapTypeControl();
+  // 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+  map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);  
+  // 지도에 확대 축소 컨트롤을 생성한다
+  var zoomControl = new kakao.maps.ZoomControl();
+  // 지도의 우측에 확대 축소 컨트롤을 추가한다
+  map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
   // 현재 위치 인포윈도우
   const currentInfoWindow = new kakao.maps.InfoWindow({
@@ -157,65 +167,65 @@ function createMarker(lat, lng) {
   clearMarkers();
 
   // 거리를 기준으로 데이터를 슬라이스한 후 마커와 인포윈도우 생성
-data.forEach(park => {
-  const markerPosition = new kakao.maps.LatLng(park.위도, park.경도);
-  const distance = calculateDistance(lat, lng, park.위도, park.경도).toFixed(2);
+  data.forEach(park => {
+    const markerPosition = new kakao.maps.LatLng(park.위도, park.경도);
+    const distance = calculateDistance(lat, lng, park.위도, park.경도).toFixed(2);
 
-  // 도보 걸음수 계산 (평균 걸음 수: 1km 당 약 1300 걸음)
-  const steps = (distance * 1300).toFixed(0);
+    // 도보 걸음수 계산 (평균 걸음 수: 1km 당 약 1300 걸음)
+    const steps = (distance * 1300).toFixed(0);
 
-  // 원하는 거리 기준을 설정합니다.
-  if (distance <= 2.0) {
+    // 원하는 거리 기준을 설정합니다.
+    if (distance <= 2.0) {
       const marker = new kakao.maps.Marker({
-          position: markerPosition,
-          map: map,
-          title: park.공원명,
-          image: new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35)),
+        position: markerPosition,
+        map: map,
+        title: park.공원명,
+        image: new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35)),
       });
       markers.push(marker); // 마커를 배열에 추가
 
       // 인포윈도우 내용 구성
       const infowindowContent = `
-          <div style="text-align: center; background-color: lightyellow; padding: 10px; white-space: nowrap;">
-              <h4 style="margin: 0;">${park.공원명}</h4>
-              <p style="margin: 0;">주소: ${park.소재지지번주소}</p>
-              <p style="margin: 0;">직선거리: ${distance} km</p>
-              <p style="margin: 0;">도보 걸음수: ${steps} 걸음</p>
-          </div>
+        <div style="text-align: center; background-color: lightyellow; padding: 10px; white-space: nowrap;">
+          <h4 style="margin: 0;">${park.공원명}</h4>
+          <p style="margin: 0;">주소: ${park.소재지지번주소}</p>
+          <p style="margin: 0;">직선거리: ${distance} km</p>
+          <p style="margin: 0;">도보 걸음수: ${steps} 걸음</p>
+        </div>
       `;
       const infowindow = new kakao.maps.InfoWindow({
-          content: infowindowContent
+        content: infowindowContent
       });
 
       kakao.maps.event.addListener(marker, 'mouseover', function () {
         infowindow.open(map, marker);
-    });
+      });
 
-    kakao.maps.event.addListener(marker, 'mouseout', function () {
+      kakao.maps.event.addListener(marker, 'mouseout', function () {
         infowindow.close();
-    });
+      });
 
       // 마커에 클릭 이벤트 추가
       kakao.maps.event.addListener(marker, 'click', function () {
-          infowindow.open(map, marker);
+        infowindow.open(map, marker);
       });
 
       // 인포윈도우에 클릭 이벤트 추가하여 클릭 시 닫히도록 설정
       kakao.maps.event.addListener(infowindow, 'domready', function() {
-          const iwContent = document.querySelector('.wrap');
-          if (iwContent) {
-              iwContent.addEventListener('click', function() {
-                  infowindow.close();
-              });
-          }
+        const iwContent = document.querySelector('.wrap');
+        if (iwContent) {
+          iwContent.addEventListener('click', function() {
+            infowindow.close();
+          });
+        }
       });
 
       // 지도를 클릭하면 인포윈도우가 닫히도록 설정
       kakao.maps.event.addListener(map, 'click', function () {
-          infowindow.close();
+        infowindow.close();
       });
-  }
-});
+    }
+  });
 }
 
 // 장소 검색 함수
@@ -245,29 +255,29 @@ function displayPlaces(places) {
   const listEl = document.getElementById('results');
   listEl.innerHTML = '';
 
-for (let i = 0; i < places.length; i++) {
-  const itemEl = document.createElement('li');
-  itemEl.innerHTML = places[i].place_name;
+  for (let i = 0; i < places.length; i++) {
+    const itemEl = document.createElement('li');
+    itemEl.innerHTML = places[i].place_name;
 
-  // 클로저를 사용하여 place_name을 initialize2 함수에 전달
-  (function(place_name, y, x) {
+    // 클로저를 사용하여 place_name을 initialize2 함수에 전달
+    (function(place_name, y, x) {
       itemEl.onclick = () => {
-          const position = new kakao.maps.LatLng(places[i].y, places[i].x);
-          map.setCenter(position);
+        const position = new kakao.maps.LatLng(places[i].y, places[i].x);
+        map.setCenter(position);
 
-          // 현재 위치 마커 업데이트
-          currentMarker.setPosition(position);
-          
-          // initialize2 함수 호출 시 place_name 전달
-          initialize2(y, x, place_name);
+        // 현재 위치 마커 업데이트
+        currentMarker.setPosition(position);
+        
+        // initialize2 함수 호출 시 place_name 전달
+        initialize2(y, x, place_name);
 
-          // 해당 위치를 중심으로 공원 표시
-          createMarker(y, x);
+        // 해당 위치를 중심으로 공원 표시
+        createMarker(y, x);
       };
-  })(places[i].place_name, places[i].y, places[i].x);
+    })(places[i].place_name, places[i].y, places[i].x);
 
-  listEl.appendChild(itemEl);
-}
+    listEl.appendChild(itemEl);
+  }
 }
 
 // 지도에 표시된 마커들을 모두 제거하는 함수
@@ -309,6 +319,16 @@ function showElement2(id, temp, weather, place) {
   if (element) {
     element.style.display = 'flex';
     element.innerHTML = `${description[id]}<br>(${place}의 현재 기온 : ${temp}°C, 날씨 : ${weather})`;
+    
+    // danger 요소일 경우 blink 클래스를 추가하여 깜빡이는 효과를 줌
+    if (id === 'danger') {
+      element.classList.add('blink');
+      
+      // 5초 후에 blink 클래스를 제거하여 깜빡이는 효과를 멈춤
+      setTimeout(() => {
+        element.classList.remove('blink');
+      }, 5000); // 5000ms = 5초
+    }
   }
 }
 
@@ -374,4 +394,4 @@ async function initialize2(plat, plng, place) {
     hideElement('cdanger');
     showElement2('cdanger', temp2, weather, place);
   }
-};
+}
