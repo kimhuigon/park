@@ -384,8 +384,6 @@ async function initialize2(plat, plng, place) {
   weatherIconEl.src = iconUrl;
   weatherIconEl.style.width = '100px'; // 아이콘의 크기 조정
   weatherIconEl.style.height = '100px';
-  weatherIconEl.style.marginBottom = '70px'; // 아이콘과 텍스트 사이의 간격
-  weatherIconEl.style.marginRight = '30px'; // 아이콘과 텍스트 사이의 간격
 
 
   // 기온에 따라 적절한 요소를 보이게 설정
