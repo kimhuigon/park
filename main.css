@@ -22,8 +22,9 @@ body {
 h1 {
     font-size: 5rem;
     color: black;
-    padding: 20px;
     font-family: "Dongle", sans-serif;
+    line-height: 0.8;
+    margin-bottom: 30px;
 }
 
 .start-button-container {
@@ -36,12 +37,15 @@ h1 {
 }
 
 .start-button {
-    width: 100px; 
-    height: 100px; 
+    width: 120px; 
+    height: 120px; 
     cursor: pointer;
+    font-family: "Dongle", sans-serif;
     transition: transform 0.3s;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 30px;
+    font-size: 50px;
+    line-height: 0.5;
 }
 
 .start-button:hover {
