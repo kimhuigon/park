@@ -300,7 +300,7 @@ function searchPlaces() {
 }
 
 // 장소 검색 콜백 함수
-function placesSearchCB(data, status, pagination) {
+function placesSearchCB(data, status) {
   if (status === kakao.maps.services.Status.OK) {
     displayPlaces(data);
   } else {
