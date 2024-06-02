@@ -10,17 +10,24 @@
 </head>
 
 <body>
+    <div id="page-container">
         <h1>산책<br>가자</h1>
         <section class="start-button-container">
             <button class="start-button" onclick="startApp()">
                 let's go
         </section>
-    </main>
+        </div>
+
 
     <script>
-        function startApp() {
-            window.location.href = 'restpark.html'; // 기존 프로그램의 HTML 파일명으로 변경
+       function startApp() {
+            const container = document.getElementById('page-container');
+            container.classList.add('slide-out'); // 슬라이드 아웃 클래스 추가
+            setTimeout(() => {
+                window.location.href = 'restpark.html'; // 기존 프로그램의 HTML 파일명으로 변경
+            }, 1000); // 1초 후 페이지 전환
         }
     </script>
 </body>
+</html>
 
