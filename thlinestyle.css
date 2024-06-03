@@ -93,3 +93,55 @@
 .list li {
   margin: 20px 0;
 }
+
+/* 툴팁 */
+.help-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.tooltip {
+  display: none;
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  background-color: #fff;
+  color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 10001;
+}
+
+.tooltip p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.tooltip ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tooltip ul li {
+  margin: 5px 0;
+}
+
+/* 모바일 화면에서는 툴팁 숨기기 */
+@media only screen and (max-width: 600px) {
+  .help-icon {
+    display: none;
+  }
+}
