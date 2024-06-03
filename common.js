@@ -61,7 +61,7 @@ function panTo() {
   const mapContainer = document.getElementById('map');
   mapContainer.innerHTML = ''; // Remove all child elements
   mapContainer.appendChild(panto);
-  
+
   // 이동할 위도 경도 위치를 생성합니다 
   var moveLatLon = new kakao.maps.LatLng(lat, lng);
   initMap(lat, lng);
@@ -205,10 +205,10 @@ function addTouchEvents() {
 
 // 블로그 URL을 인포윈도우에 포함하는 함수
 function createInfoWindowContent(park, distance) {
-    // 공원 정보와 함께 걸음 수를 표시
-    const steps = calculateSteps(park.공원면적);
-    // 공원명을 클릭 시 블로그 페이지로 이동하는 링크 추가
-    return `
+  // 공원 정보와 함께 걸음 수를 표시
+  const steps = calculateSteps(park.공원면적);
+  // 공원명을 클릭 시 블로그 페이지로 이동하는 링크 추가
+  return `
       <div class="infowindow-content">
         <div class="infowindow-header">
         <span class="infowindow-title">
@@ -467,3 +467,42 @@ async function initialize2(plat, plng, place) {
     showElement2('cdanger', temp2, place, weatherIconEl);
   }
 }
+
+const open_btn = document.querySelector('.open-btn')
+const close_btn = document.querySelector('.close-btn')
+const nav = document.querySelectorAll('.nav')
+const helpIcon = document.getElementById('help-icon');
+const tooltip = document.getElementById('tooltip');
+
+open_btn.addEventListener('click', () => {
+  nav.forEach(nav_el => nav_el.classList.add('visible'))
+})
+
+close_btn.addEventListener('click', () => {
+  nav.forEach(nav_el => nav_el.classList.remove('visible'))
+})
+
+// 탭 키 눌렀을 때 네비게이션 메뉴 열기
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Tab') {
+    nav.forEach(nav_el => nav_el.classList.add('visible'));
+  }
+});
+
+// ESC 키 눌렀을 때 네비게이션 메뉴 닫기
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    nav.forEach(nav_el => nav_el.classList.remove('visible'));
+  }
+});
+
+helpIcon.addEventListener('click', () => {
+  tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
+});
+
+// ESC 키 눌렀을 때 툴팁 닫기
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    tooltip.style.display = 'none';
+  }
+});
