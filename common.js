@@ -7,40 +7,51 @@ const description = {
   cdanger: '추우니 주의!'
 };
 
+// 평균 걸음 길이 (단위: 미터)
+const averageStepLength = 0.75;
+
+// 면적을 이용해 둘레와 걸음수를 계산하는 함수
+function calculateSteps(area) {
+  const radius = Math.sqrt(area / Math.PI); // 반지름 계산
+  const circumference = 2 * Math.PI * radius; // 둘레 계산
+  const steps = Math.round(circumference / averageStepLength); // 걸음수 계산
+  return steps;
+}
+
 // 현재 기온을 가져와서 적절한 메시지를 표시하는 함수
 async function initialize() {
   navigator.geolocation.getCurrentPosition(async (pos) => {
-    lat = pos.coords.latitude;
-    lng = pos.coords.longitude;
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31&lang=kr`;
-    const res = await fetch(url);
-    const data = await res.json();
-    const main = data.main;
-    const temp = main.temp;
-    const temp2 = temp.toFixed(1); // 소수점 첫째 자리까지 표시
-    const weatherIconCode = data.weather[0].icon;
-    const iconUrl = `http://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+      lat = pos.coords.latitude;
+      lng = pos.coords.longitude;
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=6edee3c2aa182bc44d18ccb204c98a31&lang=kr`;
+      const res = await fetch(url);
+      const data = await res.json();
+      const main = data.main;
+      const temp = main.temp;
+      const temp2 = temp.toFixed(1); // 소수점 첫째 자리까지 표시
+      const weatherIconCode = data.weather[0].icon;
+      const iconUrl = `http://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
 
-    // 아이콘을 표시할 요소
-    const weatherIconEl = document.createElement('img');
-    weatherIconEl.src = iconUrl;
-    weatherIconEl.style.width = '100px'; // 아이콘의 크기 조정
-    weatherIconEl.style.height = '100px';
+      // 아이콘을 표시할 요소
+      const weatherIconEl = document.createElement('img');
+      weatherIconEl.src = iconUrl;
+      weatherIconEl.style.width = '100px'; // 아이콘의 크기 조정
+      weatherIconEl.style.height = '100px';
 
-    // 기온에 따라 적절한 요소를 보이게 설정
-    if (temp >= 35) {
-      showElement('danger', temp2, weatherIconEl);
-    } else if (temp >= 28) {
-      showElement('hot', temp2, weatherIconEl);
-    } else if (temp >= 20) {
-      showElement('good', temp2, weatherIconEl);
-    } else if (temp >= 10) {
-      showElement('soso', temp2, weatherIconEl);
-    } else if (temp >= 0) {
-      showElement('cold', temp2, weatherIconEl);
-    } else {
-      showElement('cdanger', temp2, weatherIconEl);
-    }
+      // 기온에 따라 적절한 요소를 보이게 설정
+      if (temp >= 35) {
+          showElement('danger', temp2, weatherIconEl);
+      } else if (temp >= 28) {
+          showElement('hot', temp2, weatherIconEl);
+      } else if (temp >= 20) {
+          showElement('good', temp2, weatherIconEl);
+      } else if (temp >= 10) {
+          showElement('soso', temp2, weatherIconEl);
+      } else if (temp >= 0) {
+          showElement('cold', temp2, weatherIconEl);
+      } else {
+          showElement('cdanger', temp2, weatherIconEl);
+      }
   });
 }
 
@@ -50,7 +61,7 @@ function panTo() {
   const mapContainer = document.getElementById('map');
   mapContainer.innerHTML = ''; // Remove all child elements
   mapContainer.appendChild(panto);
-  
+
   // 이동할 위도 경도 위치를 생성합니다 
   var moveLatLon = new kakao.maps.LatLng(lat, lng);
   initMap(lat, lng);
@@ -62,29 +73,27 @@ function panTo() {
   map.panTo(moveLatLon);
 }
 
-
-
 // 적절한 요소를 보이게 설정하는 함수
 function showElement(id, temp, iconElement) {
   const element = document.getElementById(id);
   if (element) {
-    element.style.display = 'flex';
-    element.style.alignItems = 'center'; // 수직 가운데 정렬
-    element.innerHTML = `${description[id]}<br>(현재 기온 : ${temp}°C)`;
-    const span = document.createElement('span');
-    span.appendChild(iconElement); // 아이콘을 span에 추가
-    element.appendChild(span); // span을 element에 추가
+      element.style.display = 'flex';
+      element.style.alignItems = 'center'; // 수직 가운데 정렬
+      element.innerHTML = `${description[id]}<br>(현재 기온 : ${temp}°C)`;
+      const span = document.createElement('span');
+      span.appendChild(iconElement); // 아이콘을 span에 추가
+      element.appendChild(span); // span을 element에 추가
 
-    // danger 및 cdanger 요소일 경우 blink 클래스를 추가하고 경고 메시지 창을 띄움
-    if (id === 'danger' || id === 'cdanger') {
-      element.classList.add('blink');
-      showAlert(`${description[id]} 외출을 삼가하세요.`);
+      // danger 및 cdanger 요소일 경우 blink 클래스를 추가하고 경고 메시지 창을 띄움
+      if (id === 'danger' || id === 'cdanger') {
+          element.classList.add('blink');
+          showAlert(`${description[id]} 외출을 삼가하세요.`);
 
-      // 5초 후에 blink 클래스를 제거하여 깜빡이는 효과를 멈춤
-      setTimeout(() => {
-        element.classList.remove('blink');
-      }, 5000); // 5000ms = 5초
-    }
+          // 5초 후에 blink 클래스를 제거하여 깜빡이는 효과를 멈춤
+          setTimeout(() => {
+              element.classList.remove('blink');
+          }, 5000); // 5000ms = 5초
+      }
   }
 }
 
@@ -98,10 +107,10 @@ function showAlert(message) {
   mapContainer.appendChild(alertBox);
 
   setTimeout(() => {
-    alertBox.style.opacity = '0';
-    setTimeout(() => {
-      mapContainer.removeChild(alertBox);
-    }, 500); // 500ms = 0.5초
+      alertBox.style.opacity = '0';
+      setTimeout(() => {
+          mapContainer.removeChild(alertBox);
+      }, 500); // 500ms = 0.5초
   }, 5000); // 5000ms = 5초
 }
 
@@ -109,8 +118,8 @@ function showAlert(message) {
 function hideElement(id) {
   const element = document.getElementById(id);
   if (element) {
-    element.style.display = 'none';
-    element.innerHTML = '';
+      element.style.display = 'none';
+      element.innerHTML = '';
   }
 }
 
@@ -129,8 +138,8 @@ const list = data.records;
 function initMap(lat, lng) {
   const container = document.getElementById('map');
   const options = {
-    center: new kakao.maps.LatLng(lat, lng),
-    level: 3
+      center: new kakao.maps.LatLng(lat, lng),
+      level: 3
   };
   map = new kakao.maps.Map(container, options);
 
@@ -148,23 +157,23 @@ function initMap(lat, lng) {
   // 현재 위치 마커
   const markerPosition = new kakao.maps.LatLng(lat, lng);
   currentMarker = new kakao.maps.Marker({
-    position: markerPosition,
-    map: map,
-    title: "현재 위치"
+      position: markerPosition,
+      map: map,
+      title: "현재 위치"
   });
 
   // 현재 위치 인포윈도우
   const currentInfoWindow = new kakao.maps.InfoWindow({
-    content: '<div style="width:150px; height:23px; padding:5px; text-align:center; background-color:lightblue;">현재 위치</div>'
+      content: '<div style="width:150px; height:23px; padding:5px; text-align:center; background-color:lightblue;">현재 위치</div>'
   });
 
   // 현재 위치 마커에 마우스 오버/아웃 이벤트 추가
   kakao.maps.event.addListener(currentMarker, 'mouseover', function () {
-    currentInfoWindow.open(map, currentMarker);
+      currentInfoWindow.open(map, currentMarker);
   });
 
   kakao.maps.event.addListener(currentMarker, 'mouseout', function () {
-    currentInfoWindow.close();
+      currentInfoWindow.close();
   });
 
   // 장소 검색 객체 생성
@@ -180,31 +189,34 @@ function addTouchEvents() {
 
   // 터치 시작 이벤트
   mapContainer.addEventListener('touchstart', (event) => {
-    console.log('Touch Start:', event.touches);
+      console.log('Touch Start:', event.touches);
   });
 
   // 터치 이동 이벤트
   mapContainer.addEventListener('touchmove', (event) => {
-    console.log('Touch Move:', event.touches);
+      console.log('Touch Move:', event.touches);
   });
 
   // 터치 종료 이벤트
   mapContainer.addEventListener('touchend', (event) => {
-    console.log('Touch End:', event.changedTouches);
+      console.log('Touch End:', event.changedTouches);
   });
 }
 
 function createInfoWindowContent(park, distance) {
+  // 공원 정보와 함께 걸음 수를 표시
+  const steps = calculateSteps(park.공원면적);
   return `
-    <div class="infowindow-content">
-      <div class="infowindow-header">
-        <span class="infowindow-title">${park.공원명}</span>
+      <div class="infowindow-content">
+          <div class="infowindow-header">
+              <span class="infowindow-title">${park.공원명}</span>
+          </div>
+          <div class="infowindow-body">
+              <p>주소: ${park.소재지지번주소}</p>
+              <p>직선거리: ${distance} km</p>
+              <p>1바퀴 걸음수: ${steps} 걸음</p> <!-- 1바퀴 걸음수 표시 -->
+          </div>
       </div>
-      <div class="infowindow-body">
-        <p>주소: ${park.소재지지번주소}</p>
-        <p>직선거리: ${distance} km</p>
-      </div>
-    </div>
   `;
 }
 
@@ -215,21 +227,21 @@ function createMarker(lat, lng) {
 
   // Haversine 공식을 사용하여 두 지점 간의 거리를 계산하는 함수
   function calculateDistance(lat1, lng1, lat2, lng2) {
-    const R = 6371; // 지구 반지름 (단위: km)
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLng = (lng2 - lng1) * Math.PI / 180;
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-      Math.sin(dLng / 2) * Math.sin(dLng / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
+      const R = 6371; // 지구 반지름 (단위: km)
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLng = (lng2 - lng1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+          Math.sin(dLng / 2) * Math.sin(dLng / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
   }
 
   // 공원 데이터를 거리순으로 정렬
   data.sort((a, b) => {
-    const distanceA = calculateDistance(lat, lng, a.위도, a.경도);
-    const distanceB = calculateDistance(lat, lng, b.위도, b.경도);
-    return distanceA - distanceB;
+      const distanceA = calculateDistance(lat, lng, a.위도, a.경도);
+      const distanceB = calculateDistance(lat, lng, b.위도, b.경도);
+      return distanceA - distanceB;
   });
 
   // 현재 지도에 표시된 마커들을 모두 제거
@@ -237,52 +249,52 @@ function createMarker(lat, lng) {
 
   // 거리를 기준으로 데이터를 슬라이스한 후 마커와 인포윈도우 생성
   data.forEach(park => {
-    const markerPosition = new kakao.maps.LatLng(park.위도, park.경도);
-    const distance = calculateDistance(lat, lng, park.위도, park.경도).toFixed(2);
+      const markerPosition = new kakao.maps.LatLng(park.위도, park.경도);
+      const distance = calculateDistance(lat, lng, park.위도, park.경도).toFixed(2);
 
-    // 원하는 거리 기준을 설정합니다.
-    if (distance <= 2.0) {
-      const marker = new kakao.maps.Marker({
-        position: markerPosition,
-        map: map,
-        title: park.공원명,
-        image: new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(35, 35)),
-      });
-      markers.push(marker); // 마커를 배열에 추가
-
-      const infowindowContent = createInfoWindowContent(park, distance);
-      const infowindow = new kakao.maps.InfoWindow({
-        content: infowindowContent
-      });
-
-      kakao.maps.event.addListener(marker, 'mouseover', function () {
-        infowindow.open(map, marker);
-      });
-
-      kakao.maps.event.addListener(marker, 'mouseout', function () {
-        infowindow.close();
-      });
-
-      // 마커에 클릭 이벤트 추가
-      kakao.maps.event.addListener(marker, 'click', function () {
-        infowindow.open(map, marker);
-      });
-
-      // 인포윈도우에 클릭 이벤트 추가하여 클릭 시 닫히도록 설정
-      kakao.maps.event.addListener(infowindow, 'domready', function () {
-        const iwContent = document.querySelector('.wrap');
-        if (iwContent) {
-          iwContent.addEventListener('click', function () {
-            infowindow.close();
+      // 원하는 거리 기준을 설정합니다.
+      if (distance <= 2.0) {
+          const marker = new kakao.maps.Marker({
+              position: markerPosition,
+              map: map,
+              title: park.공원명,
+              image: new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(35, 35)),
           });
-        }
-      });
+          markers.push(marker); // 마커를 배열에 추가
 
-      // 지도를 클릭하면 인포윈도우가 닫히도록 설정
-      kakao.maps.event.addListener(map, 'click', function () {
-        infowindow.close();
-      });
-    }
+          const infowindowContent = createInfoWindowContent(park, distance);
+          const infowindow = new kakao.maps.InfoWindow({
+              content: infowindowContent
+          });
+
+          kakao.maps.event.addListener(marker, 'mouseover', function () {
+              infowindow.open(map, marker);
+          });
+
+          kakao.maps.event.addListener(marker, 'mouseout', function () {
+              infowindow.close();
+          });
+
+          // 마커에 클릭 이벤트 추가
+          kakao.maps.event.addListener(marker, 'click', function () {
+              infowindow.open(map, marker);
+          });
+
+          // 인포윈도우에 클릭 이벤트 추가하여 클릭 시 닫히도록 설정
+          kakao.maps.event.addListener(infowindow, 'domready', function () {
+              const iwContent = document.querySelector('.wrap');
+              if (iwContent) {
+                  iwContent.addEventListener('click', function () {
+                      infowindow.close();
+                  });
+              }
+          });
+
+          // 지도를 클릭하면 인포윈도우가 닫히도록 설정
+          kakao.maps.event.addListener(map, 'click', function () {
+              infowindow.close();
+          });
+      }
   });
 }
 
@@ -291,8 +303,8 @@ function searchPlaces() {
   const keyword = document.getElementById('keyword').value;
 
   if (!keyword.trim()) {
-    alert('키워드를 입력해주세요!');
-    return;
+      alert('키워드를 입력해주세요!');
+      return;
   }
 
   // 장소 검색 객체를 통해 키워드로 장소 검색
@@ -300,11 +312,11 @@ function searchPlaces() {
 }
 
 // 장소 검색 콜백 함수
-function placesSearchCB(data, status) {
+function placesSearchCB(data, status, pagination) {
   if (status === kakao.maps.services.Status.OK) {
-    displayPlaces(data);
+      displayPlaces(data);
   } else {
-    alert('검색 결과가 존재하지 않습니다.');
+      alert('검색 결과가 존재하지 않습니다.');
   }
 }
 
@@ -314,37 +326,37 @@ function displayPlaces(places) {
   listEl.innerHTML = '';
 
   for (let i = 0; i < places.length; i++) {
-    const itemEl = document.createElement('li');
-    // address_name의 첫 번째 단어 추출
-    const firstWord = places[i].address_name.split(' ')[0];
+      const itemEl = document.createElement('li');
+      // address_name의 첫 번째 단어 추출
+      const firstWord = places[i].address_name.split(' ')[0];
 
-    itemEl.innerHTML = places[i].place_name + ' (' + firstWord + ')';
+      itemEl.innerHTML = places[i].place_name + ' (' + firstWord + ')';
 
-    // 클로저를 사용하여 place_name을 initialize2 함수에 전달
-    (function (place_name, y, x) {
-      itemEl.onclick = () => {
-        const position = new kakao.maps.LatLng(places[i].y, places[i].x);
-        map.setCenter(position);
+      // 클로저를 사용하여 place_name을 initialize2 함수에 전달
+      (function (place_name, y, x) {
+          itemEl.onclick = () => {
+              const position = new kakao.maps.LatLng(places[i].y, places[i].x);
+              map.setCenter(position);
 
-        // 현재 위치 마커 업데이트
-        currentMarker.setPosition(position);
+              // 현재 위치 마커 업데이트
+              currentMarker.setPosition(position);
 
-        // initialize2 함수 호출 시 place_name 전달
-        initialize2(y, x, place_name);
+              // initialize2 함수 호출 시 place_name 전달
+              initialize2(y, x, place_name);
 
-        // 해당 위치를 중심으로 공원 표시
-        createMarker(y, x);
-      };
-    })(places[i].place_name, places[i].y, places[i].x);
+              // 해당 위치를 중심으로 공원 표시
+              createMarker(y, x);
+          };
+      })(places[i].place_name, places[i].y, places[i].x);
 
-    listEl.appendChild(itemEl);
+      listEl.appendChild(itemEl);
   }
 }
 
 // 지도에 표시된 마커들을 모두 제거하는 함수
 function clearMarkers() {
   for (const marker of markers) {
-    marker.setMap(null);
+      marker.setMap(null);
   }
   markers = []; // 마커 배열 초기화
 }
@@ -352,25 +364,25 @@ function clearMarkers() {
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('keyword').addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-      searchPlaces();
-    }
+      if (event.key === 'Enter') {
+          searchPlaces();
+      }
   });
 
   navigator.geolocation.getCurrentPosition((pos) => {
-    const lat = pos.coords.latitude;
-    const lng = pos.coords.longitude;
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
 
-    initMap(lat, lng);
+      initMap(lat, lng);
 
-    // 현재 위치 마커 업데이트
-    const newPosition = new kakao.maps.LatLng(lat, lng);
-    currentMarker.setPosition(newPosition);
+      // 현재 위치 마커 업데이트
+      const newPosition = new kakao.maps.LatLng(lat, lng);
+      currentMarker.setPosition(newPosition);
 
-    // 현재 위치를 중심으로 공원 다시 표시
-    createMarker(lat, lng);
+      // 현재 위치를 중심으로 공원 다시 표시
+      createMarker(lat, lng);
   }, (err) => {
-    console.error(err);
+      console.error(err);
   });
 });
 
@@ -378,22 +390,22 @@ document.addEventListener('DOMContentLoaded', () => {
 function showElement2(id, temp, place, icon) {
   const element = document.getElementById(id);
   if (element) {
-    element.style.display = 'flex';
-    element.innerHTML = `${description[id]}<br>(${place}의 현재 기온 : ${temp}°C)`;
-    const span = document.createElement('span');
-    span.appendChild(icon); // 아이콘을 span에 추가
-    element.appendChild(span); // span을 element에 추가
+      element.style.display = 'flex';
+      element.innerHTML = `${description[id]}<br>(${place}의 현재 기온 : ${temp}°C)`;
+      const span = document.createElement('span');
+      span.appendChild(icon); // 아이콘을 span에 추가
+      element.appendChild(span); // span을 element에 추가
 
-    // danger 및 cdanger 요소일 경우 blink 클래스를 추가하고 경고 메시지 창을 띄움
-    if (id === 'danger' || id === 'cdanger') {
-      element.classList.add('blink');
-      showAlert(`${description[id]} 외출을 삼가하세요.`);
+      // danger 및 cdanger 요소일 경우 blink 클래스를 추가하고 경고 메시지 창을 띄움
+      if (id === 'danger' || id === 'cdanger') {
+          element.classList.add('blink');
+          showAlert(`${description[id]} 외출을 삼가하세요.`);
 
-      // 5초 후에 blink 클래스를 제거하여 깜빡이는 효과를 멈춤
-      setTimeout(() => {
-        element.classList.remove('blink');
-      }, 5000); // 5000ms = 5초
-    }
+          // 5초 후에 blink 클래스를 제거하여 깜빡이는 효과를 멈춤
+          setTimeout(() => {
+              element.classList.remove('blink');
+          }, 5000); // 5000ms = 5초
+      }
   }
 }
 
@@ -417,52 +429,52 @@ async function initialize2(plat, plng, place) {
 
   // 기온에 따라 적절한 요소를 보이게 설정
   if (temp >= 35) {
-    hideElement('danger');
-    hideElement('hot');
-    hideElement('good');
-    hideElement('soso');
-    hideElement('cold');
-    hideElement('cdanger');
-    showElement2('danger', temp2, place, weatherIconEl);
+      hideElement('danger');
+      hideElement('hot');
+      hideElement('good');
+      hideElement('soso');
+      hideElement('cold');
+      hideElement('cdanger');
+      showElement2('danger', temp2, place, weatherIconEl);
   } else if (temp >= 28) {
-    hideElement('danger');
-    hideElement('hot');
-    hideElement('good');
-    hideElement('soso');
-    hideElement('cold');
-    hideElement('cdanger');
-    showElement2('hot', temp2, place, weatherIconEl);
+      hideElement('danger');
+      hideElement('hot');
+      hideElement('good');
+      hideElement('soso');
+      hideElement('cold');
+      hideElement('cdanger');
+      showElement2('hot', temp2, place, weatherIconEl);
   } else if (temp >= 20) {
-    hideElement('danger');
-    hideElement('hot');
-    hideElement('good');
-    hideElement('soso');
-    hideElement('cold');
-    hideElement('cdanger');
-    showElement2('good', temp2, place, weatherIconEl);
+      hideElement('danger');
+      hideElement('hot');
+      hideElement('good');
+      hideElement('soso');
+      hideElement('cold');
+      hideElement('cdanger');
+      showElement2('good', temp2, place, weatherIconEl);
   } else if (temp >= 10) {
-    hideElement('danger');
-    hideElement('hot');
-    hideElement('good');
-    hideElement('soso');
-    hideElement('cold');
-    hideElement('cdanger');
-    showElement2('soso', temp2, place, weatherIconEl);
+      hideElement('danger');
+      hideElement('hot');
+      hideElement('good');
+      hideElement('soso');
+      hideElement('cold');
+      hideElement('cdanger');
+      showElement2('soso', temp2, place, weatherIconEl);
   } else if (temp >= 0) {
-    hideElement('danger');
-    hideElement('hot');
-    hideElement('good');
-    hideElement('soso');
-    hideElement('cold');
-    hideElement('cdanger');
-    showElement2('cold', temp2, place, weatherIconEl);
+      hideElement('danger');
+      hideElement('hot');
+      hideElement('good');
+      hideElement('soso');
+      hideElement('cold');
+      hideElement('cdanger');
+      showElement2('cold', temp2, place, weatherIconEl);
   } else {
-    hideElement('danger');
-    hideElement('hot');
-    hideElement('good');
-    hideElement('soso');
-    hideElement('cold');
-    hideElement('cdanger');
-    showElement2('cdanger', temp2, place, weatherIconEl);
+      hideElement('danger');
+      hideElement('hot');
+      hideElement('good');
+      hideElement('soso');
+      hideElement('cold');
+      hideElement('cdanger');
+      showElement2('cdanger', temp2, place, weatherIconEl);
   }
 }
