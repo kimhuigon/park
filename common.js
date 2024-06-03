@@ -62,6 +62,7 @@ function panTo() {
   mapContainer.innerHTML = ''; // Remove all child elements
   mapContainer.appendChild(panto);
 
+
   // 이동할 위도 경도 위치를 생성합니다 
   var moveLatLon = new kakao.maps.LatLng(lat, lng);
   initMap(lat, lng);
@@ -212,7 +213,7 @@ function createInfoWindowContent(park, distance) {
   return `
       <div class="infowindow-content">
         <div class="infowindow-header">
-          <span class="infowindow-title">${park.공원명}</span>
+        <span class="infowindow-title">${park.공원명}</span>
         </div>
         <div class="infowindow-body">
           <p>주소: ${park.소재지지번주소}</p>
@@ -283,6 +284,14 @@ function createMarker(lat, lng) {
       kakao.maps.event.addListener(map, 'click', function () {
         infowindow.close();
       });
+
+      kakao.maps.event.addListener(marker, 'mouseover', function () {
+        infowindow.open(map, marker);
+      });
+      kakao.maps.event.addListener(marker, 'mouseout', function () {
+        infowindow.close();
+      });
+
     }
   });
 }
@@ -316,6 +325,8 @@ function displayPlaces(places) {
 
   for (let i = 0; i < places.length; i++) {
     const itemEl = document.createElement('li');
+    // 'li' 요소에 클래스 'box' 추가
+    itemEl.className = "box";
     // address_name의 첫 번째 단어 추출
     const firstWord = places[i].address_name.split(' ')[0];
 
@@ -343,8 +354,26 @@ function displayPlaces(places) {
 
     listEl.appendChild(itemEl);
   }
-}
 
+  boxes = document.querySelectorAll('.box')
+  const results = document.querySelector('#results');
+  results.addEventListener('scroll', checkBoxes)
+
+  checkBoxes()
+
+}
+let boxes;
+function checkBoxes() {
+  const triggerBottom = window.innerHeight / 5 * 4
+  console.log(boxes.length);
+  boxes.forEach(box => {
+      const boxTop = box.getBoundingClientRect().top
+      console.log(boxTop, triggerBottom);
+      if(boxTop < triggerBottom) {
+          box.classList.add('show')
+      } 
+  })
+}
 // 지도에 표시된 마커들을 모두 제거하는 함수
 function clearMarkers() {
   for (const marker of markers) {
