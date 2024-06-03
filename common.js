@@ -205,13 +205,15 @@ function addTouchEvents() {
 
 // 블로그 URL을 인포윈도우에 포함하는 함수
 function createInfoWindowContent(park, distance) {
-  // 공원 정보와 함께 걸음 수를 표시
-  const steps = calculateSteps(park.공원면적);
-  // 공원명을 클릭 시 블로그 페이지로 이동하는 링크 추가
-  return `
+    // 공원 정보와 함께 걸음 수를 표시
+    const steps = calculateSteps(park.공원면적);
+    // 공원명을 클릭 시 블로그 페이지로 이동하는 링크 추가
+    return `
       <div class="infowindow-content">
         <div class="infowindow-header">
-        <span class="infowindow-title">${park.공원명}</span>
+        <span class="infowindow-title">
+        <a href="${park.blogUrl}" target="_blank">${park.공원명}</a>
+      </span>
         </div>
         <div class="infowindow-body">
           <p>주소: ${park.소재지지번주소}</p>
@@ -278,14 +280,6 @@ function createMarker(lat, lng) {
       kakao.maps.event.addListener(map, 'click', function () {
         infowindow.close();
       });
-
-      kakao.maps.event.addListener(marker, 'mouseover', function () {
-        infowindow.open(map, marker);
-      });
-      kakao.maps.event.addListener(marker, 'mouseout', function () {
-        infowindow.close();
-      });
-
     }
   });
 }
@@ -493,42 +487,3 @@ async function initialize2(plat, plng, place) {
     showElement2('cdanger', temp2, place, weatherIconEl);
   }
 }
-
-const open_btn = document.querySelector('.open-btn')
-const close_btn = document.querySelector('.close-btn')
-const nav = document.querySelectorAll('.nav')
-const helpIcon = document.getElementById('help-icon');
-const tooltip = document.getElementById('tooltip');
-
-open_btn.addEventListener('click', () => {
-  nav.forEach(nav_el => nav_el.classList.add('visible'))
-})
-
-close_btn.addEventListener('click', () => {
-  nav.forEach(nav_el => nav_el.classList.remove('visible'))
-})
-
-// 탭 키 눌렀을 때 네비게이션 메뉴 열기
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Tab') {
-    nav.forEach(nav_el => nav_el.classList.add('visible'));
-  }
-});
-
-// ESC 키 눌렀을 때 네비게이션 메뉴 닫기
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    nav.forEach(nav_el => nav_el.classList.remove('visible'));
-  }
-});
-
-helpIcon.addEventListener('click', () => {
-  tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
-});
-
-// ESC 키 눌렀을 때 툴팁 닫기
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    tooltip.style.display = 'none';
-  }
-});
