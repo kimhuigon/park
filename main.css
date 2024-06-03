@@ -47,13 +47,15 @@ h1 {
 }
 
 .start-button {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     cursor: pointer;
+    font-family: "Dongle", sans-serif;
     transition: transform 0.3s;
-    border: 2px solid #000;
-    border-radius: 100px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 30px;
+    font-size: 50px;
+    line-height: 0.5;
 }
 
 .start-button:hover {
@@ -86,8 +88,7 @@ h1 {
     }
 
     .start-button {
-        width: 80px; /* 모바일 크기 */
-        height: 80px; /* 모바일 크기 */
-        border: 2px solid #000;
+        width: 100px; /* 모바일 크기 */
+        height: 100px; /* 모바일 크기 */
     }
 }
