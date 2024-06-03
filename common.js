@@ -73,8 +73,6 @@ function panTo() {
   map.panTo(moveLatLon);
 }
 
-
-
 // 적절한 요소를 보이게 설정하는 함수
 function showElement(id, temp, iconElement) {
   const element = document.getElementById(id);
@@ -205,21 +203,23 @@ function addTouchEvents() {
   });
 }
 
+// 블로그 URL을 인포윈도우에 포함하는 함수
 function createInfoWindowContent(park, distance) {
     // 공원 정보와 함께 걸음 수를 표시
     const steps = calculateSteps(park.공원면적);
-  return `
-    <div class="infowindow-content">
-      <div class="infowindow-header">
-        <span class="infowindow-title">${park.공원명}</span>
+    // 공원명을 클릭 시 블로그 페이지로 이동하는 링크 추가
+    return `
+      <div class="infowindow-content">
+        <div class="infowindow-header">
+          <span class="infowindow-title">${park.공원명}</span>
+        </div>
+        <div class="infowindow-body">
+          <p>주소: ${park.소재지지번주소}</p>
+          <p>직선거리: ${distance} km</p>
+          <p>1바퀴 걸음수: ${steps} 걸음</p> <!-- 1바퀴 걸음수 표시 -->
+        </div>
       </div>
-      <div class="infowindow-body">
-        <p>주소: ${park.소재지지번주소}</p>
-        <p>직선거리: ${distance} km</p>
-        <p>1바퀴 걸음수: ${steps} 걸음</p> <!-- 1바퀴 걸음수 표시 -->
-      </div>
-    </div>
-  `;
+    `;
 }
 
 // 공원 마커를 생성하는 함수
@@ -269,27 +269,9 @@ function createMarker(lat, lng) {
         content: infowindowContent
       });
 
-      kakao.maps.event.addListener(marker, 'mouseover', function () {
-        infowindow.open(map, marker);
-      });
-
-      kakao.maps.event.addListener(marker, 'mouseout', function () {
-        infowindow.close();
-      });
-
-      // 마커에 클릭 이벤트 추가
+      // 마커에 클릭 이벤트 추가하여 클릭 시 인포윈도우 열기
       kakao.maps.event.addListener(marker, 'click', function () {
         infowindow.open(map, marker);
-      });
-
-      // 인포윈도우에 클릭 이벤트 추가하여 클릭 시 닫히도록 설정
-      kakao.maps.event.addListener(infowindow, 'domready', function () {
-        const iwContent = document.querySelector('.wrap');
-        if (iwContent) {
-          iwContent.addEventListener('click', function () {
-            infowindow.close();
-          });
-        }
       });
 
       // 지도를 클릭하면 인포윈도우가 닫히도록 설정
@@ -357,7 +339,6 @@ function displayPlaces(places) {
     listEl.appendChild(itemEl);
   }
 }
-
 
 // 지도에 표시된 마커들을 모두 제거하는 함수
 function clearMarkers() {
