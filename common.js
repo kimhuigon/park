@@ -7,6 +7,17 @@ const description = {
   cdanger: '추우니 주의!'
 };
 
+// 평균 걸음 길이 (단위: 미터)
+const averageStepLength = 0.75;
+
+// 면적을 이용해 둘레와 걸음수를 계산하는 함수
+function calculateSteps(area) {
+  const radius = Math.sqrt(area / Math.PI); // 반지름 계산
+  const circumference = 2 * Math.PI * radius; // 둘레 계산
+  const steps = Math.round(circumference / averageStepLength); // 걸음수 계산
+  return steps;
+}
+
 // 현재 기온을 가져와서 적절한 메시지를 표시하는 함수
 async function initialize() {
   navigator.geolocation.getCurrentPosition(async (pos) => {
@@ -195,6 +206,8 @@ function addTouchEvents() {
 }
 
 function createInfoWindowContent(park, distance) {
+    // 공원 정보와 함께 걸음 수를 표시
+    const steps = calculateSteps(park.공원면적);
   return `
     <div class="infowindow-content">
       <div class="infowindow-header">
@@ -203,6 +216,7 @@ function createInfoWindowContent(park, distance) {
       <div class="infowindow-body">
         <p>주소: ${park.소재지지번주소}</p>
         <p>직선거리: ${distance} km</p>
+        <p>1바퀴 걸음수: ${steps} 걸음</p> <!-- 1바퀴 걸음수 표시 -->
       </div>
     </div>
   `;
