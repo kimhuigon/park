@@ -334,12 +334,16 @@ function displayPlaces(places) {
 
         // 해당 위치를 중심으로 공원 표시
         createMarker(y, x);
+
+        // 검색 결과 클릭 시 검색창 닫기
+        document.querySelector('.nav').classList.remove('visible');
       };
     })(places[i].place_name, places[i].y, places[i].x);
 
     listEl.appendChild(itemEl);
   }
 }
+
 
 // 지도에 표시된 마커들을 모두 제거하는 함수
 function clearMarkers() {
