@@ -61,7 +61,7 @@ function panTo() {
   const mapContainer = document.getElementById('map');
   mapContainer.innerHTML = ''; // Remove all child elements
   mapContainer.appendChild(panto);
-  
+
   // 이동할 위도 경도 위치를 생성합니다 
   var moveLatLon = new kakao.maps.LatLng(lat, lng);
   initMap(lat, lng);
@@ -132,6 +132,7 @@ let map;
 let currentMarker;
 let markers = []; // 마커를 담을 배열
 let ps; // 장소 검색 객체
+let polyline;
 const list = data.records;
 
 // 지도 초기화 함수
@@ -205,10 +206,10 @@ function addTouchEvents() {
 
 // 블로그 URL을 인포윈도우에 포함하는 함수
 function createInfoWindowContent(park, distance) {
-    // 공원 정보와 함께 걸음 수를 표시
-    const steps = calculateSteps(park.공원면적);
-    // 공원명을 클릭 시 블로그 페이지로 이동하는 링크 추가
-    return `
+  // 공원 정보와 함께 걸음 수를 표시
+  const steps = calculateSteps(park.공원면적);
+  // 공원명을 클릭 시 블로그 페이지로 이동하는 링크 추가
+  return `
       <div class="infowindow-content">
         <div class="infowindow-header">
           <span class="infowindow-title">${park.공원명}</span>
@@ -271,7 +272,11 @@ function createMarker(lat, lng) {
 
       // 마커에 클릭 이벤트 추가하여 클릭 시 인포윈도우 열기
       kakao.maps.event.addListener(marker, 'click', function () {
+        if(polyline) polyline.setMap(null); // Polyline을 지도에서 제거합니다.
+
         infowindow.open(map, marker);
+        
+        findRoute(park.위도, park.경도);
       });
 
       // 지도를 클릭하면 인포윈도우가 닫히도록 설정
@@ -464,4 +469,61 @@ async function initialize2(plat, plng, place) {
     hideElement('cdanger');
     showElement2('cdanger', temp2, place, weatherIconEl);
   }
+}
+
+
+function findRoute(y, x) {
+  const currentPosition = currentMarker.getPosition();
+  const startlat = currentPosition.getLat(); // 위도
+  const startlng = currentPosition.getLng(); // 경도
+  const endlng = x;
+  const endlat = y;
+
+  // 카카오 모빌리티 API를 사용하여 경로 데이터 가져오기
+  fetch(`https://apis-navi.kakaomobility.com/v1/directions?origin=${startlng},${startlat}&destination=${endlng},${endlat}&priority=DISTANCE&car_fuel=GASOLINE&car_hipass=false&alternatives=false&road_details=false`,
+    {
+      method: 'GET',
+      headers: {
+        'Authorization':'KakaoAK eb58542e3fee07934244a6db2621e6fa'
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data); // 응답 데이터 확인
+      drawKakaoRoute(data);
+    })
+    .catch(error => console.error('Error with Kakao Mobility API:', error));
+}
+
+function drawKakaoRoute(data) {
+  const path = [];
+
+  if (data && data.routes && data.routes[0] && data.routes[0].sections) {
+    data.routes[0].sections.forEach(section => {
+      section.roads.forEach(road => {
+        road.vertexes.forEach((vertex, index) => {
+          if (index % 2 === 0) {
+            path.push(new kakao.maps.LatLng(road.vertexes[index + 1], vertex));
+          }
+        });
+      });
+    });
+  }
+  
+  // 경로를 표시할 Polyline 생성
+  polyline = new kakao.maps.Polyline({
+    path: path,
+    strokeWeight: 5,
+    strokeColor: '#E2BA3F',
+    strokeOpacity: 0.7,
+    strokeStyle: 'solid'
+  });
+
+  polyline.setMap(map);
+  
 }
