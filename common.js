@@ -211,7 +211,9 @@ function createInfoWindowContent(park, distance) {
     return `
       <div class="infowindow-content">
         <div class="infowindow-header">
-          <span class="infowindow-title">${park.공원명}</span>
+        <span class="infowindow-title">
+        <a href="${park.blogUrl}" target="_blank">${park.공원명}</a>
+      </span>
         </div>
         <div class="infowindow-body">
           <p>주소: ${park.소재지지번주소}</p>
