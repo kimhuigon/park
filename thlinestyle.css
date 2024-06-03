@@ -8,10 +8,20 @@
 }
 
 .open-btn {
+  padding: 20px;
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 0px;
+  left: 5px;
 }
+
+.close-btn {
+  padding: 20px;
+  opacity: 0.7;
+  position: absolute;
+  top: 0px;
+  left: 5px;
+}
+
 #nav-z {
   z-index: 9999999;
 }
@@ -58,6 +68,7 @@
   position: relative;
   transition-delay: 0s;
 }
+
 @media only screen and (max-width: 600px) {
   .nav-white {
     background-color: #fff;
@@ -74,14 +85,6 @@
   transition-delay: 0.4s;
 }
 
-.close-btn {
-  
-  opacity: 0.7;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-}
-
 .list {
   list-style-type: none;
   padding: 0;
@@ -89,4 +92,4 @@
 
 .list li {
   margin: 20px 0;
-} 
+}
