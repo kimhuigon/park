@@ -269,6 +269,14 @@ function createMarker(lat, lng) {
         content: infowindowContent
       });
 
+      kakao.maps.event.addListener(marker, 'mouseover', function () {
+        infowindow.open(map, marker);
+      });
+
+      kakao.maps.event.addListener(marker, 'mouseout', function () {
+        infowindow.close();
+      });
+
       // 마커에 클릭 이벤트 추가하여 클릭 시 인포윈도우 열기
       kakao.maps.event.addListener(marker, 'click', function () {
         if(polyline) polyline.setMap(null); // Polyline을 지도에서 제거합니다.
