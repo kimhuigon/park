@@ -211,9 +211,7 @@ function createInfoWindowContent(park, distance) {
   return `
       <div class="infowindow-content">
         <div class="infowindow-header">
-        <span class="infowindow-title">
-        <a href="${park.blogUrl}" target="_blank">${park.공원명}</a>
-      </span>
+        <span class="infowindow-title">${park.공원명}</span>
         </div>
         <div class="infowindow-body">
           <p>주소: ${park.소재지지번주소}</p>
@@ -280,6 +278,14 @@ function createMarker(lat, lng) {
       kakao.maps.event.addListener(map, 'click', function () {
         infowindow.close();
       });
+
+      kakao.maps.event.addListener(marker, 'mouseover', function () {
+        infowindow.open(map, marker);
+      });
+      kakao.maps.event.addListener(marker, 'mouseout', function () {
+        infowindow.close();
+      });
+
     }
   });
 }
