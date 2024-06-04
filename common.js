@@ -322,6 +322,8 @@ function displayPlaces(places) {
 
   for (let i = 0; i < places.length; i++) {
     const itemEl = document.createElement('li');
+    // 'li' 요소에 클래스 'box' 추가
+    itemEl.className = "box";
     // address_name의 첫 번째 단어 추출
     const firstWord = places[i].address_name.split(' ')[0];
 
@@ -349,6 +351,23 @@ function displayPlaces(places) {
 
     listEl.appendChild(itemEl);
   }
+  boxes = document.querySelectorAll('.box')
+  const results = document.querySelector('#results');
+  results.addEventListener('scroll', checkBoxes)
+
+  checkBoxes()
+}
+let boxes;
+function checkBoxes() {
+  const triggerBottom = window.innerHeight / 5 * 4
+  console.log(boxes.length);
+  boxes.forEach(box => {
+      const boxTop = box.getBoundingClientRect().top
+      console.log(boxTop, triggerBottom);
+      if(boxTop < triggerBottom) {
+          box.classList.add('show')
+      } 
+  })
 }
 
 // 지도에 표시된 마커들을 모두 제거하는 함수
@@ -490,7 +509,7 @@ function findRoute(y, x) {
     {
       method: 'GET',
       headers: {
-        'Authorization':'KakaoAK eb58542e3fee07934244a6db2621e6fa'
+        'Authorization': 'KakaoAK eb58542e3fee07934244a6db2621e6fa'
       }
     })
     .then(response => {
@@ -520,7 +539,7 @@ function drawKakaoRoute(data) {
       });
     });
   }
-  
+
   // 경로를 표시할 Polyline 생성
   polyline = new kakao.maps.Polyline({
     path: path,
@@ -531,5 +550,45 @@ function drawKakaoRoute(data) {
   });
 
   polyline.setMap(map);
-  
+
 }
+
+// 네비게이션 메뉴 관련
+const open_btn = document.querySelector('.open-btn')
+const close_btn = document.querySelector('.close-btn')
+const nav = document.querySelectorAll('.nav')
+const helpIcon = document.getElementById('help-icon');
+const tooltip = document.getElementById('tooltip');
+
+open_btn.addEventListener('click', () => {
+  nav.forEach(nav_el => nav_el.classList.add('visible'))
+})
+
+close_btn.addEventListener('click', () => {
+  nav.forEach(nav_el => nav_el.classList.remove('visible'))
+})
+
+// 탭 키 눌렀을 때 네비게이션 메뉴 열기
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Tab') {
+    nav.forEach(nav_el => nav_el.classList.add('visible'));
+  }
+});
+
+// ESC 키 눌렀을 때 네비게이션 메뉴 닫기
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    nav.forEach(nav_el => nav_el.classList.remove('visible'));
+  }
+});
+
+helpIcon.addEventListener('click', () => {
+  tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
+});
+
+// ESC 키 눌렀을 때 툴팁 닫기
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    tooltip.style.display = 'none';
+  }
+});
