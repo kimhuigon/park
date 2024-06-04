@@ -279,10 +279,10 @@ function createMarker(lat, lng) {
 
       // 마커에 클릭 이벤트 추가하여 클릭 시 인포윈도우 열기
       kakao.maps.event.addListener(marker, 'click', function () {
-        if(polyline) polyline.setMap(null); // Polyline을 지도에서 제거합니다.
+        if (polyline) polyline.setMap(null); // Polyline을 지도에서 제거합니다.
 
         infowindow.open(map, marker);
-        
+
         findRoute(park.위도, park.경도);
       });
 
@@ -510,7 +510,7 @@ function findRoute(y, x) {
     {
       method: 'GET',
       headers: {
-        'Authorization':'KakaoAK eb58542e3fee07934244a6db2621e6fa'
+        'Authorization': 'KakaoAK eb58542e3fee07934244a6db2621e6fa'
       }
     })
     .then(response => {
@@ -540,7 +540,7 @@ function drawKakaoRoute(data) {
       });
     });
   }
-  
+
   // 경로를 표시할 Polyline 생성
   polyline = new kakao.maps.Polyline({
     path: path,
@@ -551,7 +551,7 @@ function drawKakaoRoute(data) {
   });
 
   polyline.setMap(map);
-  
+
 }
 let polyline;
 function remove() {
@@ -560,6 +560,7 @@ function remove() {
   console.dir(map);
 }
 
+// 네비게이션 메뉴 관련
 const open_btn = document.querySelector('.open-btn')
 const close_btn = document.querySelector('.close-btn')
 const nav = document.querySelectorAll('.nav')
@@ -567,34 +568,34 @@ const helpIcon = document.getElementById('help-icon');
 const tooltip = document.getElementById('tooltip');
 
 open_btn.addEventListener('click', () => {
-    nav.forEach(nav_el => nav_el.classList.add('visible'))
+  nav.forEach(nav_el => nav_el.classList.add('visible'))
 })
 
 close_btn.addEventListener('click', () => {
-    nav.forEach(nav_el => nav_el.classList.remove('visible'))
+  nav.forEach(nav_el => nav_el.classList.remove('visible'))
 })
 
 // 탭 키 눌렀을 때 네비게이션 메뉴 열기
 document.addEventListener('keydown', (event) => {
-    if (event.key === 'Tab') {
-        nav.forEach(nav_el => nav_el.classList.add('visible'));
-    }
+  if (event.key === 'Tab') {
+    nav.forEach(nav_el => nav_el.classList.add('visible'));
+  }
 });
 
 // ESC 키 눌렀을 때 네비게이션 메뉴 닫기
 document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-        nav.forEach(nav_el => nav_el.classList.remove('visible'));
-    }
+  if (event.key === 'Escape') {
+    nav.forEach(nav_el => nav_el.classList.remove('visible'));
+  }
 });
 
 helpIcon.addEventListener('click', () => {
-    tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
-  });
-  
-  // ESC 키 눌렀을 때 툴팁 닫기
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      tooltip.style.display = 'none';
-    }
-  });
+  tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
+});
+
+// ESC 키 눌렀을 때 툴팁 닫기
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    tooltip.style.display = 'none';
+  }
+});
