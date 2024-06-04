@@ -72,6 +72,12 @@ function panTo() {
   // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
   map.panTo(moveLatLon);
 }
+// 현위치로 돌아오는 단축키
+document.addEventListener('keydown', (event) => {
+  if (event.code === 'Tab') {
+    panTo();
+  }
+});
 
 // 적절한 요소를 보이게 설정하는 함수
 function showElement(id, temp, iconElement) {
@@ -126,13 +132,13 @@ function hideElement(id) {
 // 페이지 로드 시 초기화
 initialize();
 
+let polyline;
 let lat;
 let lng;
 let map;
 let currentMarker;
 let markers = []; // 마커를 담을 배열
 let ps; // 장소 검색 객체
-let polyline;
 const list = data.records;
 
 // 지도 초기화 함수
@@ -204,11 +210,9 @@ function addTouchEvents() {
   });
 }
 
-// 블로그 URL을 인포윈도우에 포함하는 함수
 function createInfoWindowContent(park, distance) {
   // 공원 정보와 함께 걸음 수를 표시
   const steps = calculateSteps(park.공원면적);
-  // 공원명을 클릭 시 블로그 페이지로 이동하는 링크 추가
   return `
       <div class="infowindow-content">
         <div class="infowindow-header">
@@ -322,8 +326,6 @@ function displayPlaces(places) {
 
   for (let i = 0; i < places.length; i++) {
     const itemEl = document.createElement('li');
-    // 'li' 요소에 클래스 'box' 추가
-    itemEl.className = "box";
     // address_name의 첫 번째 단어 추출
     const firstWord = places[i].address_name.split(' ')[0];
 
@@ -345,29 +347,12 @@ function displayPlaces(places) {
         createMarker(y, x);
 
         // 검색 결과 클릭 시 검색창 닫기
-        document.querySelector('.nav').classList.remove('visible');
+        nav.forEach(nav_el => nav_el.classList.remove('visible'))
       };
     })(places[i].place_name, places[i].y, places[i].x);
 
     listEl.appendChild(itemEl);
   }
-  boxes = document.querySelectorAll('.box')
-  const results = document.querySelector('#results');
-  results.addEventListener('scroll', checkBoxes)
-
-  checkBoxes()
-}
-let boxes;
-function checkBoxes() {
-  const triggerBottom = window.innerHeight / 5 * 4
-  console.log(boxes.length);
-  boxes.forEach(box => {
-      const boxTop = box.getBoundingClientRect().top
-      console.log(boxTop, triggerBottom);
-      if(boxTop < triggerBottom) {
-          box.classList.add('show')
-      } 
-  })
 }
 
 // 지도에 표시된 마커들을 모두 제거하는 함수
@@ -509,7 +494,7 @@ function findRoute(y, x) {
     {
       method: 'GET',
       headers: {
-        'Authorization': 'KakaoAK eb58542e3fee07934244a6db2621e6fa'
+        'Authorization':'KakaoAK eb58542e3fee07934244a6db2621e6fa'
       }
     })
     .then(response => {
@@ -539,7 +524,7 @@ function drawKakaoRoute(data) {
       });
     });
   }
-
+  
   // 경로를 표시할 Polyline 생성
   polyline = new kakao.maps.Polyline({
     path: path,
@@ -550,10 +535,9 @@ function drawKakaoRoute(data) {
   });
 
   polyline.setMap(map);
-
+  
 }
 
-// 네비게이션 메뉴 관련
 const open_btn = document.querySelector('.open-btn')
 const close_btn = document.querySelector('.close-btn')
 const nav = document.querySelectorAll('.nav')
@@ -561,34 +545,34 @@ const helpIcon = document.getElementById('help-icon');
 const tooltip = document.getElementById('tooltip');
 
 open_btn.addEventListener('click', () => {
-  nav.forEach(nav_el => nav_el.classList.add('visible'))
+    nav.forEach(nav_el => nav_el.classList.add('visible'))
 })
 
 close_btn.addEventListener('click', () => {
-  nav.forEach(nav_el => nav_el.classList.remove('visible'))
+    nav.forEach(nav_el => nav_el.classList.remove('visible'))
 })
 
-// 탭 키 눌렀을 때 네비게이션 메뉴 열기
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Tab') {
-    nav.forEach(nav_el => nav_el.classList.add('visible'));
-  }
-});
 
-// ESC 키 눌렀을 때 네비게이션 메뉴 닫기
+// ESC 키 눌렀을 때 네비게이션 메뉴 여닫기
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
-    nav.forEach(nav_el => nav_el.classList.remove('visible'));
+      nav.forEach(nav_el => {
+          if (nav_el.classList.contains('visible')) {
+              nav_el.classList.remove('visible');
+          } else {
+              nav_el.classList.add('visible');
+          }
+      });
   }
 });
 
 helpIcon.addEventListener('click', () => {
-  tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
-});
-
-// ESC 키 눌렀을 때 툴팁 닫기
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    tooltip.style.display = 'none';
-  }
-});
+    tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
+  });
+  
+  // ESC 키 눌렀을 때 툴팁 닫기
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      tooltip.style.display = 'none';
+    }
+  });
