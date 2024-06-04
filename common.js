@@ -73,6 +73,17 @@ function panTo() {
   map.panTo(moveLatLon);
 }
 
+// 모바일 환경인지 확인함
+function isMobileDevice() {
+  return /Mobi|Android/i.test(navigator.userAgent);
+}
+// 현위치로 돌아오는 단축키
+document.addEventListener('keydown', (event) => {
+  if (!isMobileDevice() && event.code === 'Tab') {
+    panTo();
+  }
+});
+
 // 적절한 요소를 보이게 설정하는 함수
 function showElement(id, temp, iconElement) {
   const element = document.getElementById(id);
@@ -550,8 +561,14 @@ function drawKakaoRoute(data) {
   });
 
   polyline.setMap(map);
-
+  let polyline;
+  function remove() {
+    polyline.setMap(null);
+    console.dir(polyline);
+    console.dir(map);
+  }
 }
+
 
 // 네비게이션 메뉴 관련
 const open_btn = document.querySelector('.open-btn')
@@ -568,17 +585,21 @@ close_btn.addEventListener('click', () => {
   nav.forEach(nav_el => nav_el.classList.remove('visible'))
 })
 
-// 탭 키 눌렀을 때 네비게이션 메뉴 열기
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Tab') {
-    nav.forEach(nav_el => nav_el.classList.add('visible'));
-  }
-});
+// 모바일 환경인지 확인함
+function isMobileDevice() {
+  return /Mobi|Android/i.test(navigator.userAgent);
+}
 
-// ESC 키 눌렀을 때 네비게이션 메뉴 닫기
+// ESC 키 눌렀을 때 네비게이션 메뉴 여닫기
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    nav.forEach(nav_el => nav_el.classList.remove('visible'));
+  if (!isMobileDevice() && event.key === 'Escape') {
+    nav.forEach(nav_el => {
+        if (nav_el.classList.contains('visible')) {
+            nav_el.classList.remove('visible');
+        } else {
+            nav_el.classList.add('visible');
+        }
+    });
   }
 });
 
