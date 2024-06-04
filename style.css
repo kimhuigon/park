@@ -143,7 +143,7 @@ h1 {
 .box.show {
   transform: translateX(0);
   font-family: "Dongle", sans-serif;
-  font-size: 20px;
+  font-size: 27px;
 }
 
 #results {
@@ -202,7 +202,7 @@ h1 {
 #soso,
 #cold {
   display: flex;
-  font-size: 50px;
+  font-size: 37px;
   color: white;
   font-style: italic;
   justify-content: center;
@@ -417,7 +417,7 @@ h1 {
   #soso,
   #cold {
     display: flex;
-    font-size: 50px;
+    font-size: 37px;
     color: white;
     font-style: italic;
     justify-content: center;
