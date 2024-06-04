@@ -533,10 +533,6 @@ h1 {
   transform: translateX(0);
 }
 
-#results {
-  overflow-x: hidden;
-}
-
 footer {
   color: green;
   font-weight: bold;
