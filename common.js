@@ -132,6 +132,7 @@ let map;
 let currentMarker;
 let markers = []; // 마커를 담을 배열
 let ps; // 장소 검색 객체
+let polyline;
 const list = data.records;
 
 // 지도 초기화 함수
@@ -279,10 +280,8 @@ function createMarker(lat, lng) {
 
       // 마커에 클릭 이벤트 추가하여 클릭 시 인포윈도우 열기
       kakao.maps.event.addListener(marker, 'click', function () {
-        if (polyline) polyline.setMap(null); // Polyline을 지도에서 제거합니다.
-
+        if(polyline) polyline.setMap(null); // Polyline을 지도에서 제거합니다.
         infowindow.open(map, marker);
-
         findRoute(park.위도, park.경도);
       });
 
@@ -552,12 +551,6 @@ function drawKakaoRoute(data) {
 
   polyline.setMap(map);
 
-}
-let polyline;
-function remove() {
-  polyline.setMap(null);
-  console.dir(polyline);
-  console.dir(map);
 }
 
 // 네비게이션 메뉴 관련

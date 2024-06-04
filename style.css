@@ -497,6 +497,7 @@ h1 {
   height: 25px;
 }
 
+
 .box {
   transform: translateX(400%);
   transition: transform 0.4s ease;
@@ -508,4 +509,9 @@ h1 {
 
 #results {
   overflow-x: hidden;
+}
+
+footer {
+  color: green;
+  font-size: large;
 }
