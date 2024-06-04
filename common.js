@@ -1,3 +1,10 @@
+// 로딩화면에서 다음 페이지 완전히 로드된 후 이동
+document.addEventListener("DOMContentLoaded", function() {
+  // console.log("restpark.html has loaded.");
+  // 로컬 스토리지에 로드 완료 플래그를 설정합니다.
+  localStorage.setItem('restparkLoaded', 'true');
+});
+
 const description = {
   danger: '고온 주의!',
   hot: '더우니 주의!',
