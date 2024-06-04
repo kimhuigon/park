@@ -33,7 +33,7 @@ h1 {
   background: white;
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 5%;
+  margin-bottom: 20px;
   flex-direction: column;
   /* 반응형 추가: 작은 화면에서는 세로 방향으로 정렬 */
 }
@@ -104,6 +104,7 @@ h1 {
   width: 100%;
   max-width: 600px;
   box-sizing: border-box;
+  margin-bottom: 15px;
 }
 
 #search-box input {
@@ -126,6 +127,21 @@ h1 {
 #search-box button:hover {
   background-color: #4cae4c;
 }
+
+/* 스크롤css 병합 */
+.box {
+  transform: translateX(400%);
+  transition: transform 0.4s ease;
+}
+
+.box.show {
+  transform: translateX(0);
+}
+
+#results {
+  overflow-x: hidden;
+}
+
 
 /* 커스텀 스크롤바 스타일 */
 #results::-webkit-scrollbar {
@@ -177,7 +193,7 @@ h1 {
 #soso,
 #cold {
   display: flex;
-  font-size: 35px;
+  font-size: 25px;
   color: white;
   font-style: italic;
   justify-content: center;
@@ -392,7 +408,7 @@ h1 {
   #soso,
   #cold {
     display: flex;
-    font-size: 30px;
+    font-size: 50px;
     color: white;
     font-style: italic;
     justify-content: center;
@@ -514,5 +530,11 @@ h1 {
 
 footer {
   color: green;
-  font-size: large;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+footer > p {
+  margin: 0;
+  margin-bottom: 10px;
 }
