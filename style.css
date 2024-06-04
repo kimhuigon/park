@@ -104,6 +104,7 @@ h1 {
   width: 100%;
   max-width: 600px;
   box-sizing: border-box;
+  margin-bottom: 15px;
 }
 
 #search-box input {
