@@ -546,4 +546,6 @@ footer {
 footer > p {
   margin: 0;
   margin-bottom: 10px;
+  font-family: "Cute Font", sans-serif;
+  font-size: 25px;
 }
