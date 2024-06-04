@@ -1,0 +1,44 @@
+/* 로딩 화면*/
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f3f3f3;
+}
+/* 로딩 화면을 나타내는 스타일 */
+#loading-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* 스피너 스타일 */
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+/* 스피너 회전 애니메이션 */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 로딩 중 텍스트 스타일 */
+#loading-text {
+    margin-top: 20px; /* 스피너와 텍스트 사이의 간격 */
+    font-size: 18px;
+    color: #000;
+    font-family: "Jua", sans-serif;
+}
