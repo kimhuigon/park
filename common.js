@@ -72,9 +72,13 @@ function panTo() {
   // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
   map.panTo(moveLatLon);
 }
+// 모바일 환경인지 확인함
+function isMobileDevice() {
+  return /Mobi|Android/i.test(navigator.userAgent);
+}
 // 현위치로 돌아오는 단축키
 document.addEventListener('keydown', (event) => {
-  if (event.code === 'Tab') {
+  if (!isMobileDevice() && event.code === 'Tab') {
     panTo();
   }
 });
@@ -132,7 +136,6 @@ function hideElement(id) {
 // 페이지 로드 시 초기화
 initialize();
 
-let polyline;
 let lat;
 let lng;
 let map;
@@ -287,7 +290,9 @@ function createMarker(lat, lng) {
       // 마커에 클릭 이벤트 추가하여 클릭 시 인포윈도우 열기
       kakao.maps.event.addListener(marker, 'click', function () {
         if(polyline) polyline.setMap(null); // Polyline을 지도에서 제거합니다.
+
         infowindow.open(map, marker);
+        
         findRoute(park.위도, park.경도);
       });
 
@@ -539,6 +544,13 @@ function drawKakaoRoute(data) {
   polyline.setMap(map);
   
 }
+let polyline;
+function remove() {
+  polyline.setMap(null);
+  console.dir(polyline);
+  console.dir(map);
+}
+
 const open_btn = document.querySelector('.open-btn')
 const close_btn = document.querySelector('.close-btn')
 const nav = document.querySelectorAll('.nav')
@@ -553,10 +565,14 @@ close_btn.addEventListener('click', () => {
     nav.forEach(nav_el => nav_el.classList.remove('visible'))
 })
 
+// 모바일 환경인지 확인함
+function isMobileDevice() {
+  return /Mobi|Android/i.test(navigator.userAgent);
+}
 
 // ESC 키 눌렀을 때 네비게이션 메뉴 여닫기
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
+  if (!isMobileDevice() && event.key === 'Escape') {
       nav.forEach(nav_el => {
           if (nav_el.classList.contains('visible')) {
               nav_el.classList.remove('visible');
