@@ -326,6 +326,10 @@ function displayPlaces(places) {
 
   for (let i = 0; i < places.length; i++) {
     const itemEl = document.createElement('li');
+
+    // 'li' 요소에 클래스 'box' 추가
+    itemEl.className = "box";
+
     // address_name의 첫 번째 단어 추출
     const firstWord = places[i].address_name.split(' ')[0];
 
@@ -353,6 +357,23 @@ function displayPlaces(places) {
 
     listEl.appendChild(itemEl);
   }
+  boxes = document.querySelectorAll('.box')
+  const results = document.querySelector('#results');
+  results.addEventListener('scroll', checkBoxes)
+
+  checkBoxes()
+}
+let boxes;
+function checkBoxes() {
+  const triggerBottom = window.innerHeight / 5 * 4
+  console.log(boxes.length);
+  boxes.forEach(box => {
+      const boxTop = box.getBoundingClientRect().top
+      console.log(boxTop, triggerBottom);
+      if(boxTop < triggerBottom) {
+          box.classList.add('show')
+      } 
+  })
 }
 
 // 지도에 표시된 마커들을 모두 제거하는 함수
