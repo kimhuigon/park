@@ -33,7 +33,7 @@ h1 {
   background: white;
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 5%;
+  margin-bottom: 20px;
   flex-direction: column;
   /* 반응형 추가: 작은 화면에서는 세로 방향으로 정렬 */
 }
@@ -514,5 +514,10 @@ h1 {
 
 footer {
   color: green;
-  font-size: large;
+  font-size: 1.1rem;
+}
+
+footer > p{
+  margin: 0;
+  margin-bottom: 10px;
 }
