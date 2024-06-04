@@ -346,3 +346,8 @@ h1 {
   width: 40px;
   height: 25px;
 }
+
+footer {
+  color: green;
+  font-size: large;
+}
