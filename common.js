@@ -592,11 +592,30 @@ document.addEventListener('keydown', (event) => {
 
 helpIcon.addEventListener('click', () => {
     tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
-  });
+});
   
-  // ESC 키 눌렀을 때 툴팁 닫기
-  document.addEventListener('keydown', (event) => {
+// ESC 키 눌렀을 때 툴팁 닫기
+document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       tooltip.style.display = 'none';
     }
-  });
+});
+
+const buttons = document.querySelectorAll('.ripple')
+
+buttons.forEach(button => {
+    button.addEventListener('click', function (e) {
+        const rect = e.target.getBoundingClientRect();
+        const xInside = e.clientX - rect.left;
+        const yInside = e.clientY - rect.top;
+
+        const circle = document.createElement('span');
+        circle.classList.add('circle');
+        circle.style.top = yInside + 'px';
+        circle.style.left = xInside + 'px';
+
+        this.appendChild(circle);
+
+        setTimeout(() => circle.remove(), 500);
+    });
+});
