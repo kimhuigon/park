@@ -360,7 +360,8 @@ function displayPlaces(places) {
         // 검색 결과 클릭 시 검색창 닫기
         nav.forEach(nav_el => nav_el.classList.remove('visible'))
       };
-    })(places[i].place_name, places[i].y, places[i].x);
+    })
+    (places[i].place_name, places[i].y, places[i].x);
 
     listEl.appendChild(itemEl);
   }
@@ -509,7 +510,7 @@ async function initialize2(plat, plng, place) {
   }
 }
 
-
+// 길찾기 경로를 만드는 함수
 function findRoute(y, x) {
   const currentPosition = currentMarker.getPosition();
   const startlat = currentPosition.getLat(); // 위도
@@ -538,6 +539,7 @@ function findRoute(y, x) {
     .catch(error => console.error('Error with Kakao Mobility API:', error));
 }
 
+// 지도에 길찾기 경로를 그리는 함수
 function drawKakaoRoute(data) {
   const path = [];
 
@@ -557,7 +559,7 @@ function drawKakaoRoute(data) {
   polyline = new kakao.maps.Polyline({
     path: path,
     strokeWeight: 5,
-    strokeColor: '#E2BA3F',
+    strokeColor: '#7164B4',
     strokeOpacity: 0.7,
     strokeStyle: 'solid'
   });
@@ -566,6 +568,7 @@ function drawKakaoRoute(data) {
   
 }
 
+// 좌측 삼선 버튼과 도움말 아이콘에 대한 이벤트 추가
 const open_btn = document.querySelector('.open-btn')
 const close_btn = document.querySelector('.close-btn')
 const nav = document.querySelectorAll('.nav')
