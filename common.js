@@ -374,6 +374,12 @@ function displayPlaces(places) {
         const position = new kakao.maps.LatLng(places[i].y, places[i].x);
         map.setCenter(position);
 
+        // 지도 확대 수준 설정 (1~14 사이의 값)
+        const zoomLevel = 3; // 동과 거리 정도로 확대
+
+        map.setLevel(zoomLevel);
+
+
         // 현재 위치 마커 업데이트
         currentMarker.setPosition(position);
 
