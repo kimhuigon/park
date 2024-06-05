@@ -340,8 +340,6 @@ function displayPlaces(places) {
     // address_name의 첫 번째 단어 추출
     const firstWord = places[i].address_name.split(' ')[0];
 
-    itemEl.innerHTML = places[i].place_name + ' (' + firstWord + ')';
-
     // 클로저를 사용하여 place_name을 initialize2 함수에 전달
     (function (place_name, y, x) {
       itemEl.onclick = () => {
@@ -363,7 +361,7 @@ function displayPlaces(places) {
     })
     (places[i].place_name, places[i].y, places[i].x);
 
-    itemEl.innerHTML = places[i].place_name; // innerHTML 설정은 클래스 추가 이후에
+    itemEl.innerHTML = places[i].place_name + ' (' + firstWord + ')'; // innerHTML 설정은 클래스 추가 이후에
 
     listEl.appendChild(itemEl);
   }
@@ -373,7 +371,7 @@ function displayPlaces(places) {
     resultItems.forEach(item => {
       item.classList.add('show');
     });
-  }, 1);
+  }, 100);
 }
 
 
