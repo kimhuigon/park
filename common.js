@@ -326,10 +326,38 @@ function placesSearchCB(data, status) {
   }
 }
 
+// 검색 버튼을 클릭했을 때 실행되는 함수
+function searchPlaces() {
+  const keyword = document.getElementById('keyword').value;
+
+  if (!keyword.trim()) {
+    alert('키워드를 입력해주세요!');
+    return;
+  }
+
+  // 장소 검색 객체를 통해 키워드로 장소 검색
+  ps.keywordSearch(keyword, placesSearchCB);
+}
+
+// 스크롤을 맨 위로 이동하는 함수
+function scrollToTop() {
+  // 결과 리스트의 스크롤을 맨 위로 이동
+  const resultsContainer = document.getElementById('results');
+  resultsContainer.scrollTop = 0;
+
+  // 페이지 전체의 스크롤을 맨 위로 이동
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // 부드러운 스크롤 효과
+  });
+}
+
 // 검색 결과를 화면에 표시하는 함수
 function displayPlaces(places) {
+  // 기존의 검색 결과 제거
+  clearSearchResults();
+
   const listEl = document.getElementById('results');
-  listEl.innerHTML = '';
 
   for (let i = 0; i < places.length; i++) {
     const itemEl = document.createElement('li');
@@ -365,13 +393,26 @@ function displayPlaces(places) {
 
     listEl.appendChild(itemEl);
   }
-  // setTimeout 함수를 사용하여 약간의 딜레이를 주고 애니메이션 클래스 추가
+
+  // 약간의 딜레이를 주고 애니메이션 클래스 추가
   setTimeout(() => {
     const resultItems = document.querySelectorAll('.result-item');
     resultItems.forEach(item => {
       item.classList.add('show');
     });
+
+    // 스크롤을 맨 위로 이동
+    scrollToTop();
   }, 100);
+}
+
+// 기존의 검색 결과를 제거하는 함수
+function clearSearchResults() {
+  const listEl = document.getElementById('results');
+  listEl.innerHTML = '';
+
+  // 스크롤을 맨 위로 이동
+  scrollToTop();
 }
 
 
