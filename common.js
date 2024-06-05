@@ -334,8 +334,8 @@ function displayPlaces(places) {
   for (let i = 0; i < places.length; i++) {
     const itemEl = document.createElement('li');
 
-    // 'li' 요소에 클래스 'box' 추가
-    itemEl.className = "box";
+    // 'li' 요소에 클래스 'result-item' 추가
+    itemEl.className = "result-item"; // 여기서 클래스 추가
 
     // address_name의 첫 번째 단어 추출
     const firstWord = places[i].address_name.split(' ')[0];
@@ -362,26 +362,19 @@ function displayPlaces(places) {
       };
     })(places[i].place_name, places[i].y, places[i].x);
 
+    itemEl.innerHTML = places[i].place_name; // innerHTML 설정은 클래스 추가 이후에
+
     listEl.appendChild(itemEl);
   }
-  boxes = document.querySelectorAll('.box')
-  const results = document.querySelector('#results');
-  results.addEventListener('scroll', checkBoxes)
+  // setTimeout 함수를 사용하여 약간의 딜레이를 주고 애니메이션 클래스 추가
+  setTimeout(() => {
+    const resultItems = document.querySelectorAll('.result-item');
+    resultItems.forEach(item => {
+      item.classList.add('show');
+    });
+  }, 1);
+}
 
-  checkBoxes()
-}
-let boxes;
-function checkBoxes() {
-  const triggerBottom = window.innerHeight / 5 * 4
-  console.log(boxes.length);
-  boxes.forEach(box => {
-      const boxTop = box.getBoundingClientRect().top
-      console.log(boxTop, triggerBottom);
-      if(boxTop < triggerBottom) {
-          box.classList.add('show')
-      } 
-  })
-}
 
 // 지도에 표시된 마커들을 모두 제거하는 함수
 function clearMarkers() {

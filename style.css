@@ -134,22 +134,15 @@ h1 {
   font-size: 20px;
 }
 
-/* 스크롤css 병합 */
-.box {
+/* 검색 결과 애니메이션 */
+.result-item {
   transform: translateX(400%);
   transition: transform 0.4s ease;
 }
 
-.box.show {
+.result-item.show {
   transform: translateX(0);
-  font-family: "Dongle", sans-serif;
-  font-size: 27px;
 }
-
-#results {
-  overflow-x: hidden;
-}
-
 
 /* 커스텀 스크롤바 스타일 */
 #results::-webkit-scrollbar {
@@ -170,6 +163,7 @@ h1 {
   list-style: none;
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
   overflow-y: auto;
   flex-grow: 1;
   padding-bottom: 20px;
