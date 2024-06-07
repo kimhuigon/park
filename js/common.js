@@ -412,6 +412,7 @@ function displayPlaces(places) {
 
         // 검색 결과 클릭 시 검색창 닫기
         nav.forEach(nav_el => nav_el.classList.remove('visible'))
+        if(polyline) polyline.setMap(null); // Polyline을 지도에서 제거합니다.
       };
     })
     (places[i].place_name, places[i].y, places[i].x);
