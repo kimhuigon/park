@@ -155,7 +155,7 @@ function hideElement(id) {
   }
 }
 
-// id에 따라 검색창의 배경색을 변경하는 함수
+// id에 따라 nav-black을 변경하는 함수
 function changeScrollbarColor2(id) {
   const elements = document.getElementsByClassName('nav-black');
   if (elements.length > 0) {
@@ -188,7 +188,7 @@ function changeScrollbarColor2(id) {
   }
 }
 
-// id에 따라 검색창의 배경색을 변경하는 함수
+// id에 따라 nav-red를 변경하는 함수
 function changeScrollbarColor(id) {
   const elements = document.getElementsByClassName('nav-red');
   if (elements.length > 0) {
@@ -221,6 +221,7 @@ function changeScrollbarColor(id) {
   }
 }
 
+// id에 따라 버튼 색을 변경하는 함수
 function changeSearchButton(id) {
   const elements = document.getElementsByClassName('ripple');
   if (elements.length > 0) {
