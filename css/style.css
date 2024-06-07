@@ -206,29 +206,27 @@ h1 {
 }
 
 #danger {
-  background-color: red;
+  background-color: #ff0000;
 }
 
 #cdanger {
-  background-color: blue;
-  color: white;
+  background-color: #00008b;
 }
 
 #hot {
-  background-color: rgb(255, 170, 170);
+  background-color: #ffaaaa;
 }
 
 #good {
-  background-color: lightgreen;
+  background-color: #90ee90;
 }
 
 #soso {
-  background-color: lightblue;
+  background-color: #add8e6;
 }
 
 #cold {
-  background-color: blue;
-  color: black;
+  background-color: #0000ff;
 }
 
 /* 네비게이션 버튼 관련 */

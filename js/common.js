@@ -227,22 +227,22 @@ function changeSearchButton(id) {
     let color;
     switch (id) {
       case 'danger':
-        color = '#890000';
+        color = '#ff0000';
         break;
       case 'cdanger':
-        color = '#000089';
+        color = '#00008b';
         break;
-      case 'hot':
-        color = '#ce8a8a';
+     case 'hot':
+        color = '#ffaaaa';
         break;
       case 'good':
-        color = '#5cb85c';
+        color = '#90ee90';
         break;
       case 'soso':
-        color = '#68828b';
+        color = '#add8e6';
         break;
       case 'cold':
-        color = '#000089';
+        color = '#0000ff';
         break;
       default:
         color = '#5cb85c'; // Default color
