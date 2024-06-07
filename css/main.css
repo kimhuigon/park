@@ -18,7 +18,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: url('background/soop1.png');
+    background-image: url('../background/soop1.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -74,7 +74,7 @@ h1 {
 /* 모바일 전용 스타일 */
 @media (max-width: 600px) {
     #page-container {
-        background-image: url('background/soop3.avif'); /* 모바일 배경 이미지 */
+        background-image: url('../background/soop3.avif'); /* 모바일 배경 이미지 */
     }
 
     h1 {
