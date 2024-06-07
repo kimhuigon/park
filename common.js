@@ -664,3 +664,6 @@ buttons.forEach(button => {
         setTimeout(() => circle.remove(), 500);
     });
 });
+
+// 모바일에서도 드래그 기능이 제대로 동작하도록 이벤트 리스너 추가 (선택 사항)
+map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
