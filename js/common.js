@@ -50,26 +50,32 @@ async function initialize() {
       showElement('danger', temp2, weatherIconEl);
       changeScrollbarColor('danger');
       changeScrollbarColor2('danger');
+      changeSearchButton('danger');
     } else if (temp >= 28) {
       showElement('hot', temp2, weatherIconEl);
       changeScrollbarColor('hot');
       changeScrollbarColor2('hot');
+      changeSearchButton('hot');
     } else if (temp >= 20) {
       showElement('good', temp2, weatherIconEl);
       changeScrollbarColor('good');
       changeScrollbarColor2('good');
+      changeSearchButton('good');
     } else if (temp >= 10) {
       showElement('soso', temp2, weatherIconEl);
       changeScrollbarColor('soso');
       changeScrollbarColor2('soso');
+      changeSearchButton('soso');
     } else if (temp >= 0) {
       showElement('cold', temp2, weatherIconEl);
       changeScrollbarColor('cold');
       changeScrollbarColor2('cold');
+      changeSearchButton('cold');
     } else {
       showElement('cdanger', temp2, weatherIconEl);
       changeScrollbarColor('cdanger');
       changeScrollbarColor2('cdanger');
+      changeSearchButton('cdanger');
     }
   });
 }
@@ -205,6 +211,38 @@ function changeScrollbarColor(id) {
         break;
       case 'cold':
         color = '#0000ff';
+        break;
+      default:
+        color = '#5cb85c'; // Default color
+    }
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].style.backgroundColor = color;
+    }
+  }
+}
+
+function changeSearchButton(id) {
+  const elements = document.getElementsByClassName('ripple');
+  if (elements.length > 0) {
+    let color;
+    switch (id) {
+      case 'danger':
+        color = '#890000';
+        break;
+      case 'cdanger':
+        color = '#000089';
+        break;
+      case 'hot':
+        color = '#ce8a8a';
+        break;
+      case 'good':
+        color = '#5cb85c';
+        break;
+      case 'soso':
+        color = '#68828b';
+        break;
+      case 'cold':
+        color = '#000089';
         break;
       default:
         color = '#5cb85c'; // Default color
@@ -608,6 +646,7 @@ async function initialize2(plat, plng, place) {
     showElement2('danger', temp2, place, weatherIconEl);
     changeScrollbarColor('danger');
     changeScrollbarColor2('danger');
+    changeSearchButton('danger');
   } else if (temp >= 28) {
     hideElement('danger');
     hideElement('hot');
@@ -618,6 +657,7 @@ async function initialize2(plat, plng, place) {
     showElement2('hot', temp2, place, weatherIconEl);
     changeScrollbarColor('hot');
     changeScrollbarColor2('hot');
+    changeSearchButton('hot');
   } else if (temp >= 20) {
     hideElement('danger');
     hideElement('hot');
@@ -628,6 +668,7 @@ async function initialize2(plat, plng, place) {
     showElement2('good', temp2, place, weatherIconEl);
     changeScrollbarColor('good');
     changeScrollbarColor2('good');
+    changeSearchButton('good');
   } else if (temp >= 10) {
     hideElement('danger');
     hideElement('hot');
@@ -638,6 +679,7 @@ async function initialize2(plat, plng, place) {
     showElement2('soso', temp2, place, weatherIconEl);
     changeScrollbarColor('soso');
     changeScrollbarColor2('soso');
+    changeSearchButton('soso');
   } else if (temp >= 0) {
     hideElement('danger');
     hideElement('hot');
@@ -648,6 +690,7 @@ async function initialize2(plat, plng, place) {
     showElement2('cold', temp2, place, weatherIconEl);
     changeScrollbarColor('cold');
     changeScrollbarColor2('cold');
+    changeSearchButton('cold');
   } else {
     hideElement('danger');
     hideElement('hot');
@@ -658,6 +701,7 @@ async function initialize2(plat, plng, place) {
     showElement2('cdanger', temp2, place, weatherIconEl);
     changeScrollbarColor('cdanger');
     changeScrollbarColor2('cdanger');
+    changeSearchButton('cdanger');
   }
 }
 
