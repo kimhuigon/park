@@ -195,6 +195,27 @@ function initMap(lat, lng) {
 
   // 지도에 터치 이벤트 추가
   addTouchEvents();
+
+  // 사용자 에이전트를 통해 모바일 기기인지 확인하는 함수
+  function isMobile() {
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  }
+
+  // 모바일에서만 이벤트 리스너 추가
+  if (isMobile()) {
+    // 현재 위치 마커에 클릭 이벤트 추가
+    kakao.maps.event.addListener(currentMarker, 'click', function () {
+      currentInfoWindow.open(map, currentMarker);
+    });
+
+    // 지도에 클릭 이벤트 추가
+    kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+      // 인포윈도우가 열려 있다면 닫기
+      if (currentInfoWindow.getMap()) {
+        currentInfoWindow.close();
+      }
+    });
+  }
 }
 
 // 지도에 터치 이벤트를 추가하는 함수
