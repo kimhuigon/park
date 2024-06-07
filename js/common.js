@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 const description = {
-  danger: '고온 주의!',
-  hot: '더우니 주의!',
+  danger: '열사병 주의!',
+  hot: '더우니 조심!',
   good: '산책하기 좋은 온도',
   soso: '선선하니 좋은 온도',
   cold: '조금 쌀쌀한 온도',
-  cdanger: '추우니 주의!'
+  cdanger: '저체온증 주의!'
 };
 
 // 평균 걸음 길이 (단위: 미터)
