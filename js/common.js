@@ -48,16 +48,28 @@ async function initialize() {
     // 기온에 따라 적절한 요소를 보이게 설정
     if (temp >= 35) {
       showElement('danger', temp2, weatherIconEl);
+      changeScrollbarColor('danger');
+      changeScrollbarColor2('danger');
     } else if (temp >= 28) {
       showElement('hot', temp2, weatherIconEl);
+      changeScrollbarColor('hot');
+      changeScrollbarColor2('hot');
     } else if (temp >= 20) {
       showElement('good', temp2, weatherIconEl);
+      changeScrollbarColor('good');
+      changeScrollbarColor2('good');
     } else if (temp >= 10) {
       showElement('soso', temp2, weatherIconEl);
+      changeScrollbarColor('soso');
+      changeScrollbarColor2('soso');
     } else if (temp >= 0) {
       showElement('cold', temp2, weatherIconEl);
+      changeScrollbarColor('cold');
+      changeScrollbarColor2('cold');
     } else {
       showElement('cdanger', temp2, weatherIconEl);
+      changeScrollbarColor('cdanger');
+      changeScrollbarColor2('cdanger');
     }
   });
 }
@@ -94,6 +106,7 @@ function showElement(id, temp, iconElement) {
     element.style.alignItems = 'center'; // 수직 가운데 정렬
     element.innerHTML = `${description[id]}<br>(현재 기온 : ${temp}°C)`;
     const span = document.createElement('span');
+    span.id = `${id}-span`
     span.appendChild(iconElement); // 아이콘을 span에 추가
     element.appendChild(span); // span을 element에 추가
 
@@ -133,6 +146,72 @@ function hideElement(id) {
   if (element) {
     element.style.display = 'none';
     element.innerHTML = '';
+  }
+}
+
+// id에 따라 검색창의 배경색을 변경하는 함수
+function changeScrollbarColor2(id) {
+  const elements = document.getElementsByClassName('nav-black');
+  if (elements.length > 0) {
+    let color;
+    switch (id) {
+      case 'danger':
+        color = '#890000';
+        break;
+      case 'cdanger':
+        color = '#000089';
+        break;
+      case 'hot':
+        color = '#ce8a8a';
+        break;
+      case 'good':
+        color = '#5cb85c';
+        break;
+      case 'soso':
+        color = '#68828b';
+        break;
+      case 'cold':
+        color = '#000089';
+        break;
+      default:
+        color = '#5cb85c'; // Default color
+    }
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].style.backgroundColor = color;
+    }
+  }
+}
+
+// id에 따라 검색창의 배경색을 변경하는 함수
+function changeScrollbarColor(id) {
+  const elements = document.getElementsByClassName('nav-red');
+  if (elements.length > 0) {
+    let color;
+    switch (id) {
+      case 'danger':
+        color = '#ff0000';
+        break;
+      case 'cdanger':
+        color = '#0000ff';
+        break;
+      case 'hot':
+        color = '#ffaaaa';
+        break;
+      case 'good':
+        color = '#90ee90';
+        break;
+      case 'soso':
+        color = '#add8e6';
+        break;
+      case 'cold':
+        color = '#0000ff';
+        break;
+      default:
+        color = '#5cb85c'; // Default color
+    }
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].style.backgroundColor = color;
+    }
   }
 }
 
@@ -527,6 +606,8 @@ async function initialize2(plat, plng, place) {
     hideElement('cold');
     hideElement('cdanger');
     showElement2('danger', temp2, place, weatherIconEl);
+    changeScrollbarColor('danger');
+    changeScrollbarColor2('danger');
   } else if (temp >= 28) {
     hideElement('danger');
     hideElement('hot');
@@ -535,6 +616,8 @@ async function initialize2(plat, plng, place) {
     hideElement('cold');
     hideElement('cdanger');
     showElement2('hot', temp2, place, weatherIconEl);
+    changeScrollbarColor('hot');
+    changeScrollbarColor2('hot');
   } else if (temp >= 20) {
     hideElement('danger');
     hideElement('hot');
@@ -543,6 +626,8 @@ async function initialize2(plat, plng, place) {
     hideElement('cold');
     hideElement('cdanger');
     showElement2('good', temp2, place, weatherIconEl);
+    changeScrollbarColor('good');
+    changeScrollbarColor2('good');
   } else if (temp >= 10) {
     hideElement('danger');
     hideElement('hot');
@@ -551,6 +636,8 @@ async function initialize2(plat, plng, place) {
     hideElement('cold');
     hideElement('cdanger');
     showElement2('soso', temp2, place, weatherIconEl);
+    changeScrollbarColor('soso');
+    changeScrollbarColor2('soso');
   } else if (temp >= 0) {
     hideElement('danger');
     hideElement('hot');
@@ -559,6 +646,8 @@ async function initialize2(plat, plng, place) {
     hideElement('cold');
     hideElement('cdanger');
     showElement2('cold', temp2, place, weatherIconEl);
+    changeScrollbarColor('cold');
+    changeScrollbarColor2('cold');
   } else {
     hideElement('danger');
     hideElement('hot');
@@ -567,6 +656,8 @@ async function initialize2(plat, plng, place) {
     hideElement('cold');
     hideElement('cdanger');
     showElement2('cdanger', temp2, place, weatherIconEl);
+    changeScrollbarColor('cdanger');
+    changeScrollbarColor2('cdanger');
   }
 }
 
