@@ -137,7 +137,7 @@ h1 {
 
 /* 검색 결과 애니메이션 */
 .result-item {
-  transform: translateX(100%);
+  transform: translateX(120%);
   transition: transform 0.4s ease;
 }
 
