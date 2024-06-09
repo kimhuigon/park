@@ -51,37 +51,37 @@ async function initialize() {
       changeScrollbarColor('danger');
       changeScrollbarColor2('danger');
       changeSearchButton('danger');
-      changeScrollbar('danger');
+      // changeScrollbar('danger');
     } else if (temp >= 28) {
       showElement('hot', temp2, weatherIconEl);
       changeScrollbarColor('hot');
       changeScrollbarColor2('hot');
       changeSearchButton('hot');
-      changeScrollbar('hot');
+      // changeScrollbar('hot');
     } else if (temp >= 20) {
       showElement('good', temp2, weatherIconEl);
       changeScrollbarColor('good');
       changeScrollbarColor2('good');
       changeSearchButton('good');
-      changeScrollbar('good');
+      // changeScrollbar('good');
     } else if (temp >= 10) {
       showElement('soso', temp2, weatherIconEl);
       changeScrollbarColor('soso');
       changeScrollbarColor2('soso');
       changeSearchButton('soso');
-      changeScrollbar('soso');
+      // changeScrollbar('soso');
     } else if (temp >= 0) {
       showElement('cold', temp2, weatherIconEl);
       changeScrollbarColor('cold');
       changeScrollbarColor2('cold');
       changeSearchButton('cold');
-      changeScrollbar('cold');
+      // changeScrollbar('cold');
     } else {
       showElement('cdanger', temp2, weatherIconEl);
       changeScrollbarColor('cdanger');
       changeScrollbarColor2('cdanger');
       changeSearchButton('cdanger');
-      changeScrollbar('cdanger');
+      // changeScrollbar('cdanger');
     }
   });
 }
@@ -260,46 +260,46 @@ function changeSearchButton(id) {
   }
 }
 
-function changeScrollbar(id) {
-  console.log('results::-webkit-scrollbar-thumb' + id);
+// function changeScrollbar(id) {
+//   console.log('results::-webkit-scrollbar-thumb' + id);
 
-  const elements = document.querySelectorAll('#results li');
-  console.log(elements);
+//   const elements = document.querySelectorAll('#results li');
+//   console.log(elements);
 
-  if (elements && elements.length > 0) {
-    let color;
-    switch (id) {
-      case 'danger':
-        color = '#ff0000';
-        break;
-      case 'cdanger':
-        color = '#00008b';
-        break;
-     case 'hot':
-        color = '#ffaaaa';
-        break;
-      case 'good':
-        color = '#90ee90';
-        break;
-      case 'soso':
-        color = '#add8e6';
-        break;
-      case 'cold':
-        color = '#0000ff';
-        break;
-      default:
-        color = '#5cb85c'; // Default color
-    }
+//   if (elements && elements.length > 0) {
+//     let color;
+//     switch (id) {
+//       case 'danger':
+//         color = '#ff0000';
+//         break;
+//       case 'cdanger':
+//         color = '#00008b';
+//         break;
+//      case 'hot':
+//         color = '#ffaaaa';
+//         break;
+//       case 'good':
+//         color = '#90ee90';
+//         break;
+//       case 'soso':
+//         color = '#add8e6';
+//         break;
+//       case 'cold':
+//         color = '#0000ff';
+//         break;
+//       default:
+//         color = '#5cb85c'; // Default color
+//     }
 
-    const style = document.createElement('style');
-    style.appendChild(document.createTextNode(`#results::-webkit-scrollbar-thumb { background: ${color} }`))
-    document.body.appendChild(style);
-    console.log(color);
-    //   for (let i = 0; i < elements.length; i++) {
-  //     elements[i].style.backgroundColor = color; 
-  //   }
-  }
-}
+//     const style = document.createElement('style');
+//     style.appendChild(document.createTextNode(`#results::-webkit-scrollbar-thumb { background: ${color} }`))
+//     document.body.appendChild(style);
+//     console.log(color);
+//     //   for (let i = 0; i < elements.length; i++) {
+//   //     elements[i].style.backgroundColor = color; 
+//   //   }
+//   }
+// }
 
 // 페이지 로드 시 초기화
 initialize();
@@ -695,7 +695,7 @@ async function initialize2(plat, plng, place) {
     changeScrollbarColor('danger');
     changeScrollbarColor2('danger');
     changeSearchButton('danger');
-    changeScrollbar('danger');
+    // changeScrollbar('danger');
   } else if (temp >= 28) {
     hideElement('danger');
     hideElement('hot');
@@ -707,7 +707,7 @@ async function initialize2(plat, plng, place) {
     changeScrollbarColor('hot');
     changeScrollbarColor2('hot');
     changeSearchButton('hot');
-    changeScrollbar('hot');
+    // changeScrollbar('hot');
   } else if (temp >= 20) {
     hideElement('danger');
     hideElement('hot');
@@ -719,7 +719,7 @@ async function initialize2(plat, plng, place) {
     changeScrollbarColor('good');
     changeScrollbarColor2('good');
     changeSearchButton('good');
-    changeScrollbar('good');
+    // changeScrollbar('good');
   } else if (temp >= 10) {
     hideElement('danger');
     hideElement('hot');
@@ -731,7 +731,7 @@ async function initialize2(plat, plng, place) {
     changeScrollbarColor('soso');
     changeScrollbarColor2('soso');
     changeSearchButton('soso');
-    changeScrollbar('soso');
+    // changeScrollbar('soso');
   } else if (temp >= 0) {
     hideElement('danger');
     hideElement('hot');
@@ -743,7 +743,7 @@ async function initialize2(plat, plng, place) {
     changeScrollbarColor('cold');
     changeScrollbarColor2('cold');
     changeSearchButton('cold');
-    changeScrollbar('cold');
+    // changeScrollbar('cold');
   } else {
     hideElement('danger');
     hideElement('hot');
@@ -755,7 +755,7 @@ async function initialize2(plat, plng, place) {
     changeScrollbarColor('cdanger');
     changeScrollbarColor2('cdanger');
     changeSearchButton('cdanger');
-    changeScrollbar('cdanger');
+    // changeScrollbar('cdanger');
   }
 }
 
