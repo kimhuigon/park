@@ -14,7 +14,7 @@ SITE 👉 [**https://restpark.netlify.app**](https://restpark.netlify.app/)
 
 **현재 위치 표시**
 
-(https://prod-files-secure.s3.us-west-2.amazonaws.com/5673e77f-3d89-4791-be88-c7f972b7f0f2/5b3bab81-f917-41d0-beae-083a72240d7d/image.png)
+https://prod-files-secure.s3.us-west-2.amazonaws.com/5673e77f-3d89-4791-be88-c7f972b7f0f2/5b3bab81-f917-41d0-beae-083a72240d7d/image.png
 
 **온도 및 날씨 감지**
 
