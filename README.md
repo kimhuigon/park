@@ -6,10 +6,10 @@
 
 SITE 👉 [**https://restpark.netlify.app**](https://restpark.netlify.app/)
 
-## 개발환경
+개발환경
 
 ---
 
 **HTML | CSS | JavaScript**
 
-## 주요기능
+주요기능
