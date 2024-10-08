@@ -16,33 +16,21 @@ SITE 👉 [**https://restpark.netlify.app**](https://restpark.netlify.app/)
 
 ---
 
-**현재 위치 표시**
-
-![image](https://github.com/user-attachments/assets/2f52bb5b-bc14-49dd-9e91-7364cace602d)
-
-
-**온도 및 날씨 감지**
-
-![image](https://github.com/user-attachments/assets/a51b7ed2-123e-4792-8cf1-c054bb3983ea)
+|사용자 위치 표시| 온도 밒 날씨 감지|
+|----------------|-------------------|
+|![image](https://github.com/user-attachments/assets/2f52bb5b-bc14-49dd-9e91-7364cace602d)|![image](https://github.com/user-attachments/assets/a51b7ed2-123e-4792-8cf1-c054bb3983ea)|
 
 
-**검색 기능**
-
-![image](https://github.com/user-attachments/assets/ab28eb95-bfc2-4cc3-8f24-ab1072443e4f)
-
-
-**길 찾기 기능**
-
-![image](https://github.com/user-attachments/assets/6e1b583c-b7ac-49dd-a260-19648b280c33)
+|검색 기능|길 찾기 기능|
+|---------|-------------|
+|![image](https://github.com/user-attachments/assets/ab28eb95-bfc2-4cc3-8f24-ab1072443e4f)|![image](https://github.com/user-attachments/assets/6e1b583c-b7ac-49dd-a260-19648b280c33)|
 
 
-**고온/저온 경보 기능**
+|고온 경보|저온 경보|
+|---------|----------|
+|![image](https://github.com/user-attachments/assets/28d6b5a7-9366-4b32-bfd7-5f3a218581af)|![image](https://github.com/user-attachments/assets/037c580d-bbff-48a1-9d6b-1518d91e7dea)|
 
-![image](https://github.com/user-attachments/assets/28d6b5a7-9366-4b32-bfd7-5f3a218581af)
-
-![image](https://github.com/user-attachments/assets/037c580d-bbff-48a1-9d6b-1518d91e7dea)
-
-
+---
 
 **기타 기능**
 
