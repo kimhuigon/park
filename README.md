@@ -16,7 +16,7 @@ SITE 👉 [**https://restpark.netlify.app**](https://restpark.netlify.app/)
 
 ## 🔍주요기능
 
-|사용자 위치 표시| 온도 밒 날씨 감지|
+|사용자 위치 표시| 온도 및 날씨 감지|
 |----------------|-------------------|
 |![image](https://github.com/user-attachments/assets/2f52bb5b-bc14-49dd-9e91-7364cace602d)|![image](https://github.com/user-attachments/assets/a51b7ed2-123e-4792-8cf1-c054bb3983ea)|
 
