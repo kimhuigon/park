@@ -1,9 +1,11 @@
+
 # 산책가자
 
 ‘산책가자’는 현재 위치 혹은 본인이 검색한 곳 근처의 2km 범위 내에 공원을 찾아주는 프로그램입니다.<br/>
 웹 / 모바일로 사용이 가능합니다<br />
 
-진행기간 : 2024. 05. 27 ~ 2024. 06. 10
+<img src="https://img.shields.io/badge/프로젝트 기간-2024.05.27~2022.06.10-green?style=flat&logo=&logoColor=white" />
+
 
 SITE 👉 [**https://restpark.netlify.app**](https://restpark.netlify.app/)
 <br/><br/>
