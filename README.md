@@ -1,20 +1,29 @@
-
+<div align="center">
+    
 # 산책가자
 
 ‘산책가자’는 현재 위치 혹은 본인이 검색한 곳 근처의 2km 범위 내에 공원을 찾아주는 프로그램입니다.<br/>
-웹 / 모바일로 사용이 가능합니다<br />
+웹 / 모바일로 사용이 가능합니다<br/>
 
-<img src="https://img.shields.io/badge/프로젝트 기간-2024.05.27~2022.06.10-green?style=flat&logo=&logoColor=white" />
+<img src="https://img.shields.io/badge/프로젝트 기간-2024.05.27~2022.06.10-green?style=flat&logo=&logoColor=white" /><br/>
 
 
 SITE 👉 [**https://restpark.netlify.app**](https://restpark.netlify.app/)
 <br/><br/>
+</div>
 
 ## 👨‍💻개발환경
 
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
-<br/><br/>
+## Front-end
+
+[![My Skills](https://skillicons.dev/icons?i=html,css,js&theme=light)](https://skillicons.dev)
+
+# Tools
+
+[![My Skills](https://skillicons.dev/icons?i=github&theme=light)](https://skillicons.dev)
+
+<br/>
 
 ## 🔍주요기능
 
