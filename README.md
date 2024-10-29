@@ -2,6 +2,8 @@
     
 # 산책가자
 
+![parkmain](https://github.com/user-attachments/assets/688c3999-8b5a-48f5-a77c-e65a19e87467)
+
 ‘산책가자’는 현재 위치 혹은 본인이 검색한 곳 근처의 2km 범위 내에 공원을 찾아주는 프로그램입니다.<br/>
 웹 / 모바일로 사용이 가능합니다<br/>
 
