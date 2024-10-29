@@ -57,3 +57,12 @@ SITE 👉 [**https://restpark.netlify.app**](https://restpark.netlify.app/)
     - 기온이 너무 높거나 낮으면 프로그램이 자동으로 감지하여 경고창으로 알려줍니다.
 4. 근처 공원을 선택하면 해당 공원까지의 길찾기 경로(자동차 기준)가 표시됩니다.
 5. 검색 후에는 검색창이 자동으로 닫혀 사용자 편의성을 높였습니다.
+
+---
+
+## 💁‍♂️프로젝트 팀원
+|Frontend|Frontend|Frontend|Frontend|Frontend|
+|----------------|-------------------|-------------------|-------------------|-------------------|
+|![169955958](https://github.com/user-attachments/assets/d76d0369-1cea-4a8b-9295-c31284d8bc4a)|![6904857](https://github.com/user-attachments/assets/54bb40bc-035c-4726-869f-231acd0decaf)|![169955732](https://github.com/user-attachments/assets/39a24395-88bc-44ab-90f7-f73df5f21483)|![169956834](https://github.com/user-attachments/assets/696141c7-1d46-4634-b1fb-205c1935d2a5)|![170331478](https://github.com/user-attachments/assets/6a067415-3b5c-4422-9f86-b82595be044d)|
+|[구본환](https://github.com/Falin4789)|[김희곤](https://github.com/kimhuigon)(팀장)|[이상경](https://github.com/LSG20240516)|[전하빈](https://github.com/l3in99)|[채상희](https://github.com/ChaeSangHee)|
+
